@@ -1,15 +1,20 @@
 import React from "react";
 
 const Login = () => {
+  const handleSubmit = (e, x) => {
+    e.preventDefault();
+    console.log(e);
+  };
   return (
     <div className="container">
-      <form>
-        <div className="form-group row p-3">
-          <label for="inputEmail3" className="col-sm-2 col-form-label">
-            Email
-          </label>
-          <div class="col-sm-10">
+      <form onSubmit={handleSubmit}>
+        <div className="form-group row p-3 justify-content-center">
+          <div class="col-10 col-sm-5">
+            <label for="inputEmail3" className="col-sm-2 col-form-label">
+              Email
+            </label>
             <input
+              required
               type="email"
               className="form-control"
               id="inputEmail3"
@@ -17,12 +22,13 @@ const Login = () => {
             />
           </div>
         </div>
-        <div className="form-group row p-3">
-          <label for="inputPassword3" className="col-sm-2 col-form-label">
-            Password
-          </label>
-          <div className="col-sm-10">
+        <div className="form-group row p-3 justify-content-center">
+          <div className="col-10 col-sm-5">
+            <label for="inputPassword3" className="col-sm-2 col-form-label">
+              Password
+            </label>
             <input
+              required
               type="password"
               className="form-control"
               id="inputPassword3"
@@ -30,10 +36,10 @@ const Login = () => {
             />
           </div>
         </div>
-        <div className="form-group row p-3">
-          <div className="col-sm-10">
+        <div className="form-group row p-3 justify-content-center">
+          <div className="col-10 col-sm-5">
             <button type="submit" className="btn btn-primary">
-              Sign in
+              Entrar
             </button>
           </div>
         </div>
