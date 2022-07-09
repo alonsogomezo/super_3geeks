@@ -33,10 +33,39 @@ def handle_Login():
     response_body = {
         "message": "bienvenido de regreso",
         "isAdmin": user_query.is_admin,
-        "accessToken": access_token
+        "accessToken": access_token,
+        
     }
 
     return jsonify(response_body), 200
 
+@api.route('/signup', methods=['POST'])
+def handle_Signup():
+    
+    email= request.json.get("email", None)
+    password = request.json.get("password", None)
+    nombre = request.json.get("nombre", None)
+    apellido = request.json.get("apellido", None)
+    direccion = request.json.get("direccion", None)
+    telefono = request.json.get("telefono", None)
+    foto_url = request.json.get("foto_url", None)
+
+    if not email or not password or not nombre or not direccion or not telefono:
+        return jsonify({"msg": "Campos incompletos"}), 404
+
+    user_new = User(email=email, password=password)
+    db.session.add(user_new)
+    db.session.commit()
+    db.session.refresh(user_new)
+
+    perfil_new = Perfil(id_usuario=user_new.id, nombre=nombre, appellido=appellido, 
+    direccion=direccion, telefono=telefono, foto_perfil=foto_url)
+    
+    access_token = create_access_token(identity=user_query.email)
+    response_body = {
+        "msg": "usuario creado correctamente" 
+    }
+
+    return jsonify(response_body), 200
 
 
