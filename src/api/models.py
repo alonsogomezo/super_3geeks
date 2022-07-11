@@ -25,14 +25,14 @@ class Producto(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     id_usuario = db.Column(db.Integer, db.ForeignKey("t_user.id"))
     categoria = db.Column(db.Integer, db.ForeignKey("t_categorias.id"))
-    nombre = db.Column(db.String(20))
+    producto = db.Column(db.String(20))
     precio = db.Column(db.Numeric(precision=10, scale=2))
     descripcion = db.Column(db.String(700))
 
 class Categorias(db.Model):
     __tablename__="t_categorias"
     id = db.Column(db.Integer, primary_key=True)
-    nombre = db.Column(db.String(20))
+    categoria = db.Column(db.String(20))
 
 class OrdenItems(db.Model):
     __tablename__="t_oi"

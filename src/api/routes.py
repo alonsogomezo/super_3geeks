@@ -68,4 +68,16 @@ def handle_Signup():
 
     return jsonify(response_body), 200
 
+@api.route("/carrito", methods=["GET"])
+def handle_Carrito():
 
+    nombre = request.json.get("name", None)
+    producto = request.json.get("producto", None)
+    precio = request.json.get("precio", None)
+
+    product_query = Producto.query.filter_by(producto = producto, precio = precio).first()
+
+    response_body = {
+        "producto": product_query.producto,
+        "precio": product_query.precio
+    }
