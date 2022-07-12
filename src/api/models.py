@@ -50,8 +50,9 @@ class OrderStatus(db.Model):
 class Carrito(db.Model):
     __tablename__="t_carrito"
     id = db.Column(db.Integer, primary_key=True)
-    id_Producto = db.Column(db.Integer, db.ForeignKey("t_producto.id"))
-    id_Usuario = db.Column(db.Integer, db.ForeignKey("t_user.id"))
+    id_producto = db.Column(db.Integer, db.ForeignKey("t_producto.id"))
+    id_usuario = db.Column(db.Integer, db.ForeignKey("t_user.id"))
+    cantidad = db.Column(db.Integer)
 
 class Orden(db.Model):
     __tablename__="t_orden"

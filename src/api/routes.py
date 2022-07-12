@@ -58,26 +58,88 @@ def handle_Signup():
     db.session.commit()
     db.session.refresh(user_new)
 
-    perfil_new = Perfil(id_usuario=user_new.id, nombre=nombre, appellido=appellido, 
+    perfil_new = Perfil(id_usuario=user_new.id, nombre=nombre, apellido=apellido, 
     direccion=direccion, telefono=telefono, foto_perfil=foto_url)
+    db.session.add(perfil_new)
+    db.session.commit()
     
-    access_token = create_access_token(identity=user_query.email)
+    access_token = create_access_token(identity=user_new.email)
     response_body = {
         "msg": "usuario creado correctamente" 
     }
 
     return jsonify(response_body), 200
 
-@api.route("/carrito", methods=["GET"])
+@api.route("/carrito", methods=["POST"])
+@jwt_required()
 def handle_Carrito():
 
-    nombre = request.json.get("name", None)
-    producto = request.json.get("producto", None)
-    precio = request.json.get("precio", None)
+    email_user = get_jwt_identity()
+    usuario = User.query.filter_by(email=email_user).first()
+    if not usuario:
+        return jsonify({"msg": "Usuario no encontrado"}), 404
 
-    product_query = Producto.query.filter_by(producto = producto, precio = precio).first()
+    id_producto = request.json.get("id_producto", None)
+    cantidad = request.json.get("cantidad", None)
+
+    carrito_new = Carrito(id_producto=id_producto, id_usuario=usuario.id, 
+    cantidad = cantidad)
+    db.session.add(carrito_new)
+    db.session.commit()
+
+    product_query = Producto.query.filter_by(id = id_producto).first()
 
     response_body = {
         "producto": product_query.producto,
-        "precio": product_query.precio
+        "precio": product_query.precio,
+        
     }
+
+    return jsonify(response_body), 200
+
+@api.route("/carrito", methods=["GET"])
+@jwt_required()
+def handle_get_carrito():
+
+    email_user = get_jwt_identity()
+    usuario = User.query.filter_by(email=email_user).first()
+    if not usuario:
+        return jsonify({"msg": "Usuario no encontrado"}), 404
+    
+    carrito_query = Carrito.query.filter_by(id_usuario=usuario.id)
+    lista_carrito = []
+    for carrito in carrito_query:
+        producto = Producto.query.get(carrito.id_producto)
+        lista_carrito.append({"nombre":producto.producto, 
+        "cantidad": carrito.cantidad,
+        "precio": producto.precio
+        })
+    
+    return jsonify(lista_carrito), 200
+    
+@api.route("/producto", methods=["POST"])
+@jwt_required()
+def handle_addProducto():
+    
+    email_user = get_jwt_identity()
+    usuario = User.query.filter_by(email=email_user).first()
+    if not usuario:
+        return jsonify({"msg": "Usuario no encontrado"}), 404
+
+    if not usuario.is_admin:
+        return jsonify({"msg": "usuario no autorizado"}), 403 
+
+    producto = request.json.get("producto", None)
+    descripcion = request.json.get("descripcion", None)
+    categoria = request.json.get("categoria", None)
+    precio = request.json.get("precio", None)
+
+    producto_new = Producto(producto=producto, id_usuario=usuario.id, 
+    categoria = categoria, precio = precio, descripcion = descripcion)
+    db.session.add(producto_new)
+    db.session.commit()
+
+    response_body = {
+        "msg": "producto añadido  correctamente"
+    }
+    return jsonify(response_body), 200
