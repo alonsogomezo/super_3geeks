@@ -1,15 +1,28 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { Context } from "../store/appContext";
 
 const Registro = () => {
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [password2, setPassword2] = useState("");
   const [telefono, setTelefono] = useState("");
   const [tarjeta, setTarjeta] = useState("");
   const [direccion, setDireccion] = useState("");
-  const onSubmit = () => {
-    alert(nombre);
+  const { store, actions } = useContext(Context);
+  const onSubmit = (e) => {
+    e.preventDefault();
+    const body = {
+      nombre: nombre,
+      apellido: apellido,
+      email: email,
+      password: password,
+      telefono: telefono,
+      tarjeta: tarjeta,
+      direccion: direccion,
+    };
+    actions.signup(body);
   };
   return (
     <div className="container">
@@ -61,15 +74,6 @@ const Registro = () => {
               id="inputEmail"
               placeholder="Email"
             />
-            <input
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              type="email"
-              className="form-control"
-              id="inputEmail"
-              placeholder="Confirme su email"
-            />
           </div>
         </div>
         <div className="form-group row p-1 justify-content-center">
@@ -83,16 +87,14 @@ const Registro = () => {
               onChange={(e) => setPassword(e.target.value)}
               type="password"
               className="form-control"
-              id="inputPassword"
               placeholder="Password"
             />
             <input
               required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={password2}
+              onChange={(e) => setPassword2(e.target.value)}
               type="password"
               className="form-control"
-              id="inputPassword"
               placeholder="Confirme su password"
             />
           </div>
