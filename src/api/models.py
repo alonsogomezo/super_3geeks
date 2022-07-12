@@ -6,7 +6,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(80), unique=False, nullable=False)
-    is_admin = db.Column(db.Boolean(False), unique=False, nullable=False)
+    is_admin = db.Column(db.Boolean(), unique=False, default= False)
 
 class Perfil(db.Model):
     __tablename__="t_perfil"
@@ -25,14 +25,14 @@ class Producto(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     id_usuario = db.Column(db.Integer, db.ForeignKey("t_user.id"))
     categoria = db.Column(db.Integer, db.ForeignKey("t_categorias.id"))
-    nombre = db.Column(db.String(20))
+    producto = db.Column(db.String(20))
     precio = db.Column(db.Numeric(precision=10, scale=2))
     descripcion = db.Column(db.String(700))
 
 class Categorias(db.Model):
     __tablename__="t_categorias"
     id = db.Column(db.Integer, primary_key=True)
-    nombre = db.Column(db.String(20))
+    categoria = db.Column(db.String(20))
 
 class OrdenItems(db.Model):
     __tablename__="t_oi"
@@ -50,8 +50,9 @@ class OrderStatus(db.Model):
 class Carrito(db.Model):
     __tablename__="t_carrito"
     id = db.Column(db.Integer, primary_key=True)
-    id_Producto = db.Column(db.Integer, db.ForeignKey("t_producto.id"))
-    id_Usuario = db.Column(db.Integer, db.ForeignKey("t_user.id"))
+    id_producto = db.Column(db.Integer, db.ForeignKey("t_producto.id"))
+    id_usuario = db.Column(db.Integer, db.ForeignKey("t_user.id"))
+    cantidad = db.Column(db.Integer)
 
 class Orden(db.Model):
     __tablename__="t_orden"
