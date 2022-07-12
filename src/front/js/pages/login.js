@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Login = () => {
-  const handleSubmit = (e, x) => {
-    e.preventDefault();
-    console.log(e);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const onSubmit = () => {
+    alert(email);
   };
   return (
     <div className="container">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={onSubmit}>
         <div className="form-group row p-3 justify-content-center">
           <div class="col-10 col-sm-5">
             <label for="inputEmail3" className="col-sm-2 col-form-label">
@@ -15,6 +17,8 @@ const Login = () => {
             </label>
             <input
               required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               type="email"
               className="form-control"
               id="inputEmail3"
@@ -37,10 +41,17 @@ const Login = () => {
           </div>
         </div>
         <div className="form-group row p-3 justify-content-center">
-          <div className="col-10 col-sm-5">
+          <div className="col-10 col-sm-5 text-center">
             <button type="submit" className="btn btn-primary">
               Entrar
             </button>
+          </div>
+          <div className="col-10 col-sm-5 text-center">
+            <Link to="/registro">
+              <button type="button" className="btn btn-primary">
+                Registrarse
+              </button>
+            </Link>
           </div>
         </div>
       </form>
