@@ -14,11 +14,37 @@ const getState = ({ getStore, getActions, setStore }) => {
           initial: "white",
         },
       ],
+      user: [],
+      userRegister: false,
     },
     actions: {
-      // Use getActions to call a function within a fuction
-      exampleFunction: () => {
-        getActions().changeColor(0, "green");
+      login: (body) => {
+        fetch(process.env.BACKEND_URL + "/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(body), //Convertimos la data a JSON
+        })
+          .then((resp) => resp.json())
+          .then((resp) => {
+            setStore({ user: resp });
+          })
+          .catch((error) => console.log(error));
+      },
+      signup: (body) => {
+        fetch(process.env.BACKEND_URL + "/signup", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(body), //Convertimos la data a JSON
+        })
+          .then((resp) => resp.json())
+          .then((resp) => {
+            setStore({ userRegister: resp?.msg == "usuario creado correctamente" });
+          })
+          .catch((error) => console.log(error));
       },
 
       getMessage: async () => {
