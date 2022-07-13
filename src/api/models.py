@@ -12,6 +12,7 @@ class Perfil(db.Model):
     __tablename__="t_perfil"
     id = db.Column(db.Integer, primary_key=True)
     id_usuario = db.Column(db.Integer, db.ForeignKey("t_user.id"))
+    id_signup = db.Column(db.Integer, db.ForeignKey("t_signup.id"))
     foto_perfil = db.Column(db.String(2000))
     nombre = db.Column(db.String(50))
     apellido = db.Column(db.String(50))
@@ -68,3 +69,16 @@ class Pago(db.Model):
     id_usuario = db.Column(db.Integer, db.ForeignKey("t_user.id"))
     id_orden = db.Column(db.Integer, db.ForeignKey("t_orden.id"))
     monto_total = db.Column(db.Numeric(precision=10, scale=2))
+
+class Signup(db.Model):
+    __tablename__="t_signup"
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    password = db.Column(db.String(80), unique=False, nullable=False)
+    foto_perfil = db.Column(db.String(2000))
+    nombre = db.Column(db.String(50))
+    apellido = db.Column(db.String(50))
+    direccion = db.Column(db.String(500))
+    telefono = db.Column(db.String(80))
+    latitud = db.Column(db.Float)
+    longitud = db.Column(db.Float)

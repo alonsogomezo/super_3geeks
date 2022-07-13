@@ -80,16 +80,16 @@ def handle_Usuario():
     if not usuario:
         return jsonify({"msg": "Usuario no encontrado"}), 404
     
-    id_usuario = request.json.get("id_usuario", None)
+    id_perfil = request.json.get("id_perfil", None)
 
-    perfil_query = Perfil.query.filter_by(id_usuario = id)
+    perfil_query = Perfil.query.filter_by(id = id_perfil).first()
     
     response_body ={
         "nombre": perfil_query.nombre, 
-        "apellid": perfil_query.apellido,
+        "apellido": perfil_query.apellido,
         "telefono": perfil_query.telefono,
         "direccion": perfil_query.direccion,
-        "foto de perfil": perfil_query.direccion 
+        "foto de perfil": perfil_query.foto_perfil
     }
 
     return jsonify(response_body), 200
@@ -168,5 +168,29 @@ def handle_addProducto():
 
     response_body = {
         "msg": "producto añadido  correctamente"
+    }
+    return jsonify(response_body), 200
+
+#api para crear categorias
+@api.route("/categorias", methods=["POST"])
+@jwt_required()
+def handle_addCategoria():
+    
+    email_user = get_jwt_identity()
+    usuario = User.query.filter_by(email=email_user).first()
+    if not usuario:
+        return jsonify({"msg": "Usuario no encontrado"}), 404
+
+    if not usuario.is_admin:
+        return jsonify({"msg": "usuario no autorizado"}), 403 
+    
+    categoria = request.json.get("categoria", None)
+
+    categoria_new = Categorias(categoria=categoria)
+    db.session.add(categoria_new)
+    db.session.commit()
+
+    response_body = {
+        "msg": "Categoria agregada"
     }
     return jsonify(response_body), 200
