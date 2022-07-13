@@ -13,7 +13,7 @@ from flask_jwt_extended import jwt_required
 
 api = Blueprint('api', __name__)
 
-
+#api del login
 @api.route('/login', methods=['POST'])
 def handle_Login():
 
@@ -21,7 +21,6 @@ def handle_Login():
     password = request.json.get("password", None)
 
     user_query = User.query.filter_by(email=email, password=password).first()
-    #print(email_query.name)
     
     if not user_query:
         return jsonify({"msg": "usuario o password incorrecto"}), 404
@@ -39,6 +38,7 @@ def handle_Login():
 
     return jsonify(response_body), 200
 
+#api del signup
 @api.route('/signup', methods=['POST'])
 def handle_Signup():
     
@@ -70,6 +70,31 @@ def handle_Signup():
 
     return jsonify(response_body), 200
 
+#api de usuario
+@api.route("/usuario", methods=["GET"])
+@jwt_required()
+def handle_Usuario():
+
+    email_user = get_jwt_identity()
+    usuario = User.query.filter_by(email=email_user).first()
+    if not usuario:
+        return jsonify({"msg": "Usuario no encontrado"}), 404
+    
+    id_perfil = request.json.get("id_perfil", None)
+
+    perfil_query = Perfil.query.filter_by(id = id_perfil).first()
+    
+    response_body ={
+        "nombre": perfil_query.nombre, 
+        "apellido": perfil_query.apellido,
+        "telefono": perfil_query.telefono,
+        "direccion": perfil_query.direccion,
+        "foto de perfil": perfil_query.foto_perfil
+    }
+
+    return jsonify(response_body), 200
+
+#api para agregar el carrito
 @api.route("/carrito", methods=["POST"])
 @jwt_required()
 def handle_Carrito():
@@ -97,6 +122,7 @@ def handle_Carrito():
 
     return jsonify(response_body), 200
 
+#api para ver que hay en el carrito
 @api.route("/carrito", methods=["GET"])
 @jwt_required()
 def handle_get_carrito():
@@ -116,7 +142,8 @@ def handle_get_carrito():
         })
     
     return jsonify(lista_carrito), 200
-    
+
+#api del producto    
 @api.route("/producto", methods=["POST"])
 @jwt_required()
 def handle_addProducto():
@@ -141,5 +168,29 @@ def handle_addProducto():
 
     response_body = {
         "msg": "producto añadido  correctamente"
+    }
+    return jsonify(response_body), 200
+
+#api para crear categorias
+@api.route("/categorias", methods=["POST"])
+@jwt_required()
+def handle_addCategoria():
+    
+    email_user = get_jwt_identity()
+    usuario = User.query.filter_by(email=email_user).first()
+    if not usuario:
+        return jsonify({"msg": "Usuario no encontrado"}), 404
+
+    if not usuario.is_admin:
+        return jsonify({"msg": "usuario no autorizado"}), 403 
+    
+    categoria = request.json.get("categoria", None)
+
+    categoria_new = Categorias(categoria=categoria)
+    db.session.add(categoria_new)
+    db.session.commit()
+
+    response_body = {
+        "msg": "Categoria agregada"
     }
     return jsonify(response_body), 200
