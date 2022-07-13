@@ -1,5 +1,7 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext";
+import { useNavigate } from "react-router-dom";
+import ErrorText from "../component/errorText";
 
 const Registro = () => {
   const [nombre, setNombre] = useState("");
@@ -10,27 +12,40 @@ const Registro = () => {
   const [telefono, setTelefono] = useState("");
   const [tarjeta, setTarjeta] = useState("");
   const [direccion, setDireccion] = useState("");
+  const [msjError, setMsjError] = useState("");
   const { store, actions } = useContext(Context);
+  const navigate = useNavigate();
+
   const onSubmit = (e) => {
     e.preventDefault();
-    const body = {
-      nombre: nombre,
-      apellido: apellido,
-      email: email,
-      password: password,
-      telefono: telefono,
-      tarjeta: tarjeta,
-      direccion: direccion,
-    };
-    actions.signup(body);
+    setMsjError("");
+    if (password !== password2) {
+      setMsjError("Las contraseñas no coinciden");
+    } else {
+      const body = {
+        nombre: nombre,
+        apellido: apellido,
+        email: email,
+        password: password,
+        telefono: telefono,
+        tarjeta: tarjeta,
+        direccion: direccion,
+      };
+      actions.signup(body);
+    }
   };
+
+  useEffect(() => {
+    store.userRegister && navigate("/login");
+  }, [store.userRegister]);
+
   return (
-    <div className="container">
+    <div className="container mb-5">
       <h2 className="text-center">Formulario de registro</h2>
-      <form onSubmit={onSubmit}>
+      <form className="mb-5" onSubmit={onSubmit}>
         <div className="form-group row p-1 justify-content-center">
-          <div class="col-10 col-sm-5">
-            <label for="inputNombre" className="col-sm-2 col-form-label">
+          <div className="col-10 col-sm-5">
+            <label htmlFor="inputNombre" className="col-sm-2 col-form-label">
               Nombre
             </label>
             <input
@@ -45,8 +60,8 @@ const Registro = () => {
           </div>
         </div>
         <div className="form-group row p-1 justify-content-center">
-          <div class="col-10 col-sm-5">
-            <label for="inputApellido" className="col-sm-2 col-form-label">
+          <div className="col-10 col-sm-5">
+            <label htmlFor="inputApellido" className="col-sm-2 col-form-label">
               Apellido
             </label>
             <input
@@ -61,8 +76,8 @@ const Registro = () => {
           </div>
         </div>
         <div className="form-group row p-1 justify-content-center">
-          <div class="col-10 col-sm-5">
-            <label for="inputEmail" className="col-sm-2 col-form-label">
+          <div className="col-10 col-sm-5">
+            <label htmlFor="inputEmail" className="col-sm-2 col-form-label">
               Email
             </label>
             <input
@@ -77,8 +92,8 @@ const Registro = () => {
           </div>
         </div>
         <div className="form-group row p-1 justify-content-center">
-          <div class="col-10 col-sm-5">
-            <label for="inputPassword" className="col-sm-2 col-form-label">
+          <div className="col-10 col-sm-5">
+            <label htmlFor="inputPassword" className="col-sm-2 col-form-label">
               Password
             </label>
             <input
@@ -94,14 +109,15 @@ const Registro = () => {
               value={password2}
               onChange={(e) => setPassword2(e.target.value)}
               type="password"
-              className="form-control"
+              className="form-control mt-4"
               placeholder="Confirme su password"
             />
+            <ErrorText text={msjError} />
           </div>
         </div>
         <div className="form-group row p-1 justify-content-center">
-          <div class="col-10 col-sm-5">
-            <label for="inputTelefono" className="col-sm-2 col-form-label">
+          <div className="col-10 col-sm-5">
+            <label htmlFor="inputTelefono" className="col-sm-2 col-form-label">
               Telefono
             </label>
             <input
@@ -116,8 +132,8 @@ const Registro = () => {
           </div>
         </div>
         <div className="form-group row p-1 justify-content-center">
-          <div class="col-10 col-sm-5">
-            <label for="inputTarjeta" className="col-sm-2 col-form-label">
+          <div className="col-10 col-sm-5">
+            <label htmlFor="inputTarjeta" className="col-sm-2 col-form-label">
               Tarjeta
             </label>
             <input
@@ -132,8 +148,8 @@ const Registro = () => {
           </div>
         </div>
         <div className="form-group row p-1 justify-content-center">
-          <div class="col-10 col-sm-5">
-            <label for="inputDireccion" className="col-sm-2 col-form-label">
+          <div className="col-10 col-sm-5">
+            <label htmlFor="inputDireccion" className="col-sm-2 col-form-label">
               Direccion
             </label>
             <input
@@ -147,9 +163,9 @@ const Registro = () => {
             />
           </div>
         </div>
-        <div className="form-group row p-3 justify-content-center">
+        <div className="form-group row p-3 justify-content-center mb-5">
           <div className="col-10 col-sm-5 text-center">
-            <button type="submit" className="btn btn-primary">
+            <button type="submit" className="btn btn-primary mb-5">
               Crear Perfil
             </button>
           </div>
