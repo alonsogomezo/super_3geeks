@@ -5,7 +5,8 @@ import Logo from "../../img/logo-3geeks.png";
 export const Navbar = () => {
   const { store } = useContext(Context);
   return (
-    <nav className="navbar navbar-light bg-light">
+    
+    <nav className=" navbar navbar-light bg-light">
       <div className="container">
         <Link to="/" className="text-decoration-none">
             <img src={Logo} width="40" />
