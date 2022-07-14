@@ -7,17 +7,24 @@ export const Home = () => {
   const { store, actions } = useContext(Context);
 
   return (
-    <div className="text-center mt-5">
+    <div className="text-center mt-0">
+
+		
+     
+        <img height={200} className="container-fluid "
+         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzKRPlFqXEPtFeIkaEexRkj77bLIpN9ZMmIQ&usqp=CAU"/>
+          {/*
       <img
         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTG_maK1oK7T1pF_dTPNeNeoYpaWTIEnbPJg&usqp=CAU"
         className=""
       />
+  */}
 
  
 
-      <div className="jumbotron text-center">
-        <h1>Bienvenidos</h1>
-        <p>Resize this responsive page to see the effect!</p>
+      <div className="jumbotron mt-3">
+        <h1 className="text-warning">Bienvenidos</h1>
+        <p className="text-danger">Resize this responsive page to see the effect!</p>
       </div>
 
       <div className="container">
@@ -26,7 +33,7 @@ export const Home = () => {
             <h3>Categoria 1</h3>
             <p>Lorem ipsum dolor..</p>
 			<img
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTG_maK1oK7T1pF_dTPNeNeoYpaWTIEnbPJg&usqp=CAU"
+        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcp1DCq1CA4svPvY40YJmOn_POXn3Za3ut2g&usqp=CAU"
         className=""
       />
           </div>
