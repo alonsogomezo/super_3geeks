@@ -34,7 +34,7 @@ export const Home = () => {
             <h3>Categoria 2</h3>
             <p>CaracteristicasLorem ipsum dolor..</p>
 			<img
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTG_maK1oK7T1pF_dTPNeNeoYpaWTIEnbPJg&usqp=CAU"
+        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgaGIWPc_K5FvUFlLIhWWbbe5UsBhnQrvuUg&usqp=CAU"
         className=""
       />
           </div>
@@ -49,24 +49,22 @@ export const Home = () => {
         </div>
       </div>
 
-      <p>
-        <img src={rigoImageUrl} />
-      </p>
+   
 
       <img src="paris.jpg" className="float-right" />
-
-      <div className="alert alert-info">
-        {store.message ||
-          "Loading message from the backend (make sure your python backend is running)..."}
-      </div>
 	  <p>
         This boilerplate comes with lots of documentation:{" "}
         <a href="https://github.com/4GeeksAcademy/react-flask-hello/tree/95e0540bd1422249c3004f149825285118594325/docs">
           Read documentation
         </a>
       </p>
+      <div className="alert alert-info bg-dark">
+        {store.message ||
+          "Loading message from the backend (make sure your python backend is running)..."}
+      </div>
+	
 
-      <h1>Hello Rigo!!</h1>
+    
     </div>
   );
 };
