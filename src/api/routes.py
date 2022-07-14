@@ -28,12 +28,11 @@ def handle_Login():
     perfil_query = Perfil.query.filter_by(id_usuario = user_query.id).first()
 
     access_token = create_access_token(identity=user_query.email)
-    
+    print(perfil_query)
     response_body = {
         "message": "bienvenido de regreso",
         "isAdmin": user_query.is_admin,
         "accessToken": access_token,
-        
     }
 
     return jsonify(response_body), 200
@@ -171,6 +170,18 @@ def handle_addProducto():
     }
     return jsonify(response_body), 200
 
+#api para ver los productos
+@api.route("/producto", methods=["POST"])
+@jwt_required()
+def handle_viewProducto():
+    
+    email_user = get_jwt_identity()
+    usuario = User.query.filter_by(email=email_user).first()
+    if not usuario:
+        return jsonify({"msg": "Usuario no encontrado"}), 404
+
+    
+
 #api para crear categorias
 @api.route("/categorias", methods=["POST"])
 @jwt_required()
@@ -194,3 +205,62 @@ def handle_addCategoria():
         "msg": "Categoria agregada"
     }
     return jsonify(response_body), 200
+
+#api para ver las categorias
+@api.route("/categorias", methods=["GET"])
+@jwt_required()
+def handle_viewCategoria():
+    
+    email_user = get_jwt_identity()
+    usuario = User.query.filter_by(email=email_user).first()
+    if not usuario:
+        return jsonify({"msg": "Usuario no encontrado"}), 404
+    
+    categorias_query = Categorias.query.all()
+    lista_categorias = []
+    for categorias in categorias_query:
+        
+        lista_categorias.append({
+            "categoria": categorias.categoria,
+            "id": categorias.id
+        })
+        
+    return jsonify(lista_categorias), 200
+
+#api para ver el listado de productos por categoria
+@api.route("/producto/categorias", methods = ["GET"])
+@jwt_required()
+def handle_vCategoriasxProducto():
+    
+    email_user = get_jwt_identity()
+    usuario = User.query.filter_by(email=email_user).first()
+    if not usuario:
+        return jsonify({"msg": "Usuario no encontrado"}), 404
+
+    q = request.args.get('q')
+    categoria_id = request.args.get("categoria_id")
+    if q and not categoria_id:
+        busqueda = "%{}%".format(q)
+        productos_query = Producto.query.filter(Producto.producto.like(busqueda)).all()
+    if categoria_id and not q:
+        productos_query = Producto.query.filter_by(categoria = categoria_id)
+
+    if categoria_id and q:
+        productos_query = Producto.query.filter_by(producto = q, categoria = categoria_id)
+
+    if not categoria_id and not q:
+        productos_query = Producto.query.all()
+        
+
+    lista_pxc = []
+    for producto in productos_query:
+        
+        lista_pxc.append({
+            "producto": producto.producto,
+            "categoria": producto.categoria,
+            "descripcion": producto.descripcion,
+            "precio": producto.precio,
+            "id": producto.id
+        })
+    
+    return jsonify(lista_pxc), 200
