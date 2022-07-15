@@ -11,8 +11,26 @@ export const Home = () => {
     <div className="text-center  mt-0">
       {" "}
       <div className="row">
+	  <div className="alert alert-info bg-dark">
+         
+	  <div className="jumbotron mt-3">
+        <h1 className="text-warning">
+          Super 3 Geeks
+          <img src={Logo} width={60} />
+        </h1>
+        <p className="text-danger">
+          Resize this responsive page to see the effect!
+        </p>
+      </div>
+
+       
+      </div>
         <div className="col-6">
           <div className="col-6">
+		
+		  <h3>Categoria 2</h3>
+            <p>CaracteristicasLorem ipsum dolor..</p>
+
             <div>
 			<img
               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgaGIWPc_K5FvUFlLIhWWbbe5UsBhnQrvuUg&usqp=CAU"
@@ -26,9 +44,9 @@ export const Home = () => {
           </div>
           <div className="col-6 p-5">
             <h2 className="">Nombre</h2>
-            <p className="">$</p>
-            <p className="">Telefono</p>
-            <p className="">Tarjeta de credito</p>
+            <p className="">Precio $</p>
+            <p className="">Descripcion</p>
+            <p className="">cantidad</p>
           </div>
         </div>
 
@@ -117,44 +135,14 @@ export const Home = () => {
           Resize this responsive page to see the effect!
         </p>
       </div>
-      <div className="container">
-        <div className="row">
-          <div className="col-sm-4">
-            <h3>Imagen del Producto</h3>
-            <p>Lorem ipsum dolor..</p>
-            <div>
-              <input type={"file"} />
-            </div>
-          </div>
-          <div className="col-sm-4" width={200} height={300}>
-            <h3>Categoria 2</h3>
-            <p>CaracteristicasLorem ipsum dolor..</p>
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgaGIWPc_K5FvUFlLIhWWbbe5UsBhnQrvuUg&usqp=CAU"
-              className=""
-            />
-          </div>
-          <div className="col-sm-4">
-            <h3>Categoria 3</h3>
-            <p>Lorem ipsum dolor..</p>
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBgxV2SX3o1WwNoeaaUcuIL6CVSLP9-JHCCw&usqp=CAU"
-              className=""
-            />
-          </div>
-        </div>
-      </div>
-      <img src="paris.jpg" className="float-right" />
+  
       <p>
         This boilerplate comes with lots of documentation:{" "}
         <a href="https://github.com/4GeeksAcademy/react-flask-hello/tree/95e0540bd1422249c3004f149825285118594325/docs">
           Read documentation
         </a>
       </p>
-      <div className="alert alert-info bg-dark">
-        {store.message ||
-          "Loading message from the backend (make sure your python backend is running)..."}
-      </div>
+      
     </div>
   );
 };
