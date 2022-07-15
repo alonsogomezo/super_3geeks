@@ -13,6 +13,18 @@ export const Navbar = () => {
         </Link>
       </div>
 
+      <ul className="navbar-nav">
+    <li className="nav-item">
+      <a className="nav-link" href="#">Categoria 1</a>
+    </li>
+    <li className="nav-item">
+      <a className="nav-link" href="#">Categoria 2</a>
+    </li>
+    <li className="nav-item">
+      <a className="nav-link" href="#">Categoria 3</a>
+    </li>
+  </ul>
+
       
 
       <a className="navbar-brand" href="#">
