@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { Context } from "../store/appContext";
+import Logo from "../../img/logo-3geeks.png";
 import rigoImageUrl from "../../img/rigo-baby.jpg";
 import "../../styles/home.css";
 
@@ -23,8 +24,10 @@ export const Home = () => {
  
 
       <div className="jumbotron mt-3">
-        <h1 className="text-warning">Bienvenidos</h1>
+        
+        <h1 className="text-warning">Super 3 Geeks<img src={Logo} width={60} /></h1>
         <p className="text-danger">Resize this responsive page to see the effect!</p>
+        
       </div>
 
       <div className="container">
@@ -37,7 +40,7 @@ export const Home = () => {
         className=""
       />
           </div>
-          <div className="col-sm-4">
+          <div className="col-sm-4" width={200} height={300} >
             <h3>Categoria 2</h3>
             <p>CaracteristicasLorem ipsum dolor..</p>
 			<img
