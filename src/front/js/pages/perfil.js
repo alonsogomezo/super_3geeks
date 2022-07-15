@@ -29,10 +29,10 @@ const Perfil = () => {
             </div>
           </div>
           <div className="col-6 p-5">
-            <h2 className="">Nombre: {store.user.nombre}</h2>
-            <p className="">Email: {store.user.email}</p>
-            <p className="">Telefono: {store.user.telefono}</p>
-            <p className="">Tarjeta de credito: {store.user.nombre}</p>
+            <h2 className="">Nombre: {store.user?.nombre}</h2>
+            <p className="">Email: {store.user?.email}</p>
+            <p className="">Telefono: {store.user?.telefono}</p>
+            <p className="">Tarjeta de credito: {store.user?.nombre}</p>
           </div>
         </div>
         <div className="col-6">
