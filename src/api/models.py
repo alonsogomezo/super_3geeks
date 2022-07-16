@@ -82,3 +82,9 @@ class Signup(db.Model):
     telefono = db.Column(db.String(80))
     latitud = db.Column(db.Float)
     longitud = db.Column(db.Float)
+
+class Promociones(db.Model):
+    __tablename__="t_promociones"
+    id = db.Column(db.Integer, primary_key=True)
+    id_producto = db.Column(db.Integer, db.ForeignKey("t_producto.id"))
+    promociones = db.Column(db.Numeric)
