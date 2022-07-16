@@ -1,15 +1,20 @@
-import React, { useContext, useState, useEffect } from "react";
-import { Context } from "../store/appContext";
-import { useNavigate } from "react-router-dom";
-import Logo from "../../img/logo-3geeks.png";
+import React, { useContext, useEffect } from "react";
 import Mapa from "../../img/mapa.png";
+import { Context } from "../store/appContext";
 
 const Perfil = () => {
-  const navigate = useNavigate();
   const { store, actions } = useContext(Context);
-  /* useEffect(() => {
-    !store.user.name && navigate("/login");
-  }, [store.user]); */
+  useEffect(() => {
+    let accessToken = localStorage.getItem("accessToken");
+    let id = localStorage.getItem("id");
+    const resp = await fetch(process.env.BACKEND_URL + "/usuario", {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": accessToken,
+      },
+    });
+    const data = await resp.json();
+  }, []);
   return (
     <div className="container">
       <div className="row">
