@@ -29,6 +29,8 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then((resp) => resp.json())
           .then((resp) => {
             setStore({ user: resp });
+            localStorage.setItem('accessToken', resp?.accessToken);
+            localStorage.setItem('id', resp?.user?.id);
           })
           .catch((error) => console.log(error));
       },
