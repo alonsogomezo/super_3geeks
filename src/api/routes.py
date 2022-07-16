@@ -30,13 +30,13 @@ def handle_Login():
     access_token = create_access_token(identity=user_query.email)
     print(perfil_query)
     response_body = {
-        "message": "bienvenido de regreso", #+ " " + perfil_query.nombre,
+        "message": "bienvenido de regreso" + " " + perfil_query.nombre,
         "isAdmin": user_query.is_admin,
         "accessToken": access_token,
         "id": user_query.id,
-        #"nombre": perfil_query.nombre,
-        #"apellido": perfil_query.apellido,
-        #"foto": perfil_query.foto_perfil
+        "nombre": perfil_query.nombre,
+        "apellido": perfil_query.apellido,
+        "foto": perfil_query.foto_perfil
     }
 
     return jsonify(response_body), 200
