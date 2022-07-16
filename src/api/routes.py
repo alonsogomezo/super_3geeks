@@ -83,12 +83,13 @@ def handle_Usuario():
     if not usuario:
         return jsonify({"msg": "Usuario no encontrado"}), 404
     
-    id_perfil = request.json.get("id_perfil", None)
-
-    perfil_query = Perfil.query.filter_by(id = id_perfil).first()
+    """ id_perfil = request.json.get("id_perfil", None)
+ """
+    perfil_query = Perfil.query.filter_by(id_usuario = usuario.id).first()
     
     response_body ={
         "nombre": perfil_query.nombre, 
+        "email": email_user,
         "apellido": perfil_query.apellido,
         "telefono": perfil_query.telefono,
         "direccion": perfil_query.direccion,

@@ -29,8 +29,8 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then((resp) => resp.json())
           .then((resp) => {
             setStore({ user: resp });
-            localStorage.setItem('accessToken', resp?.accessToken);
-            localStorage.setItem('id', resp?.user?.id);
+            localStorage.setItem("accessToken", resp?.accessToken);
+            localStorage.setItem("id", resp?.user?.id);
           })
           .catch((error) => console.log(error));
       },
@@ -44,9 +44,27 @@ const getState = ({ getStore, getActions, setStore }) => {
         })
           .then((resp) => resp.json())
           .then((resp) => {
-            setStore({ userRegister: resp?.msg == "usuario creado correctamente" });
+            setStore({
+              userRegister: resp?.msg == "usuario creado correctamente",
+            });
           })
           .catch((error) => console.log(error));
+      },
+      muestraPerfil: async () => {
+        try {
+          const resp = await fetch(process.env.BACKEND_URL + "/usuario", {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + localStorage.getItem("accessToken"),
+            },
+          });
+          const data = await resp.json();
+          setStore({ user: data });
+          return data;
+        } catch (error) {
+          console.log(error);
+        }
       },
 
       getMessage: async () => {

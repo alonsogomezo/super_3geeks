@@ -7,15 +7,14 @@ import Mapa from "../../img/mapa.png";
 const Perfil = () => {
   const { store, actions } = useContext(Context);
   useEffect(() => {
-    let accessToken = localStorage.getItem("accessToken");
-    let id = localStorage.getItem("id");
-    const resp = await fetch(process.env.BACKEND_URL + "/usuario", {
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": accessToken,
-      },
-    });
-    const data = await resp.json();
+    actions
+      .muestraPerfil()
+      .then((resp) => {
+        console.log(resp);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
   return (
     <div className="container">
