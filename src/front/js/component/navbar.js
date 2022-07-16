@@ -4,6 +4,7 @@ import { Context } from "../store/appContext";
 import Logo from "../../img/logo-3geeks.png";
 export const Navbar = () => {
   const { store } = useContext(Context);
+  console.log(store?.user);
   return (
     <nav className="navbar navbar-light bg-light">
       <div className="container">
