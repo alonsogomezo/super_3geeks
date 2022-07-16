@@ -5,11 +5,17 @@ import Logo from "../../img/logo-3geeks.png";
 import Mapa from "../../img/mapa.png";
 
 const Perfil = () => {
-  const navigate = useNavigate();
   const { store, actions } = useContext(Context);
-  /* useEffect(() => {
-    !store.user.name && navigate("/login");
-  }, [store.user]); */
+  useEffect(() => {
+    actions
+      .muestraPerfil()
+      .then((resp) => {
+        console.log(resp);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
   return (
     <div className="container">
       <div className="row">
