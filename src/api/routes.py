@@ -33,6 +33,7 @@ def handle_Login():
         "message": "bienvenido de regreso",
         "isAdmin": user_query.is_admin,
         "accessToken": access_token,
+        "id": user_query.id
     }
 
     return jsonify(response_body), 200
@@ -171,7 +172,7 @@ def handle_addProducto():
     return jsonify(response_body), 200
 
 #api para ver los productos
-@api.route("/producto", methods=["POST"])
+@api.route("/producto", methods=["GET"])
 @jwt_required()
 def handle_viewProducto():
     
@@ -181,6 +182,21 @@ def handle_viewProducto():
         return jsonify({"msg": "Usuario no encontrado"}), 404
 
     
+
+    producto_query = Producto.query.all()
+    lista_producto = []
+    for producto in producto_query:
+        lista_producto.append({
+            "foto": producto.foto_producto,
+            "producto": producto.producto,
+            "categoria": producto.categoria,
+            "descripcion": producto.descripcion,
+            "precio": producto.precio,
+            "id": producto.id
+        })
+        
+    
+    return jsonify(lista_producto), 200
 
 #api para crear categorias
 @api.route("/categorias", methods=["POST"])
@@ -264,3 +280,5 @@ def handle_vCategoriasxProducto():
         })
     
     return jsonify(lista_pxc), 200
+
+#api de las promociones

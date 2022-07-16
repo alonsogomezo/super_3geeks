@@ -25,8 +25,10 @@ class Producto(db.Model):
     __tablename__="t_producto"
     id = db.Column(db.Integer, primary_key=True)
     id_usuario = db.Column(db.Integer, db.ForeignKey("t_user.id"))
+    foto_producto = db.Column(db.String(2000))
     categoria = db.Column(db.Integer, db.ForeignKey("t_categorias.id"))
     producto = db.Column(db.String(20))
+    precio_original = db.Column(db.Numeric(precision=10, scale=2))
     precio = db.Column(db.Numeric(precision=10, scale=2))
     descripcion = db.Column(db.String(700))
 
@@ -87,4 +89,4 @@ class Promociones(db.Model):
     __tablename__="t_promociones"
     id = db.Column(db.Integer, primary_key=True)
     id_producto = db.Column(db.Integer, db.ForeignKey("t_producto.id"))
-    promociones = db.Column(db.Numeric)
+    promociones = db.Column(db.Float)
