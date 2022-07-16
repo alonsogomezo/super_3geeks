@@ -30,10 +30,13 @@ def handle_Login():
     access_token = create_access_token(identity=user_query.email)
     print(perfil_query)
     response_body = {
-        "message": "bienvenido de regreso",
+        "message": "bienvenido de regreso" + " " + perfil_query.nombre,
         "isAdmin": user_query.is_admin,
         "accessToken": access_token,
-        "id": user_query.id
+        "id": user_query.id,
+        "nombre": perfil_query.nombre,
+        "apellido": perfil_query.apellido,
+        "foto": perfil_query.foto_perfil
     }
 
     return jsonify(response_body), 200
@@ -162,7 +165,7 @@ def handle_addProducto():
     precio = request.json.get("precio", None)
 
     producto_new = Producto(producto=producto, id_usuario=usuario.id, 
-    categoria = categoria, precio = precio, descripcion = descripcion)
+    categoria = categoria, precio_original = precio, precio=precio, descripcion = descripcion)
     db.session.add(producto_new)
     db.session.commit()
 
@@ -191,7 +194,7 @@ def handle_viewProducto():
             "producto": producto.producto,
             "categoria": producto.categoria,
             "descripcion": producto.descripcion,
-            "precio": producto.precio,
+            "precio": producto.precio_original,
             "id": producto.id
         })
         
@@ -258,6 +261,7 @@ def handle_vCategoriasxProducto():
     if q and not categoria_id:
         busqueda = "%{}%".format(q)
         productos_query = Producto.query.filter(Producto.producto.like(busqueda)).all()
+    
     if categoria_id and not q:
         productos_query = Producto.query.filter_by(categoria = categoria_id)
 
@@ -282,3 +286,63 @@ def handle_vCategoriasxProducto():
     return jsonify(lista_pxc), 200
 
 #api de las promociones
+@api.route("/ofertas/<int:producto_id>", methods=["POST"])
+@jwt_required()
+def handle_addOferta(producto_id):
+    
+    email_user = get_jwt_identity()
+    usuario = User.query.filter_by(email=email_user).first()
+    if not usuario:
+        return jsonify({"msg": "Usuario no encontrado"}), 404
+
+    if not usuario.is_admin:
+        return jsonify({"msg": "usuario no autorizado"}), 403
+
+    precio = request.json.get("precio", None)
+    precio_original = request.json.get("precio_original", None)
+
+    producto = Producto.query.get(producto_id)
+
+    if not producto:
+        return jsonify({"msg": "Producto no encontrado"}), 404
+
+    producto.precio = precio
+    producto.precio_original = precio_original
+
+    db.session.add(producto)
+    db.session.commit()
+
+    response_body = {
+        "msg": "oferta agregada"
+    }
+
+    return jsonify(response_body), 200
+
+#api para ver las promociones
+@api.route("/ofertas/<int:categoria_id>", methods=["GET"])
+@jwt_required()
+def handle_viewOferta(categoria_id):
+    
+    email_user = get_jwt_identity()
+    usuario = User.query.filter_by(email=email_user).first()
+    if not usuario:
+        return jsonify({"msg": "Usuario no encontrado"}), 404
+
+    
+    producto_query = Producto.query.filter_by(categoria = categoria_id)
+    lista_ofertas = []
+
+    for oferta in producto_query:
+
+        if oferta.precio != oferta.precio_original:
+            lista_ofertas.append({
+                "producto": oferta.producto,
+                "categoria": oferta.categoria,
+                "descripcion": oferta.descripcion,
+                "precio": oferta.precio,
+                "precio_original": oferta.precio_original,
+                "id": oferta.id
+            })
+        
+    
+    return jsonify(lista_ofertas), 200

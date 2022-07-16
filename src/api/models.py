@@ -88,5 +88,6 @@ class Signup(db.Model):
 class Promociones(db.Model):
     __tablename__="t_promociones"
     id = db.Column(db.Integer, primary_key=True)
+    id_usuario = db.Column(db.Integer, db.ForeignKey("t_user.id"))
     id_producto = db.Column(db.Integer, db.ForeignKey("t_producto.id"))
     promociones = db.Column(db.Float)
