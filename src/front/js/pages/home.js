@@ -1,11 +1,21 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext";
 import Logo from "../../img/logo-3geeks.png";
-import rigoImageUrl from "../../img/rigo-baby.jpg";
+import { useNavigate } from "react-router-dom";
 import "../../styles/home.css";
 
 export const Home = () => {
   const { store, actions } = useContext(Context);
+  useEffect(() => {
+    actions
+      .muestraPerfil()
+      .then((resp) => {
+        console.log(resp);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   return (
     <div className="text-center  mt-0">
@@ -20,11 +30,34 @@ export const Home = () => {
             <p className="text-danger">
               Resize this responsive page to see the effect!
             </p>
+            <nav className="navbar navbar-expand-sm bg-dark justify-content-center">
+              <ul className="navbar-nav">
+                <li class="nav-item">
+                  <a className="nav-link" href="#">
+                    Categoria 1
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="#">
+                    Categoria 2
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="#">
+                    Categoria 3
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="#">
+                    Categoria 4
+                  </a>
+                  </li>
+              </ul>
+            </nav>
           </div>
         </div>
         <div className="col-6">
-			
-          <h3>Categoria </h3>
+          <h3>{store.user?.nombre} </h3>
           <p>Nombre de producto..</p>
 
           <div className="col-6">
@@ -38,10 +71,7 @@ export const Home = () => {
             <div>
               <input type={"file"} />
             </div>
-		
-
           </div>
-          
         </div>
 
         <div className="col-6 mt-5">
@@ -92,10 +122,8 @@ export const Home = () => {
             </div>
           </div>
           <p className=""></p>
-          
         </div>
       </div>
-     
       <div className="jumbotron mt-3">
         <h1 className="text-warning">
           Super 3 Geeks
