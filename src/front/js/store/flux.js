@@ -16,6 +16,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       ],
       user: [],
       userRegister: false,
+      productoAnadido:false,
     },
     actions: {
       login: (body) => {
@@ -46,6 +47,23 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then((resp) => {
             setStore({
               userRegister: resp?.msg == "usuario creado correctamente",
+            });
+          })
+          .catch((error) => console.log(error));
+      },
+
+      creaProducto: (body) => {
+        fetch(process.env.BACKEND_URL + "/producto", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(body), //Convertimos la data a JSON
+        })
+          .then((resp) => resp.json())
+          .then((resp) => {
+            setStore({
+              productoAnadido: resp?.msg == "producto anadido correctamente",
             });
           })
           .catch((error) => console.log(error));

@@ -5,17 +5,29 @@ import { useNavigate } from "react-router-dom";
 import "../../styles/home.css";
 
 export const Home = () => {
+  const [producto, setProducto] = useState("");
+  const [descripcion, setDescripcion] = useState("");
+  const [categoria, setCategoria] = useState("");
+  const [precio, setPrecio] = useState("");
+
   const { store, actions } = useContext(Context);
+
+  const navigate = useNavigate();
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    const body = {
+      producto: producto,
+      descripcion: descripcion,
+      categoria: categoria,
+      precio: precio,
+    };
+    actions.signup(body);
+  };
+
   useEffect(() => {
-    actions
-      .muestraProducto()
-      .then((resp) => {
-        console.log(resp);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+    store.productoAnadido && navigate("/");
+  }, [store.productoAnadido]);
 
   return (
     <div className="text-center  mt-0">
@@ -51,7 +63,7 @@ export const Home = () => {
         </div>
         <div className="col-6">
           <h3>Nombre{store.producto?.producto} </h3>
-		  <h6>{store.producto?.descripcion} </h6>
+          <h6>{store.producto?.descripcion} </h6>
           <p>Descripcion{store.producto?.descripcion} </p>
 
           <div className="col-6">
@@ -61,25 +73,27 @@ export const Home = () => {
                 className=""
                 width={430}
               />
-
             </div>
             <div>
               <input type={"file"} />
             </div>
-
-            
           </div>
         </div>
 
         <div className="col-6 mt-5">
           <p className="">Nombre de Producto</p>
-
-          <div className="input-group mb-3">
-            <input
+          <input
+              required
+              value={producto}
+              onChange={(e) => setProducto(e.target.value)}
               type="text"
               className="form-control"
-              placeholder="nombre.."
+              id="inputName"
+              placeholder="Nombre"
             />
+
+          <div className="input-group mb-3">
+           
             <div class="input-group-append">
               <button className="btn btn-success" type="button">
                 OK
@@ -88,14 +102,15 @@ export const Home = () => {
           </div>
 
           <p className="">Precio Original</p>
-          <div className="input-group mb-3">
-            <input type="text" className="form-control" placeholder="$.." />
-            <div class="input-group-append">
-              <button className="btn btn-success" type="button">
-                OK
-              </button>
-            </div>
-          </div>
+          <input
+              required
+              value={nombre}
+              onChange={(e) => setNombre(e.target.value)}
+              type="text"
+              className="form-control"
+              id="inputName"
+              placeholder="Nombre"
+            />
           <p className="">Precio</p>
           <div className="input-group mb-3">
             <input type="text" className="form-control" placeholder="$.." />
@@ -117,9 +132,8 @@ export const Home = () => {
                 OK
               </button>
             </div>
-            
           </div>
-          <p className="">SKU</p>
+          <p className="">Categoria</p>
           <div className="input-group mb-3">
             <input
               type="text"
@@ -131,11 +145,12 @@ export const Home = () => {
                 OK
               </button>
             </div>
-            
           </div>
         </div>
       </div>
-      <button type="button" class="btn btn-primary btn-lg btn-block">Subir Producto</button>
+      <button type="submit" class="btn btn-primary btn-lg btn-block">
+        Subir Producto
+      </button>
       <div className="jumbotron mt-3">
         <h1 className="text-warning">
           Super 3 Geeks
