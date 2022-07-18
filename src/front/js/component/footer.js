@@ -1,12 +1,15 @@
 import React, { Component } from "react";
 
 export const Footer = () => (
-  <div className="position-fixed">
-    <footer className="footer bg-dark text-white fixed-bottom mt-auto py-3 text-center">
+  
+    <footer className="footer bg-warning text-dark mt-auto py-3 text-center">
       <p>
-        Made with <i className="fa fa-heart text-danger" /> by{" "}
-        <a href="http://www.4geeksacademy.com">4Geeks Academy</a>
+      Tried by <i className="fa fa-heart text-danger" /> 
+         TEAM-3Geeks
+        <i className="fa fa-heart text-danger" /> 
+        
       </p>
+      
     </footer>
-  </div>
+  
 );
