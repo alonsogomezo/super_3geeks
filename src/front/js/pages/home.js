@@ -21,9 +21,9 @@ export const Home = () => {
     <div className="text-center  mt-0">
       {" "}
       <div className="row">
-        <div className="alert alert-info bg-dark">
+        <div className="alert alert-info bg-warning">
           <div className="jumbotron mt-3">
-            <nav className="navbar navbar-expand-sm bg-dark justify-content-center">
+            <nav className="navbar navbar-expand-sm bg-warning justify-content-center">
               <ul className="navbar-nav">
                 <li class="nav-item">
                   <a className="nav-link" href="#">
@@ -61,10 +61,13 @@ export const Home = () => {
                 className=""
                 width={430}
               />
+
             </div>
             <div>
               <input type={"file"} />
             </div>
+
+            
           </div>
         </div>
 
@@ -84,6 +87,15 @@ export const Home = () => {
             </div>
           </div>
 
+          <p className="">Precio Original</p>
+          <div className="input-group mb-3">
+            <input type="text" className="form-control" placeholder="$.." />
+            <div class="input-group-append">
+              <button className="btn btn-success" type="button">
+                OK
+              </button>
+            </div>
+          </div>
           <p className="">Precio</p>
           <div className="input-group mb-3">
             <input type="text" className="form-control" placeholder="$.." />
@@ -105,10 +117,25 @@ export const Home = () => {
                 OK
               </button>
             </div>
+            
           </div>
-          <p className=""></p>
+          <p className="">SKU</p>
+          <div className="input-group mb-3">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="descripcion.."
+            />
+            <div class="input-group-append">
+              <button className="btn btn-success" type="button">
+                OK
+              </button>
+            </div>
+            
+          </div>
         </div>
       </div>
+      <button type="button" class="btn btn-primary btn-lg btn-block">Subir Producto</button>
       <div className="jumbotron mt-3">
         <h1 className="text-warning">
           Super 3 Geeks
