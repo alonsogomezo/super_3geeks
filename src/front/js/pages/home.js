@@ -50,9 +50,9 @@ export const Home = () => {
           </div>
         </div>
         <div className="col-6">
-          <h3>{store.producto?.producto} </h3>
+          <h3>Nombre{store.producto?.producto} </h3>
 		  <h6>{store.producto?.descripcion} </h6>
-          <p>{store.producto?.descripcion} </p>
+          <p>Descripcion{store.producto?.descripcion} </p>
 
           <div className="col-6">
             <div>
