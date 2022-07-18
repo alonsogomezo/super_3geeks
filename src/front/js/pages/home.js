@@ -23,13 +23,6 @@ export const Home = () => {
       <div className="row">
         <div className="alert alert-info bg-dark">
           <div className="jumbotron mt-3">
-            <h1 className="text-warning">
-              Super 3 Geeks
-              <img src={Logo} width={60} />
-            </h1>
-            <p className="text-danger">
-              Resize this responsive page to see the effect!
-            </p>
             <nav className="navbar navbar-expand-sm bg-dark justify-content-center">
               <ul className="navbar-nav">
                 <li class="nav-item">
@@ -51,14 +44,15 @@ export const Home = () => {
                   <a className="nav-link" href="#">
                     Categoria 4
                   </a>
-                  </li>
+                </li>
               </ul>
             </nav>
           </div>
         </div>
         <div className="col-6">
-          <h3>{store.user?.nombre} </h3>
-          <p>Nombre de producto..</p>
+          <h3>{store.producto?.producto} </h3>
+		  <h6>{store.producto?.descripcion} </h6>
+          <p>{store.producto?.descripcion} </p>
 
           <div className="col-6">
             <div>
@@ -87,9 +81,6 @@ export const Home = () => {
               <button className="btn btn-success" type="button">
                 OK
               </button>
-              <button className="btn btn-danger" type="button">
-                Cancel
-              </button>
             </div>
           </div>
 
@@ -99,9 +90,6 @@ export const Home = () => {
             <div class="input-group-append">
               <button className="btn btn-success" type="button">
                 OK
-              </button>
-              <button className="btn btn-danger" type="button">
-                Cancel
               </button>
             </div>
           </div>
@@ -115,9 +103,6 @@ export const Home = () => {
             <div class="input-group-append">
               <button className="btn btn-success" type="button">
                 OK
-              </button>
-              <button className="btn btn-danger" type="button">
-                Cancel
               </button>
             </div>
           </div>
