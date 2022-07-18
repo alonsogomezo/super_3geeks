@@ -8,7 +8,7 @@ export const Home = () => {
   const { store, actions } = useContext(Context);
   useEffect(() => {
     actions
-      .muestraPerfil()
+      .muestraProducto()
       .then((resp) => {
         console.log(resp);
       })

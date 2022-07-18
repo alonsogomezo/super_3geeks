@@ -50,6 +50,24 @@ const getState = ({ getStore, getActions, setStore }) => {
           })
           .catch((error) => console.log(error));
       },
+      //a revision...
+      muestraProducto: async () => {
+        try {
+          const resp = await fetch(process.env.BACKEND_URL + "/producto", {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + localStorage.getItem("accessToken"),
+            },
+          });
+          const data = await resp.json();
+          setStore({ producto: data });
+          return data;
+        } catch (error) {
+          console.log(error);
+        }
+      },
+
       muestraPerfil: async () => {
         try {
           const resp = await fetch(process.env.BACKEND_URL + "/usuario", {
