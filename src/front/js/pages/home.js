@@ -41,8 +41,9 @@ export const Home = () => {
           
 
           <div className="card text-center bg-light" width={200}>
-          <div className="card-header text-center bg-info">
-            <p>CARGAR IMAGEN</p>
+          <div className="card-header text-center bg-dark text-white">
+            <p>VISTA de PRODUCTO</p>
+            
             
             
 
@@ -60,7 +61,7 @@ export const Home = () => {
               </div>
                <h5 className="card-title">Special title treatment</h5>
                 <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <button type="submit" className="btn btn-primary btn-lg btn-block">
+                <button type="submit" className="btn btn-danger btn-lg btn-block">
           Subir Producto
         </button>
             </div>
@@ -120,7 +121,7 @@ export const Home = () => {
               value={categoria}
               onChange={(e) => setCategoria(e.target.value)}
               type="text"
-              className="form-control text-center"
+              className="form-control text-center bg-dark text-white"
               id="inputName"
               placeholder="Categoria"
             />
