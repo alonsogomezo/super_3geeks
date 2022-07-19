@@ -19,10 +19,10 @@ export const Home = () => {
     const body = {
       producto: producto,
       descripcion: descripcion,
-      categoria: categoria,
-      precio: precio,
+      categoria: Number(categoria),
+      precio: parseFloat(precio),
     };
-    actions.signup(body);
+    actions.creaProducto(body);
   };
 
   useEffect(() => {
@@ -30,59 +30,58 @@ export const Home = () => {
   }, [store.productoAnadido]);
 
   return (
-    <div className="text-center  mt-0">
-      {" "}
-      <div className="row">
-        <div className="alert alert-info bg-warning">
-          <div className="jumbotron mt-3">
-            <nav className="navbar navbar-expand-sm bg-warning justify-content-center">
-              <ul className="navbar-nav">
-                <li class="nav-item">
-                  <a className="nav-link" href="#">
-                    Categoria 1
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="#">
-                    Categoria 2
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="#">
-                    Categoria 3
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="#">
-                    Categoria 4
-                  </a>
-                </li>
-              </ul>
-            </nav>
+    <div className="text-center mt-0">
+      <form onSubmit={onSubmit}>
+        <div className="row">
+          <div className="alert alert-info bg-warning">
+            <div className="jumbotron mt-3">
+              <nav className="navbar navbar-expand-sm bg-warning justify-content-center">
+                <ul className="navbar-nav">
+                  <li class="nav-item">
+                    <a className="nav-link" href="#">
+                      Categoria 1
+                    </a>
+                  </li>
+                  <li className="nav-item">
+                    <a className="nav-link" href="#">
+                      Categoria 2
+                    </a>
+                  </li>
+                  <li className="nav-item">
+                    <a className="nav-link" href="#">
+                      Categoria 3
+                    </a>
+                  </li>
+                  <li className="nav-item">
+                    <a className="nav-link" href="#">
+                      Categoria 4
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
           </div>
-        </div>
-        <div className="col-6">
-          <h3>Nombre{store.producto?.producto} </h3>
-          <h6>{store.producto?.descripcion} </h6>
-          <p>Descripcion{store.producto?.descripcion} </p>
-
           <div className="col-6">
-            <div>
-              <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgaGIWPc_K5FvUFlLIhWWbbe5UsBhnQrvuUg&usqp=CAU"
-                className=""
-                width={430}
-              />
-            </div>
-            <div>
-              <input type={"file"} />
+            <h3>Nombre{store.producto?.producto} </h3>
+            <h6>{store.producto?.descripcion} </h6>
+            <p>Descripcion{store.producto?.descripcion} </p>
+
+            <div className="col-6">
+              <div>
+                <img
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgaGIWPc_K5FvUFlLIhWWbbe5UsBhnQrvuUg&usqp=CAU"
+                  className=""
+                  width={430}
+                />
+              </div>
+              <div>
+                <input type={"file"} />
+              </div>
             </div>
           </div>
-        </div>
-
-        <div className="col-6 mt-5">
-          <p className="">Nombre de Producto</p>
-          <input
+          <div className="col-6 mt-5">
+            <p className="">Nombre de Producto</p>
+            <input
               required
               value={producto}
               onChange={(e) => setProducto(e.target.value)}
@@ -92,10 +91,8 @@ export const Home = () => {
               placeholder="Nombre"
             />
 
-          
-
-          <p className="">Precio</p>
-          <input
+            <p className="">Precio</p>
+            <input
               required
               value={precio}
               onChange={(e) => setPrecio(e.target.value)}
@@ -104,10 +101,9 @@ export const Home = () => {
               id="inputName"
               placeholder="Precio"
             />
-          
-         
-          <p className="">Descripcion</p>
-          <input
+
+            <p className="">Descripcion</p>
+            <input
               required
               value={descripcion}
               onChange={(e) => setDescripcion(e.target.value)}
@@ -116,9 +112,19 @@ export const Home = () => {
               id="inputName"
               placeholder="Descripcion"
             />
-          
-          <p className="">Categoria</p>
-          <input
+
+            <p className="">Categoria</p>
+            <select
+              onChange={(e) => setCategoria(e.target.value)}
+              className="form-select"
+              aria-label="Default select example"
+            >
+              <option selected>Elige la categoria</option>
+              <option value="1">Bebidas</option>
+              <option value="2">Frutas y verduras</option>
+              <option value="3">Alimentos preparados</option>
+            </select>
+            <input
               required
               value={categoria}
               onChange={(e) => setCategoria(e.target.value)}
@@ -127,11 +133,12 @@ export const Home = () => {
               id="inputName"
               placeholder="Categoria"
             />
+          </div>
         </div>
-      </div>
-      <button type="submit" class="btn btn-primary btn-lg btn-block">
-        Subir Producto
-      </button>
+        <button type="submit" className="btn btn-primary btn-lg btn-block">
+          Subir Producto
+        </button>
+      </form>
       <div className="jumbotron mt-3">
         <h1 className="text-warning">
           Super 3 Geeks
