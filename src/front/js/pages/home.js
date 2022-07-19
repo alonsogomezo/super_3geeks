@@ -92,60 +92,41 @@ export const Home = () => {
               placeholder="Nombre"
             />
 
-          <div className="input-group mb-3">
-           
-            <div class="input-group-append">
-              <button className="btn btn-success" type="button">
-                OK
-              </button>
-            </div>
-          </div>
+          
 
-          <p className="">Precio Original</p>
+          <p className="">Precio</p>
           <input
               required
-              value={nombre}
-              onChange={(e) => setNombre(e.target.value)}
+              value={precio}
+              onChange={(e) => setPrecio(e.target.value)}
               type="text"
               className="form-control"
               id="inputName"
-              placeholder="Nombre"
+              placeholder="Precio"
             />
-          <p className="">Precio</p>
-          <div className="input-group mb-3">
-            <input type="text" className="form-control" placeholder="$.." />
-            <div class="input-group-append">
-              <button className="btn btn-success" type="button">
-                OK
-              </button>
-            </div>
-          </div>
+          
+         
           <p className="">Descripcion</p>
-          <div className="input-group mb-3">
-            <input
+          <input
+              required
+              value={descripcion}
+              onChange={(e) => setDescripcion(e.target.value)}
               type="text"
               className="form-control"
-              placeholder="descripcion.."
+              id="inputName"
+              placeholder="Descripcion"
             />
-            <div class="input-group-append">
-              <button className="btn btn-success" type="button">
-                OK
-              </button>
-            </div>
-          </div>
+          
           <p className="">Categoria</p>
-          <div className="input-group mb-3">
-            <input
+          <input
+              required
+              value={categoria}
+              onChange={(e) => setCategoria(e.target.value)}
               type="text"
               className="form-control"
-              placeholder="descripcion.."
+              id="inputName"
+              placeholder="Categoria"
             />
-            <div class="input-group-append">
-              <button className="btn btn-success" type="button">
-                OK
-              </button>
-            </div>
-          </div>
         </div>
       </div>
       <button type="submit" class="btn btn-primary btn-lg btn-block">
