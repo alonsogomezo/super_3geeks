@@ -33,41 +33,22 @@ export const Home = () => {
     <div className="text-center mt-0">
       <form onSubmit={onSubmit}>
         <div className="row">
-          <div className="alert alert-info bg-warning">
-            <div className="jumbotron mt-3">
-              <nav className="navbar navbar-expand-sm bg-warning justify-content-center">
-                <ul className="navbar-nav">
-                  <li class="nav-item">
-                    <a className="nav-link" href="#">
-                      Categoria 1
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-link" href="#">
-                      Categoria 2
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-link" href="#">
-                      Categoria 3
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-link" href="#">
-                      Categoria 4
-                    </a>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-          </div>
-          <div className="col-6">
-            <h3>Nombre{store.producto?.producto} </h3>
-            <h6>{store.producto?.descripcion} </h6>
-            <p>Descripcion{store.producto?.descripcion} </p>
+          
 
-            <div className="col-6">
-              <div>
+
+
+          <div className="col-6">
+          
+
+          <div className="card text-center bg-light" width={200}>
+          <div className="card-header text-center bg-info">
+            <p>CARGAR IMAGEN</p>
+            
+            
+
+          </div>
+            <div className="card-body">
+            <div>
                 <img
                   src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgaGIWPc_K5FvUFlLIhWWbbe5UsBhnQrvuUg&usqp=CAU"
                   className=""
@@ -77,10 +58,31 @@ export const Home = () => {
               <div>
                 <input type={"file"} />
               </div>
+               <h5 className="card-title">Special title treatment</h5>
+                <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <button type="submit" className="btn btn-primary btn-lg btn-block">
+          Subir Producto
+        </button>
             </div>
           </div>
+
+            
+          </div>
           <div className="col-6 mt-5">
-            <p className="">Nombre de Producto</p>
+           <div>
+             <select
+                 onChange={(e) => setCategoria(e.target.value)}
+                 className="form-select text-center bg-secondary"
+                 aria-label="Default select example"
+                >
+                <option selected>Elige la categoria</option>
+                <option value="1">Bebidas</option>
+                <option value="2">Frutas y verduras</option>
+                <option value="3">Alimentos preparados</option>
+             </select>
+            </div>
+
+           
             <input
               required
               value={producto}
@@ -88,10 +90,10 @@ export const Home = () => {
               type="text"
               className="form-control"
               id="inputName"
-              placeholder="Nombre"
+              placeholder="Nombre del Producto"
             />
 
-            <p className="">Precio</p>
+           
             <input
               required
               value={precio}
@@ -102,7 +104,6 @@ export const Home = () => {
               placeholder="Precio"
             />
 
-            <p className="">Descripcion</p>
             <input
               required
               value={descripcion}
@@ -113,34 +114,21 @@ export const Home = () => {
               placeholder="Descripcion"
             />
 
-            <p className="">Categoria</p>
-            <select
-              onChange={(e) => setCategoria(e.target.value)}
-              className="form-select"
-              aria-label="Default select example"
-            >
-              <option selected>Elige la categoria</option>
-              <option value="1">Bebidas</option>
-              <option value="2">Frutas y verduras</option>
-              <option value="3">Alimentos preparados</option>
-            </select>
+      
             <input
               required
               value={categoria}
               onChange={(e) => setCategoria(e.target.value)}
               type="text"
-              className="form-control"
+              className="form-control text-center"
               id="inputName"
               placeholder="Categoria"
             />
-          </div>
-        </div>
-        <button type="submit" className="btn btn-primary btn-lg btn-block">
-          Subir Producto
-        </button>
-      </form>
-      <div className="jumbotron mt-3">
-        <h1 className="text-warning">
+
+<h5 className="card-title">Special title treatment</h5>
+                <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <div className="jumbotron mt-3">
+        <h1 className="text-dark">
           Super 3 Geeks
           <img src={Logo} width={60} />
         </h1>
@@ -148,12 +136,15 @@ export const Home = () => {
           Resize this responsive page to see the effect!
         </p>
       </div>
-      <p>
-        This boilerplate comes with lots of documentation:{" "}
-        <a href="https://github.com/4GeeksAcademy/react-flask-hello/tree/95e0540bd1422249c3004f149825285118594325/docs">
-          Read documentation
-        </a>
-      </p>
+          </div>
+          
+        </div>
+
+        
+      
+      </form>
+     
+     
     </div>
   );
 };
