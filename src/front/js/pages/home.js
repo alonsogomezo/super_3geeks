@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, Component } from "react";
 import { Context } from "../store/appContext";
 import Logo from "../../img/logo-3geeks.png";
 import "../../styles/home.css";
@@ -8,8 +8,6 @@ export const Home = () => {
 
   return (
     <div className="text-center mt-0">
- 
-
       <nav className="navbar navbar-warning bg-danger ">
         <form className="form-inline">
           <div className="input-group">
@@ -25,10 +23,14 @@ export const Home = () => {
               aria-label="search"
             />
           </div>
-
         </form>
 
-        <button type="button" className="btn btn-secondary rounded-circle ">Secondary</button>
+        <button
+          type="button"
+          className="btn btn-secondary rounded-circle fa-thin fa-cart-shopping"
+        >
+          carrito button
+        </button>
       </nav>
 
       <div
@@ -79,41 +81,136 @@ export const Home = () => {
       <div className="container">
         <div className="row ">
           <div className="col-sm-4 ">
-            <h3>nombre </h3>
-            <p>Descripcion del producto</p>
             <img
               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcp1DCq1CA4svPvY40YJmOn_POXn3Za3ut2g&usqp=CAU"
               className=""
             />
+            <h3>nombre</h3>
+            <p>descripcion del producto</p>
 
             <a href="#" class="btn btn-danger rounded-circle ">
-              añadir al carrito
+              agregar
             </a>
+            <div className="alert alert-primary" role="alert">
+        nnnnn
+      </div>
+
+      <hr />
           </div>
           <div className="col-sm-4" width={200} height={300}>
-            <h3>nombre</h3>
-            <p>Descripcion delmproducto</p>
             <img
               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgaGIWPc_K5FvUFlLIhWWbbe5UsBhnQrvuUg&usqp=CAU"
               className=""
             />
-            <a href="#" class="btn btn-danger rounded-circle">
-              añadir al carrito
-            </a>
-          </div>
-          <div className="col-sm-4">
             <h3>nombre</h3>
             <p>descripcion del producto</p>
+            <a href="#" class="btn btn-danger rounded-circle">
+              agregar
+            </a>
+            <div className="alert alert-primary" role="alert">
+        nnnnn
+      </div>
+
+      <hr />
+          </div>
+          <div className="col-sm-4">
             <img
               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBgxV2SX3o1WwNoeaaUcuIL6CVSLP9-JHCCw&usqp=CAU"
               className=""
             />
+            <h3>nombre</h3>
+            <p>descripcion del producto</p>
             <a href="#" className="btn btn-danger rounded-circle">
-              añadir al carrito
+              agregar
             </a>
+            <div className="alert alert-danger" role="alert">
+        nnnnn
+      </div>
+
+      <hr />
           </div>
         </div>
       </div>
+
+   
+       
+      <div className="container">
+        <div className="row ">
+          <div className="col-sm-4 ">
+          
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcp1DCq1CA4svPvY40YJmOn_POXn3Za3ut2g&usqp=CAU"
+              className=""
+            />
+             <h3>nombre</h3>
+            <p>descripcion del producto</p>
+
+            <a href="#" class="btn btn-danger rounded-circle ">
+              agregar
+            </a>
+            <div className="alert alert-primary" role="alert">
+        nnnnn
+      </div>
+
+      <hr />
+          </div>
+          <div className="col-sm-4" width={200} height={300}>
+          
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgaGIWPc_K5FvUFlLIhWWbbe5UsBhnQrvuUg&usqp=CAU"
+              className=""
+            />
+             <h3>nombre</h3>
+            <p>descripcion del producto</p>
+            <a href="#" class="btn btn-danger rounded-circle">
+              agregar
+            </a>
+            <div className="alert alert-primary" role="alert">
+        nnnnn
+      </div>
+
+      <hr />
+          </div>
+          <div className="col-sm-4">
+           
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBgxV2SX3o1WwNoeaaUcuIL6CVSLP9-JHCCw&usqp=CAU"
+              className=""
+            />
+             <h3>nombre</h3>
+            <p>descripcion del producto</p>
+            <a href="#" className="btn btn-danger rounded-circle">
+              agregar
+            </a>
+              <div className="alert alert-primary" role="alert">
+        nnnnn
+      </div>
+
+      <hr />
+          </div>
+        </div>
+      </div>
+
+
+      <div className="alert alert-danger" role="alert">
+        abajo
+      </div>
+
+      <hr />
+
+      <div className="jumbotron jumbotron-fluid">
+        <div className="container">
+          <h1 className="display-4">Fluid jumbotron</h1>
+          <p className="lead">
+            This is a modified jumbotron that occupies the entire horizontal
+            space of its parent.
+          </p>
+        </div>
+      </div>
+
+      <nav className="navbar navbar-warning bg-dark "></nav>
+
+      <nav className="navbar navbar-warning bg-danger "></nav>
     </div>
   );
 };
