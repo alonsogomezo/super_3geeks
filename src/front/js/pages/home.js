@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { Context } from "../store/appContext";
 import Logo from "../../img/logo-3geeks.png";
-import rigoImageUrl from "../../img/rigo-baby.jpg";
 import "../../styles/home.css";
 
 export const Home = () => {
@@ -9,7 +8,9 @@ export const Home = () => {
 
   return (
     <div className="text-center mt-0">
-      <nav className="navbar navbar-warning bg-danger text-center">
+ 
+
+      <nav className="navbar navbar-warning bg-danger ">
         <form className="form-inline">
           <div className="input-group">
             <div className="input-group-prepend">
@@ -24,7 +25,10 @@ export const Home = () => {
               aria-label="search"
             />
           </div>
+
         </form>
+
+        <button type="button" className="btn btn-secondary rounded-circle ">Secondary</button>
       </nav>
 
       <div
@@ -73,26 +77,16 @@ export const Home = () => {
       </div>
 
       <div className="container">
-        <div className="row">
-          <div className="col-sm-4">
-            <h3>nombre</h3>
+        <div className="row ">
+          <div className="col-sm-4 ">
+            <h3>nombre </h3>
             <p>Descripcion del producto</p>
             <img
               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcp1DCq1CA4svPvY40YJmOn_POXn3Za3ut2g&usqp=CAU"
               className=""
             />
 
-            <div className="btn-group btn-group-lg" role="group" aria-label="...">
-              -
-            </div>
-            <div className="btn-group" role="group" aria-label="...">
-              0
-            </div>
-            <div className="btn-group btn-group-sm" role="group" aria-label="...">
-              +
-            </div>
-
-            <a href="#" class="btn btn-danger rounded-circle">
+            <a href="#" class="btn btn-danger rounded-circle ">
               añadir al carrito
             </a>
           </div>
