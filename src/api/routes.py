@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Perfil, Producto, Categorias, OrdenItems, OrderStatus, Carrito, Orden, Pago
+from api.models import db, User, Perfil, Producto, Categorias, OrdenItems, OrderStatus, Carrito, Orden, Pago, TarjetaDeCredito
 from api.utils import generate_sitemap, APIException
 
 from flask_jwt_extended import create_access_token
@@ -347,3 +347,62 @@ def handle_viewOferta(categoria_id):
         
     
     return jsonify(lista_ofertas), 200
+
+#api para subir la tarjeta de credito
+@api.route("/tarjeta", methods=["POST"])
+@jwt_required()
+def handle_addTarjeta():
+    
+    email_user = get_jwt_identity()
+    usuario = User.query.filter_by(email=email_user).first()
+    if not usuario:
+        return jsonify({"msg": "Usuario no encontrado"}), 404
+
+    id_usuario= request.json.get("id_usuario", None)
+    nombre = request.json.get("nombre", None)
+    apellido = request.json.get("apellido", None)
+    fecha_v = request.json.get("fecha_v", None)
+    cvv = request.json.get("cvv", None)
+    tipo = request.json.get("tipo", None)
+    numero = request.json.get("numero", None)
+
+    tarjeta_new = TarjetaDeCredito(id_usuario=id_usuario, nombre=nombre, apellido=apellido, 
+    fecha_v=fecha_v, cvv=cvv, tipo=tipo, numero=numero)
+    db.session.add(tarjeta_new)
+    db.session.commit()
+
+    response_body = {
+        "msg": "Tarjeta agregada"
+    }
+
+    return jsonify(response_body), 200
+
+#api para ver la tarjeta de credito
+@api.route("/tarjeta", methods=["GET"])
+@jwt_required()
+def handle_viewTarjeta():
+    
+    email_user = get_jwt_identity()
+    usuario = User.query.filter_by(email=email_user).first()
+    if not usuario:
+        return jsonify({"msg": "Usuario no encontrado"}), 404
+
+    id_usuario= request.json.get("id_usuario", None)
+
+    tarjeta_query = TarjetaDeCredito.query.filter_by( id_usuario = id_usuario)
+    lista_tarjetas = []
+
+    for tarjeta in tarjeta_query:
+
+        lista_tarjetas.append({
+                "bombre": tarjeta.nombre,
+                "apellido": tarjeta.apellido,
+                "numero": tarjeta.numero,
+                "fecha_v": tarjeta.fecha_v,
+                "cvv": tarjeta.cvv,
+                "tipo": tarjeta.tipo,
+                "id": tarjeta.id
+            })
+        
+    
+    return jsonify(lista_tarjetas), 200
