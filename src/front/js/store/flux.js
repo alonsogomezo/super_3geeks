@@ -16,6 +16,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       ],
       user: [],
       userRegister: false,
+      itemsCarrito: [],
     },
     actions: {
       login: (body) => {

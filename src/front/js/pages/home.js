@@ -2,6 +2,7 @@ import React, { useContext, Component } from "react";
 import { Context } from "../store/appContext";
 import Logo from "../../img/logo-3geeks.png";
 import "../../styles/home.css";
+import CardProducto from "../component/cardProducto";
 
 export const Home = () => {
   const { store, actions } = useContext(Context);
@@ -80,117 +81,11 @@ export const Home = () => {
 
       <div className="container">
         <div className="row ">
-          <div className="col-sm-4 ">
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcp1DCq1CA4svPvY40YJmOn_POXn3Za3ut2g&usqp=CAU"
-              className=""
-            />
-            <h3>nombre</h3>
-            <p>descripcion del producto</p>
-
-            <a href="#" class="btn btn-danger rounded-circle ">
-              agregar
-            </a>
-            <div className="alert alert-primary" role="alert">
-        nnnnn
-      </div>
-
-      <hr />
-          </div>
-          <div className="col-sm-4" width={200} height={300}>
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgaGIWPc_K5FvUFlLIhWWbbe5UsBhnQrvuUg&usqp=CAU"
-              className=""
-            />
-            <h3>nombre</h3>
-            <p>descripcion del producto</p>
-            <a href="#" class="btn btn-danger rounded-circle">
-              agregar
-            </a>
-            <div className="alert alert-primary" role="alert">
-        nnnnn
-      </div>
-
-      <hr />
-          </div>
-          <div className="col-sm-4">
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBgxV2SX3o1WwNoeaaUcuIL6CVSLP9-JHCCw&usqp=CAU"
-              className=""
-            />
-            <h3>nombre</h3>
-            <p>descripcion del producto</p>
-            <a href="#" className="btn btn-danger rounded-circle">
-              agregar
-            </a>
-            <div className="alert alert-danger" role="alert">
-        nnnnn
-      </div>
-
-      <hr />
-          </div>
+          <CardProducto />
+          <CardProducto />
+          <CardProducto />
         </div>
       </div>
-
-   
-       
-      <div className="container">
-        <div className="row ">
-          <div className="col-sm-4 ">
-          
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcp1DCq1CA4svPvY40YJmOn_POXn3Za3ut2g&usqp=CAU"
-              className=""
-            />
-             <h3>nombre</h3>
-            <p>descripcion del producto</p>
-
-            <a href="#" class="btn btn-danger rounded-circle ">
-              agregar
-            </a>
-            <div className="alert alert-primary" role="alert">
-        nnnnn
-      </div>
-
-      <hr />
-          </div>
-          <div className="col-sm-4" width={200} height={300}>
-          
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgaGIWPc_K5FvUFlLIhWWbbe5UsBhnQrvuUg&usqp=CAU"
-              className=""
-            />
-             <h3>nombre</h3>
-            <p>descripcion del producto</p>
-            <a href="#" class="btn btn-danger rounded-circle">
-              agregar
-            </a>
-            <div className="alert alert-primary" role="alert">
-        nnnnn
-      </div>
-
-      <hr />
-          </div>
-          <div className="col-sm-4">
-           
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBgxV2SX3o1WwNoeaaUcuIL6CVSLP9-JHCCw&usqp=CAU"
-              className=""
-            />
-             <h3>nombre</h3>
-            <p>descripcion del producto</p>
-            <a href="#" className="btn btn-danger rounded-circle">
-              agregar
-            </a>
-              <div className="alert alert-primary" role="alert">
-        nnnnn
-      </div>
-
-      <hr />
-          </div>
-        </div>
-      </div>
-
 
       <div className="alert alert-danger" role="alert">
         abajo
