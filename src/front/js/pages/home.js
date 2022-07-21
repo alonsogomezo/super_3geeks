@@ -1,4 +1,4 @@
-import React, { useContext, Component } from "react";
+import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import Logo from "../../img/logo-3geeks.png";
 import "../../styles/home.css";
@@ -6,6 +6,10 @@ import CardProducto from "../component/cardProducto";
 
 export const Home = () => {
   const { store, actions } = useContext(Context);
+    console.log(store.productos)
+  useEffect(()=>{
+    actions.muestaProductos()
+  },[])
 
   return (
     <div className="text-center mt-0">
