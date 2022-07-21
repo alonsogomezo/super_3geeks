@@ -175,17 +175,9 @@ def handle_addProducto():
     return jsonify(response_body), 200
 
 #api para ver los productos
-@api.route("/producto", methods=["GET"])
-@jwt_required()
+@api.route("/productos", methods=["GET"])
 def handle_viewProducto():
     
-    email_user = get_jwt_identity()
-    usuario = User.query.filter_by(email=email_user).first()
-    if not usuario:
-        return jsonify({"msg": "Usuario no encontrado"}), 404
-
-    
-
     producto_query = Producto.query.all()
     lista_producto = []
     for producto in producto_query:
