@@ -1,10 +1,14 @@
+
 import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext";
 import Logo from "../../img/logo-3geeks.png";
 import { useNavigate } from "react-router-dom";
+
 import "../../styles/home.css";
+import CardProducto from "../component/cardProducto";
 
 export const Home = () => {
+
   const [producto, setProducto] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [categoria, setCategoria] = useState("");
@@ -138,6 +142,7 @@ export const Home = () => {
           </div>
         </div>
       </form>
+
     </div>
   );
 };
