@@ -15,7 +15,9 @@ export const Navbar = () => {
         </Link>
         <div className="ml-auto">
           {store?.user?.accessToken ? (
-            "Bienvenido"
+            <Link to="/perfil">
+              <button className="btn btn-danger">Perfil</button>
+            </Link>
           ) : (
             <Link to="/login">
               <button className="btn btn-danger">Login</button>
