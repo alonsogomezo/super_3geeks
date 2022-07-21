@@ -17,6 +17,8 @@ const getState = ({ getStore, getActions, setStore }) => {
       user: [],
       userRegister: false,
       itemsCarrito: [],
+      productoAnadido:false,
+ 
     },
     actions: {
       login: (body) => {
@@ -51,6 +53,42 @@ const getState = ({ getStore, getActions, setStore }) => {
           })
           .catch((error) => console.log(error));
       },
+
+      creaProducto: (body) => {
+        fetch(process.env.BACKEND_URL + "/producto", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("accessToken"),
+          },
+          body: JSON.stringify(body), //Convertimos la data a JSON
+        })
+          .then((resp) => resp.json())
+          .then((resp) => {
+            setStore({
+              productoAnadido: resp?.msg == "producto anadido correctamente",
+            });
+          })
+          .catch((error) => console.log(error));
+      },
+      //a revision...
+      muestraProducto: async () => {
+        try {
+          const resp = await fetch(process.env.BACKEND_URL + "/producto", {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + localStorage.getItem("accessToken"),
+            },
+          });
+          const data = await resp.json();
+          setStore({ producto: data });
+          return data;
+        } catch (error) {
+          console.log(error);
+        }
+      },
+
       muestraPerfil: async () => {
         try {
           const resp = await fetch(process.env.BACKEND_URL + "/usuario", {
