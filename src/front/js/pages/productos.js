@@ -24,7 +24,7 @@ export const Productos = () => {
       categoria: Number(categoria),
       precio: parseFloat(precio),
     };
-    actions.prouctoInfo(body);
+    actions.prouctoInfo(id);
   };
 
   useEffect(() => {
