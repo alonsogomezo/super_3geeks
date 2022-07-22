@@ -11,9 +11,7 @@ export const Productos = () => {
   const [descripcion, setDescripcion] = useState("");
   const [categoria, setCategoria] = useState("");
   const [precio, setPrecio] = useState("");
-
   const { store, actions } = useContext(Context);
-
   const navigate = useNavigate();
 
   const onSubmit = (e) => {
@@ -87,7 +85,7 @@ export const Productos = () => {
           <div className="d-flex">
             <p className="m-3">Nombre: store.producto.producto </p>
             <p className="m-3">marca: store.producto.marca</p>
-            <p className="m-3">Promo: store.producto.precio</p>
+            <p className="m-3 text-danger">Promo: store.producto.precio</p>
             <p className="m-3">$: store.producto.precio_original</p>
             <p className="m-3">redes</p>
           </div>
