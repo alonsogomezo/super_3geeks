@@ -31,6 +31,8 @@ class Producto(db.Model):
     precio_original = db.Column(db.Numeric(precision=10, scale=2))
     precio = db.Column(db.Numeric(precision=10, scale=2))
     descripcion = db.Column(db.String(700))
+    marca = db.column(db.string(80))
+
 
 class Categorias(db.Model):
     __tablename__="t_categorias"

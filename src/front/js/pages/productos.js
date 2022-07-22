@@ -35,38 +35,36 @@ export const Productos = () => {
     <div className="text-center mt-0">
       <form onSubmit={onSubmit}>
         <div className="row">
-        <nav className="navbar navbar-warning bg-danger ">
-        <form className="form-inline">
-          <div className="input-group">
-            <div className="input-group-prepend">
-              <button className="input-group-text" type="submit">
-                @
-              </button>
-            </div>
-            <input
-              type="search"
-              className="form-control"
-              placeholder="Que estas  buscando?"
-              aria-label="search"
-            />
-          </div>
-        </form>
+          <nav className="navbar navbar-warning bg-danger ">
+            <form className="form-inline">
+              <div className="input-group">
+                <div className="input-group-prepend">
+                  <button className="input-group-text" type="submit">
+                    @
+                  </button>
+                </div>
+                <input
+                  type="search"
+                  className="form-control"
+                  placeholder="Que estas  buscando?"
+                  aria-label="search"
+                />
+              </div>
+            </form>
 
-        <button
-          type="button"
-          className="btn btn-secondary rounded-circle fa-thin fa-cart-shopping"
-        >
-          carrito button
-        </button>
-      </nav>
-          <hr/>
-          <div className="col-6">                      
-                  <img
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgaGIWPc_K5FvUFlLIhWWbbe5UsBhnQrvuUg&usqp=CAU"
-                    className="container-fluid"
-                   
-                  />
-           
+            <button
+              type="button"
+              className="btn btn-secondary rounded-circle fa-thin fa-cart-shopping"
+            >
+              carrito button
+            </button>
+          </nav>
+          <hr />
+          <div className="col-6">
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgaGIWPc_K5FvUFlLIhWWbbe5UsBhnQrvuUg&usqp=CAU"
+              className="container-fluid"
+            />
           </div>
           <div className="col-6 mt-5">
             <div className="jumbotron mt-3">
@@ -77,20 +75,22 @@ export const Productos = () => {
             </div>
             <h5 className="card-title">Datos del Producto</h5>
             <p className="card-text">
-              Haga click sobre el boton "Elige Categoria" Seleccione la opcion
-              que corresponda y luego ingrese los datos requeridos en los campos
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce leo
+              augue, tristique id nisl ut.
             </p>
-          
+
             <h5 className="card-title">Descripcion</h5>
 
-            <p className="card-text">
-            Descripcion del producto
-            </p>
-
-          
-
+            <p className="card-text">store.producto.descripcion</p>
           </div>
-          
+
+          <div className="d-flex">
+            <p className="m-3">Nombre: store.producto.producto </p>
+            <p className="m-3">marca: store.producto.marca</p>
+            <p className="m-3">Promo: store.producto.precio</p>
+            <p className="m-3">$: store.producto.precio_original</p>
+            <p className="m-3">redes</p>
+          </div>
         </div>
       </form>
     </div>
