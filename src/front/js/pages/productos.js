@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext";
 import Logo from "../../img/logo-3geeks.png";
-import { useNavigate } from "react-router-dom";
+import { useNavigate , useParams} from "react-router-dom";
 
 import "../../styles/productos.css";
 import CardProducto from "../component/cardProducto";
@@ -13,6 +13,8 @@ export const Productos = () => {
   const [precio, setPrecio] = useState("");
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
+  const params = useParams();
+
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -22,12 +24,15 @@ export const Productos = () => {
       categoria: Number(categoria),
       precio: parseFloat(precio),
     };
-    actions.creaProducto(body);
+    actions.prouctoInfo(body);
   };
 
   useEffect(() => {
-    store.productoAnadido && navigate("/");
-  }, [store.productoAnadido]);
+    actions.productoInfo(params.body);
+  }, []);
+  const index = params.id - 1;
+
+ //revisar hasta aca 
 
   return (
     <div className="text-center mt-0">
