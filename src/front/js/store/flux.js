@@ -18,6 +18,8 @@ const getState = ({ getStore, getActions, setStore }) => {
       userRegister: false,
       itemsCarrito: [],
       productoAnadido: false,
+      productos: [],
+      unProducto: [],
     },
     actions: {
       login: (body) => {
@@ -52,7 +54,6 @@ const getState = ({ getStore, getActions, setStore }) => {
           })
           .catch((error) => console.log(error));
       },
-
       creaProducto: (body) => {
         fetch(process.env.BACKEND_URL + "/producto", {
           method: "POST",
@@ -70,38 +71,18 @@ const getState = ({ getStore, getActions, setStore }) => {
           })
           .catch((error) => console.log(error));
       },
-      //a revision...
-
-      productoInfo: (body) => {
-        fetch(process.env.BACKEND_URL + "/producto", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("accessToken"),
-          },
-          body: JSON.stringify(body), //Convertimos la data a JSON
-        })
-          .then((res) => res.json())
-          .then((data) => setStore({ pjActual: data.result.properties }));
-      },
-
       muestraProducto: async () => {
         try {
-          const resp = await fetch(process.env.BACKEND_URL + "/producto", {
+          const resp = await fetch(process.env.BACKEND_URL + "/productos", {
             method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: "Bearer " + localStorage.getItem("accessToken"),
-            },
           });
           const data = await resp.json();
-          setStore({ producto: data });
+          setStore({ productos: data });
           return data;
         } catch (error) {
           console.log(error);
         }
       },
-
       muestraPerfil: async () => {
         try {
           const resp = await fetch(process.env.BACKEND_URL + "/usuario", {
@@ -118,7 +99,18 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log(error);
         }
       },
-
+      mostrarUnProducto: async () => {
+        try {
+          const resp = await fetch(process.env.BACKEND_URL + "/productos", {
+            method: "GET",
+          });
+          const data = await resp.json();
+          setStore({ productos: data });
+          return data;
+        } catch (error) {
+          console.log(error);
+        }
+      },
       getMessage: async () => {
         try {
           // fetching data from the backend
