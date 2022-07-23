@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Perfil, Producto, Categorias, OrdenItems, OrderStatus, Carrito, Orden, Pago, TarjetaDeCredito
+from api.models import db, User, Perfil, Producto, Categorias, OrdenItems, OrderStatus, Carrito, Orden, Pago, TarjetaDeCredito,Signup
 from api.utils import generate_sitemap, APIException
 
 from flask_jwt_extended import create_access_token
@@ -164,9 +164,10 @@ def handle_addProducto():
     descripcion = request.json.get("descripcion", None)
     categoria = request.json.get("categoria", None)
     precio = request.json.get("precio", None)
+    marca= request.json.get("marca", None)
 
     producto_new = Producto(producto=producto, id_usuario=usuario.id, 
-    categoria = categoria, precio_original = precio, precio=precio, descripcion = descripcion)
+    categoria=categoria, precio=precio, descripcion=descripcion, marca=marca)
     db.session.add(producto_new)
     db.session.commit()
 
@@ -187,12 +188,15 @@ def handle_viewProducto():
             "producto": producto.producto,
             "categoria": producto.categoria,
             "descripcion": producto.descripcion,
-            "precio": producto.precio_original,
+            "marca": producto.marca,
+            "precio": producto.precio,
+
             "id": producto.id
         })
         
     
     return jsonify(lista_producto), 200
+
 
 #api para crear categorias
 @api.route("/categorias", methods=["POST"])
@@ -272,73 +276,12 @@ def handle_vCategoriasxProducto():
             "producto": producto.producto,
             "categoria": producto.categoria,
             "descripcion": producto.descripcion,
+            "marca": producto.marca,
             "precio": producto.precio,
             "id": producto.id
         })
     
     return jsonify(lista_pxc), 200
-
-#api de las promociones
-@api.route("/ofertas/<int:producto_id>", methods=["POST"])
-@jwt_required()
-def handle_addOferta(producto_id):
-    
-    email_user = get_jwt_identity()
-    usuario = User.query.filter_by(email=email_user).first()
-    if not usuario:
-        return jsonify({"msg": "Usuario no encontrado"}), 404
-
-    if not usuario.is_admin:
-        return jsonify({"msg": "usuario no autorizado"}), 403
-
-    precio = request.json.get("precio", None)
-    precio_original = request.json.get("precio_original", None)
-
-    producto = Producto.query.get(producto_id)
-
-    if not producto:
-        return jsonify({"msg": "Producto no encontrado"}), 404
-
-    producto.precio = precio
-    producto.precio_original = precio_original
-
-    db.session.add(producto)
-    db.session.commit()
-
-    response_body = {
-        "msg": "oferta agregada"
-    }
-
-    return jsonify(response_body), 200
-
-#api para ver las promociones
-@api.route("/ofertas/<int:categoria_id>", methods=["GET"])
-@jwt_required()
-def handle_viewOferta(categoria_id):
-    
-    email_user = get_jwt_identity()
-    usuario = User.query.filter_by(email=email_user).first()
-    if not usuario:
-        return jsonify({"msg": "Usuario no encontrado"}), 404
-
-    
-    producto_query = Producto.query.filter_by(categoria = categoria_id)
-    lista_ofertas = []
-
-    for oferta in producto_query:
-
-        if oferta.precio != oferta.precio_original:
-            lista_ofertas.append({
-                "producto": oferta.producto,
-                "categoria": oferta.categoria,
-                "descripcion": oferta.descripcion,
-                "precio": oferta.precio,
-                "precio_original": oferta.precio_original,
-                "id": oferta.id
-            })
-        
-    
-    return jsonify(lista_ofertas), 200
 
 #api para subir la tarjeta de credito
 @api.route("/tarjeta", methods=["POST"])
@@ -398,3 +341,91 @@ def handle_viewTarjeta():
         
     
     return jsonify(lista_tarjetas), 200
+
+#api para el pago
+@api.route("/pago", methods=["GET"])
+@jwt_required()
+def handle_pago():
+    
+    email_user = get_jwt_identity()
+    usuario = User.query.filter_by(email=email_user).first()
+    if not usuario:
+        return jsonify({"msg": "Usuario no encontrado"}), 404
+
+    id_tarjeta= request.json.get("id_tarjeta", None)
+    
+    carrito_query = Carrito.query.filter_by(id_usuario = usuario.id)
+    new_orden = Orden(total=0, total_cantidad=0, id_usuario=usuario.id, id_order_status = 1)
+    db.session.add(new_orden)
+    db.session.commit()
+    db.session.refresh(new_orden)
+    total_monto = 0
+    tota_cantidad = 0
+
+    for carrito in carrito_query:
+        producto = Producto.query.get(carrito.id_producto)
+        orden_items = OrdenItems(id_producto=carrito.id_producto, id_orden=new_orden.id, precio=producto.precio,
+        cantidad = carrito.cantidad, subtotal= carrito.cantidad * producto.precio)
+        db.session.add(orden_items)
+        db.session.commit()
+        total_monto += producto.precio
+        tota_cantidad += carrito.cantidad
+    
+    new_orden.total = total_monto
+    new_orden.total_cantidad = tota_cantidad
+    db.session.add(new_orden)
+    db.session.commit()
+
+   
+    return jsonify({"msg": "Orden creada",
+    "monto_total": new_orden.total,
+    "cantidad_total": new_orden.total_cantidad}), 200
+
+@api.route("/llenardatos", methods=["GET"])
+def handle_datos():
+
+    order_status = OrderStatus.query.all()
+    if not order_status:
+    
+        new_order_status1 = OrderStatus(id = 1, estado = "Pendiente")
+        new_order_status2 = OrderStatus(id = 2, estado = "Pagado")
+        db.session.add(new_order_status1)
+        db.session.add(new_order_status2)
+        db.session.commit()
+    
+    categorias = Categorias.query.all()
+    if not categorias:
+        new_categorias1= Categorias(id = 1, categoria="Bebdias")
+        new_categorias2= Categorias(id = 2, categoria="Alimentos")
+        new_categorias3= Categorias(id = 3, categoria="Frutas y Verduras")
+        db.session.add(new_categorias1)
+        db.session.add(new_categorias2)
+        db.session.add(new_categorias3)
+        db.session.commit()
+    login_admin = User.query.all()
+    if not login_admin:
+        new_login_admin= User(id=1, email="admin@super3geeks.com", password="123", is_admin=True)
+        db.session.add(new_login_admin)
+        db.session.commit()
+
+    perfil_admin = Perfil.query.all()
+    if not perfil_admin:
+        new_perfil_admin=Perfil(id=1, id_usuario= 1, id_signup=1,
+        foto_perfil="foto", nombre="Ad", apellido="Min", direccion="420st", 
+        telefono="5555", latitud="-1", longitud="2" ) 
+        db.session.add(new_perfil_admin)
+        db.session.commit() 
+           
+    admin = Signup.query.all()
+    if not admin:
+        new_admin = Signup(id=1, email="admin@super3geeks.com", password="123",
+        foto_perfil="foto", nombre="Ad", apellido="Min", direccion="420st", 
+        telefono="5555", latitud="-1", longitud="2" )
+        db.session.add(new_admin)
+        db.session.commit()
+
+    
+
+    
+
+    return jsonify({"msg": "datos completos"})

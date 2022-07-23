@@ -28,11 +28,9 @@ class Producto(db.Model):
     foto_producto = db.Column(db.String(2000))
     categoria = db.Column(db.Integer, db.ForeignKey("t_categorias.id"))
     producto = db.Column(db.String(20))
-    precio_original = db.Column(db.Numeric(precision=10, scale=2))
     precio = db.Column(db.Numeric(precision=10, scale=2))
     descripcion = db.Column(db.String(700))
-    marca = db.column(db.string(80))
-
+    marca = db.Column(db.String(100))
 
 class Categorias(db.Model):
     __tablename__="t_categorias"
@@ -42,7 +40,8 @@ class Categorias(db.Model):
 class OrdenItems(db.Model):
     __tablename__="t_oi"
     id = db.Column(db.Integer, primary_key=True)
-    id_Producto = db.Column(db.Integer, db.ForeignKey("t_producto.id"))
+    id_producto = db.Column(db.Integer, db.ForeignKey("t_producto.id"))
+    id_orden = db.Column(db.Integer, db.ForeignKey("t_orden.id"))
     precio = db.Column(db.Numeric(precision=10, scale=2))
     cantidad = db.Column(db.Integer)
     subtotal = db.Column(db.Numeric(precision=10, scale=2))
@@ -87,12 +86,6 @@ class Signup(db.Model):
     latitud = db.Column(db.Float)
     longitud = db.Column(db.Float)
 
-class Promociones(db.Model):
-    __tablename__="t_promociones"
-    id = db.Column(db.Integer, primary_key=True)
-    id_usuario = db.Column(db.Integer, db.ForeignKey("t_user.id"))
-    id_producto = db.Column(db.Integer, db.ForeignKey("t_producto.id"))
-    promociones = db.Column(db.Float)
 
 class TarjetaDeCredito(db.Model):
     __tablename__="t_tarjeta_de_credito"
