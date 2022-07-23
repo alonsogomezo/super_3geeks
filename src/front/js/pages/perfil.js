@@ -35,14 +35,15 @@ const Perfil = () => {
             </div>
           </div>
           <div className="col-6 p-5">
-            <h2 className="">Nombre: {store.user?.nombre}</h2>
+            <p className="">Nombre: {store.user?.nombre}</p>
+            <p className="">Apellido: {store.user?.apellido}</p>
             <p className="">Email: {store.user?.email}</p>
+            <p className="">Direccion: {store.user?.direccion}</p>
             <p className="">Telefono: {store.user?.telefono}</p>
-            <p className="">Tarjeta de credito: {store.user?.nombre}</p>
           </div>
         </div>
         <div className="col-6">
-          <img src={Mapa} width="500" />
+          <img src={Mapa} width="600" />
         </div>
       </div>
     </div>
