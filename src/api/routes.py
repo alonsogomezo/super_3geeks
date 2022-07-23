@@ -176,9 +176,10 @@ def handle_addProducto():
     return jsonify(response_body), 200
 
 #api para ver los productos
-@api.route("/productos", methods=["GET"])
-def handle_viewProducto():
+@api.route("/producto", methods=["GET"])
+def handle_viewProductos():
     
+    id_producto = request.json.get("id_producto", None)
     producto_query = Producto.query.all()
     lista_producto = []
     for producto in producto_query:
@@ -195,7 +196,24 @@ def handle_viewProducto():
         
     
     return jsonify(lista_producto), 200
+#api para ver un producto
+@api.route("/product", methods=["POST"])
+def handle_ProductoxId():
+    id_producto = request.json.get("id_producto", None)
+    producto_query = Producto.query.filter_by(id = id_producto).first()
+    response_body = {
+            "foto": producto_query.foto_producto,
+            "producto": producto_query.producto,
+            "categoria": producto_query.categoria,
+            "descripcion": producto_query.descripcion,
+            "marca": producto_query.marca,
+            "precio": producto_query.precio,
 
+            "id": producto_query.id
+        }
+        
+    
+    return jsonify(response_body), 200
 
 #api para crear categorias
 @api.route("/categorias", methods=["POST"])
