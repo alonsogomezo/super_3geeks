@@ -17,8 +17,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       user: [],
       userRegister: false,
       itemsCarrito: [],
-      productoAnadido:false,
- 
+      productoAnadido: false,
     },
     actions: {
       login: (body) => {
@@ -72,6 +71,20 @@ const getState = ({ getStore, getActions, setStore }) => {
           .catch((error) => console.log(error));
       },
       //a revision...
+
+      productoInfo: (body) => {
+        fetch(process.env.BACKEND_URL + "/producto", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("accessToken"),
+          },
+          body: JSON.stringify(body), //Convertimos la data a JSON
+        })
+          .then((res) => res.json())
+          .then((data) => setStore({ pjActual: data.result.properties }));
+      },
+
       muestraProducto: async () => {
         try {
           const resp = await fetch(process.env.BACKEND_URL + "/producto", {
