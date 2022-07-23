@@ -163,9 +163,10 @@ def handle_addProducto():
     descripcion = request.json.get("descripcion", None)
     categoria = request.json.get("categoria", None)
     precio = request.json.get("precio", None)
+    marca= request.json.get("marca", None)
 
     producto_new = Producto(producto=producto, id_usuario=usuario.id, 
-    categoria = categoria, precio = precio, descripcion = descripcion)
+    categoria=categoria, precio=precio, descripcion=descripcion, marca=marca)
     db.session.add(producto_new)
     db.session.commit()
 
@@ -186,12 +187,15 @@ def handle_viewProducto():
             "producto": producto.producto,
             "categoria": producto.categoria,
             "descripcion": producto.descripcion,
+            "marca": producto.marca,
             "precio": producto.precio,
+
             "id": producto.id
         })
         
     
     return jsonify(lista_producto), 200
+
 
 #api para crear categorias
 @api.route("/categorias", methods=["POST"])
@@ -271,6 +275,7 @@ def handle_vCategoriasxProducto():
             "producto": producto.producto,
             "categoria": producto.categoria,
             "descripcion": producto.descripcion,
+            "marca": producto.marca,
             "precio": producto.precio,
             "id": producto.id
         })
