@@ -18,6 +18,8 @@ const getState = ({ getStore, getActions, setStore }) => {
       userRegister: false,
       itemsCarrito: [],
       productoAnadido: false,
+      productos: [],
+
     },
     actions: {
       login: (body) => {
@@ -118,7 +120,16 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log(error);
         }
       },
-
+      muestaProductos: async () => {
+        try {
+          const resp = await fetch(process.env.BACKEND_URL + "/productos");
+          const data = await resp.json();
+          setStore({ productos: data });
+          return data;
+        } catch (error) {
+          console.log(error);
+        }
+      },
       getMessage: async () => {
         try {
           // fetching data from the backend

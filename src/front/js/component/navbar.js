@@ -14,10 +14,15 @@ export const Navbar = () => {
           <span className="navbar-brand mb-0 h1 pl-5">Super3Geeks</span>
         </Link>
         <div className="ml-auto">
-          {store?.user?.accessToken ? (
-            <Link to="/perfil">
-              <button className="btn btn-danger">Perfil</button>
-            </Link>
+          {localStorage.getItem("accessToken") ? (
+            <div>
+              <Link to="/perfil">
+                <button className="btn btn-danger">Perfil</button>
+              </Link>
+              <button onClick={() => localStorage.removeItem("accessToken")}>
+                salir
+              </button>
+            </div>
           ) : (
             <Link to="/login">
               <button className="btn btn-danger">Login</button>

@@ -1,5 +1,7 @@
 
+
 import React, { useContext, useState, useEffect } from "react";
+
 import { Context } from "../store/appContext";
 import Logo from "../../img/logo-3geeks.png";
 import { useNavigate } from "react-router-dom";
@@ -15,6 +17,10 @@ export const Home = () => {
   const [precio, setPrecio] = useState("");
 
   const { store, actions } = useContext(Context);
+    console.log(store.productos)
+  useEffect(()=>{
+    actions.muestaProductos()
+  },[])
 
   const navigate = useNavigate();
 
