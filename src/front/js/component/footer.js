@@ -3,7 +3,7 @@ import Logo from "../../img/logo-3geeks.png";
 
 export const Footer = () => (
   
-    <footer className="footer bg-dark text-white mt-auto py-3 text-center">
+    <footer className="footer bg-dark text-white mt-auto py-3 text-center ">
 
       <nav className="navbar navbar-warning bg-danger "></nav>
 
