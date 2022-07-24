@@ -16,6 +16,10 @@ const getState = ({ getStore, getActions, setStore }) => {
       ],
       user: [],
       userRegister: false,
+      itemsCarrito: [],
+      productoAnadido: false,
+      productos: [],
+      unProducto: [],
     },
     actions: {
       login: (body) => {
@@ -29,6 +33,8 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then((resp) => resp.json())
           .then((resp) => {
             setStore({ user: resp });
+            localStorage.setItem("accessToken", resp?.accessToken);
+            localStorage.setItem("id", resp?.user?.id);
           })
           .catch((error) => console.log(error));
       },
@@ -42,11 +48,69 @@ const getState = ({ getStore, getActions, setStore }) => {
         })
           .then((resp) => resp.json())
           .then((resp) => {
-            setStore({ userRegister: resp?.msg == "usuario creado correctamente" });
+            setStore({
+              userRegister: resp?.msg == "usuario creado correctamente",
+            });
           })
           .catch((error) => console.log(error));
       },
-
+      creaProducto: (body) => {
+        fetch(process.env.BACKEND_URL + "/producto", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("accessToken"),
+          },
+          body: JSON.stringify(body), //Convertimos la data a JSON
+        })
+          .then((resp) => resp.json())
+          .then((resp) => {
+            setStore({
+              productoAnadido: resp?.msg == "producto anadido correctamente",
+            });
+          })
+          .catch((error) => console.log(error));
+      },
+      muestraProducto: async () => {
+        try {
+          const resp = await fetch(process.env.BACKEND_URL + "/productos", {
+            method: "GET",
+          });
+          const data = await resp.json();
+          setStore({ productos: data });
+          return data;
+        } catch (error) {
+          console.log(error);
+        }
+      },
+      muestraPerfil: async () => {
+        try {
+          const resp = await fetch(process.env.BACKEND_URL + "/usuario", {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + localStorage.getItem("accessToken"),
+            },
+          });
+          const data = await resp.json();
+          setStore({ user: data });
+          return data;
+        } catch (error) {
+          console.log(error);
+        }
+      },
+      mostrarUnProducto: async () => {
+        try {
+          const resp = await fetch(process.env.BACKEND_URL + "/productos", {
+            method: "GET",
+          });
+          const data = await resp.json();
+          setStore({ productos: data });
+          return data;
+        } catch (error) {
+          console.log(error);
+        }
+      },
       getMessage: async () => {
         try {
           // fetching data from the backend

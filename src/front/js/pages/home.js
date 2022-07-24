@@ -1,26 +1,100 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext";
-import rigoImageUrl from "../../img/rigo-baby.jpg";
-import "../../styles/home.css";
+import CardProducto from "../component/cardProducto";
+import PromoAlimentos1 from "../../img/promoAlimentos1.png";
+import PromoVegetales1 from "../../img/promoVegetales1.png";
+import PromoRefrescos1 from "../../img/promoRefrescos1.png";
 
-export const Home = () => {
-	const { store, actions } = useContext(Context);
+const Home = () => {
+  const { store, actions } = useContext(Context);
+  useEffect(() => {
+    actions.muestraProducto();
+  }, []);
+  console.log(store.productos);
+  return (
+    <div>
+      <nav className="navbar navbar-warning bg-danger ">
+        <form className="form-inline">
+          <div className="input-group">
+            <div className="input-group-prepend">
+              <button className="input-group-text" type="submit">
+                @
+              </button>
+            </div>
+            <input
+              type="search"
+              className="form-control"
+              placeholder="Que estas  buscando?"
+              aria-label="search"
+            />
+          </div>
+        </form>
 
-	return (
-		<div className="text-center mt-5">
-			<h1>Hello Rigo!!</h1>
-			<p>
-				<img src={rigoImageUrl} />
-			</p>
-			<div className="alert alert-info">
-				{store.message || "Loading message from the backend (make sure your python backend is running)..."}
-			</div>
-			<p>
-				This boilerplate comes with lots of documentation:{" "}
-				<a href="https://github.com/4GeeksAcademy/react-flask-hello/tree/95e0540bd1422249c3004f149825285118594325/docs">
-					Read documentation
-				</a>
-			</p>
-		</div>
-	);
+        <button
+          type="button"
+          className="btn btn-secondary rounded-circle fa-thin fa-cart-shopping"
+        >
+          carrito button
+        </button>
+      </nav>
+      <hr />
+
+      <div
+        id="carouselExampleSlidesOnly"
+        className="carousel slide"
+        data-ride="carousel"
+      >
+        <div className="carousel-inner">
+          <div className="carousel-item active">
+            <img
+              className="d-block w-100"
+              src={PromoVegetales1}
+              alt="First slide"
+            />
+          </div>
+          <div className="carousel-item">
+            <img
+              className="d-block w-100"
+              src={PromoAlimentos1}
+              alt="Second slide"
+            />
+          </div>
+          <div className="carousel-item">
+            <img
+              className="d-block w-100"
+              src={PromoRefrescos1}
+              alt="Third slide"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div className="alert alert-danger" role="alert">
+        This is a danger alert—check it out!
+      </div>
+
+     
+
+      <div>
+        {store.productos.map((item, index) => {
+          return (
+            <CardProducto
+              key={index}
+              name={item.producto}
+              img={item.foto}
+              price={item.precio}
+              descrip={item.descripcion}
+              id={item.id}
+            />
+          );
+        })}
+      </div>
+
+      <div className="alert alert-danger" role="alert">
+        This is a danger alert—check it out!
+      </div>
+    </div>
+  );
 };
+
+export default Home;

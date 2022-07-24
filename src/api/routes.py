@@ -30,13 +30,13 @@ def handle_Login():
     access_token = create_access_token(identity=user_query.email)
     print(perfil_query)
     response_body = {
-        "message": "bienvenido de regreso" + " " + perfil_query.nombre,
+        #"message": "bienvenido de regreso" + " " + perfil_query.nombre,
         "isAdmin": user_query.is_admin,
         "accessToken": access_token,
-        "id": user_query.id,
-        "nombre": perfil_query.nombre,
-        "apellido": perfil_query.apellido,
-        "foto": perfil_query.foto_perfil
+        #"id": user_query.id,
+        #"nombre": perfil_query.nombre,
+        #"apellido": perfil_query.apellido,
+        #"foto": perfil_query.foto_perfil
     }
 
     return jsonify(response_body), 200
@@ -83,12 +83,13 @@ def handle_Usuario():
     if not usuario:
         return jsonify({"msg": "Usuario no encontrado"}), 404
     
-    id_perfil = request.json.get("id_perfil", None)
-
-    perfil_query = Perfil.query.filter_by(id = id_perfil).first()
+    """ id_perfil = request.json.get("id_perfil", None)
+ """
+    perfil_query = Perfil.query.filter_by(id_usuario = usuario.id).first()
     
     response_body ={
         "nombre": perfil_query.nombre, 
+        "email": email_user,
         "apellido": perfil_query.apellido,
         "telefono": perfil_query.telefono,
         "direccion": perfil_query.direccion,
