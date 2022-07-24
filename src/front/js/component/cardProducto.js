@@ -1,7 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Context } from "../store/appContext";
 
-const cardProducto = ({ img, name, price, priceDesc, descrip, id, marca }) => {
+const cardProducto = (
+  
+  { img, name, price, priceDesc, descrip, id, marca }
+) => {
+  const { store, actions } = useContext(Context);
+  console.log(actions);
+  const click=()=>(
+    
+  )
   return (
     <div>
       <div className="card" style={{ width: "18rem" }}>
@@ -19,10 +28,9 @@ const cardProducto = ({ img, name, price, priceDesc, descrip, id, marca }) => {
             type="button"
             className="btn btn-outline-warning"
             onClick={() => {
-              actions.addCarrito(props.properties.name);
+              actions.addCarrito(producto.properties.producto);
             }}
           >
-            isCarrito={false}
             {props.isCarrito ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"

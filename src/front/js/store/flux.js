@@ -20,6 +20,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       productoAnadido: false,
       productos: [],
       unProducto: [],
+      carrito: [],
     },
     actions: {
       login: (body) => {
@@ -118,14 +119,14 @@ const getState = ({ getStore, getActions, setStore }) => {
         const store = getStore();
         const nCarrito = store.carrito.concat(item);
         console.log(getStore());
-        setStore({ carrito: nCarrito });
+        setStore({ "carrito": nCarrito });
       },
       deleteCarrito: (itemDelete) => {
         const store = getStore();
-        let newCarrito = store.Carrito.filter((item) => item !== itemDelete);
-        setStore({ Carrito: newCarrito });
+        let newCarrito = store.carrito.filter((item) => item !== itemDelete);
+        setStore({ "carrito": newCarrito });
       },
-      getMessage: async () => {
+      getMessage: async () =>{
         try {
           // fetching data from the backend
           const resp = await fetch(process.env.BACKEND_URL + "/api/hello");

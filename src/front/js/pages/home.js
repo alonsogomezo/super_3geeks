@@ -85,6 +85,7 @@ const Home = () => {
               price={item.precio}
               descrip={item.descripcion}
               id={item.id}
+              isCarrito={false}
             />
           );
         })}
