@@ -111,6 +111,20 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log(error);
         }
       },
+      addCarrito: (item) => { 
+        /**let favoritos = store.favoritos;**/
+        //favoritos.push(item)
+        const store = getStore()
+        const nCarrito = store.carrito.concat(item)
+        console.log(getStore())
+        setStore({"carrito": nCarrito})
+       
+    },
+    deleteCarrito: (itemDelete)=>{
+     const store =getStore()   
+     let newCarrito = store.Carrito.filter((item) => item !== itemDelete)
+     setStore({"Carrito":newCarrito})
+    },
       getMessage: async () => {
         try {
           // fetching data from the backend

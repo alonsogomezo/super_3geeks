@@ -394,6 +394,9 @@ def handle_pago():
     db.session.add(new_orden)
     db.session.commit()
 
+    if not carrito:
+        db.session.delete(new_orden)
+        db.session.commit()
    
     return jsonify({"msg": "Orden creada",
     "monto_total": new_orden.total,
@@ -414,16 +417,19 @@ def handle_datos():
     categorias = Categorias.query.all()
     if not categorias:
         new_categorias1= Categorias(id = 1, categoria="Bebdias")
-        new_categorias2= Categorias(id = 2, categoria="Alimentos")
-        new_categorias3= Categorias(id = 3, categoria="Frutas y Verduras")
+        new_categorias2= Categorias(id = 2, categoria="Frutas y verduras")
+        new_categorias3= Categorias(id = 3, categoria="Alimentos preparados")
         db.session.add(new_categorias1)
         db.session.add(new_categorias2)
         db.session.add(new_categorias3)
         db.session.commit()
-    login_admin = User.query.all()
-    if not login_admin:
-        new_login_admin= User(id=1, email="admin@super3geeks.com", password="123", is_admin=True)
-        db.session.add(new_login_admin)
+        
+    admin = Signup.query.all()
+    if not admin:
+        new_admin = Signup(id=1, email="admin@super3geeks.com", password="123",
+        foto_perfil="foto", nombre="Ad", apellido="Min", direccion="420st", 
+        telefono="5555", latitud="-1", longitud="2" )
+        db.session.add(new_admin)
         db.session.commit()
 
     perfil_admin = Perfil.query.all()
@@ -433,15 +439,15 @@ def handle_datos():
         telefono="5555", latitud="-1", longitud="2" ) 
         db.session.add(new_perfil_admin)
         db.session.commit() 
-           
-    admin = Signup.query.all()
-    if not admin:
-        new_admin = Signup(id=1, email="admin@super3geeks.com", password="123",
-        foto_perfil="foto", nombre="Ad", apellido="Min", direccion="420st", 
-        telefono="5555", latitud="-1", longitud="2" )
-        db.session.add(new_admin)
+
+    login_admin = User.query.all()
+    if not login_admin:
+        new_login_admin= User(id=1, email="admin@super3geeks.com", password="123", is_admin=True)
+        db.session.add(new_login_admin)
         db.session.commit()
 
+    
+           
     
 
     
