@@ -83,6 +83,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log(error);
         }
       },
+
       muestraPerfil: async () => {
         try {
           const resp = await fetch(process.env.BACKEND_URL + "/usuario", {
@@ -110,6 +111,19 @@ const getState = ({ getStore, getActions, setStore }) => {
         } catch (error) {
           console.log(error);
         }
+      },
+      addCarrito: (item) => {
+        /**let favoritos = store.favoritos;**/
+        //favoritos.push(item)
+        const store = getStore();
+        const nCarrito = store.carrito.concat(item);
+        console.log(getStore());
+        setStore({ carrito: nCarrito });
+      },
+      deleteCarrito: (itemDelete) => {
+        const store = getStore();
+        let newCarrito = store.Carrito.filter((item) => item !== itemDelete);
+        setStore({ Carrito: newCarrito });
       },
       getMessage: async () => {
         try {
