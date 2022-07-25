@@ -43,7 +43,7 @@ const Registro = () => {
   return (
     <div className="container text-white bg-secondary mb-5 border border-danger rounded">
       
-      <h2 className="text-center bg-dark mt-3 border border-danger text-danger rounded">Formulario de registro</h2>
+      <h2 className="text-center bg-danger mt-3 border border-dark text-white rounded">Formulario de registro</h2>
       <hr/>
       <form className="mb-5" onSubmit={onSubmit}>
         <div className="form-group row p-1 justify-content-center">

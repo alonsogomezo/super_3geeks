@@ -21,7 +21,7 @@ const Login = () => {
     store.user.accessToken && navigate("/home");
   }, [store.user]);
   return (
-    <div className="container mt-5 bg-dark mt-3 mb-3 text-white rounded border border-danger">
+    <div className="container mt-5 bg-secondary mt-3 mb-3 text-white rounded border border-danger">
   
 
       <form onSubmit={onSubmit}>
@@ -59,14 +59,14 @@ const Login = () => {
         </div>
         <div className="form-group row p-3 d-flex justify-content-center">
           <div className="col-10 col-sm-2 text-center">
-            <button type="submit" className="btn btn-outline-danger px-5">
+            <button type="submit" className="btn btn-danger px-5">
               Log In
             </button>
           </div>
         </div>
         <hr />
-        <div className="form-group row p-3 d-flex justify-content-center">
-          <div className="col-10 col-sm-5 text-center">
+        <div className="form-group row p-3 d-flex justify-content-center bg-danger rounded">
+          <div className="col-10 col-sm-5 text-center ">
             <img src={Logo} width={40} />
             <p className="">Super3Geeks</p>
             <Link to="/registro">¿No tienes cuenta aún?</Link>
