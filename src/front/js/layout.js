@@ -7,7 +7,7 @@ import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
 import Login from "./pages/login";
 import injectContext from "./store/appContext";
-
+import { cardProducto } from "./component/cardProducto";
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import Registro from "./pages/registro";
