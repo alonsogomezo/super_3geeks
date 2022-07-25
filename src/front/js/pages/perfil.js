@@ -18,7 +18,7 @@ const Perfil = () => {
   }, []);
   return (
     <div className="container mt-3 mb-3 ">
-      <div className="row col-6 border border-dark rounded bg-secondary  ">
+      <div className="row col-6 border border-danger rounded bg-secondary  ">
         
           <div className="card text-white bg-dark mb-3 mt-3 text-center">
           
@@ -53,14 +53,17 @@ const Perfil = () => {
               <p className="">
                 <i className="bx bxs-phone"></i>Telefono: {store.user?.telefono}
               </p>
+
+              <img src={Logo} width={40} />
+           
             </div>
           
-            <div className=" social-list justify-content-between d-flex">
+            <div className=" social-list justify-content-between d-flex rounded r">
               <div className=" m-3 align-center text-primary d-flex">
                 <i className="bx bxl-facebook"></i>
                 <p></p>
               </div>
-              <div className="m-3 align-center text-warning">
+              <div className="m-3 align-center text-warning ">
                 <i className="bx bxl-google"></i>
               </div>
               <div className=" m-3 align-center text-primary">
