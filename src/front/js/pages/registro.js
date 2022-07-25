@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
 import ErrorText from "../component/errorText";
+import Logo from "../../img/logo-3geeks.png";
 
 const Registro = () => {
   const [nombre, setNombre] = useState("");
@@ -40,8 +41,10 @@ const Registro = () => {
   }, [store.userRegister]);
 
   return (
-    <div className="container mb-5">
-      <h2 className="text-center">Formulario de registro</h2>
+    <div className="container text-white bg-secondary mb-5 border border-danger rounded">
+      
+      <h2 className="text-center bg-dark mt-3 border border-danger text-danger rounded">Formulario de registro</h2>
+      <hr/>
       <form className="mb-5" onSubmit={onSubmit}>
         <div className="form-group row p-1 justify-content-center">
           <div className="col-10 col-sm-5">
@@ -53,7 +56,7 @@ const Registro = () => {
               value={nombre}
               onChange={(e) => setNombre(e.target.value)}
               type="text"
-              className="form-control"
+              className="form-control border border-danger"
               id="inputName"
               placeholder="Nombre"
             />
@@ -69,7 +72,7 @@ const Registro = () => {
               value={apellido}
               onChange={(e) => setApellido(e.target.value)}
               type="text"
-              className="form-control"
+              className="form-control border border-danger"
               id="inputApellido"
               placeholder="Apellido"
             />
@@ -85,7 +88,7 @@ const Registro = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               type="email"
-              className="form-control"
+              className="form-control border border-danger"
               id="inputEmail"
               placeholder="Email"
             />
@@ -101,7 +104,7 @@ const Registro = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               type="password"
-              className="form-control"
+              className="form-control border border-danger"
               placeholder="Password"
             />
             <input
@@ -109,7 +112,7 @@ const Registro = () => {
               value={password2}
               onChange={(e) => setPassword2(e.target.value)}
               type="password"
-              className="form-control mt-4"
+              className="form-control mt-4 border border-danger"
               placeholder="Confirme su password"
             />
             <ErrorText text={msjError} />
@@ -125,7 +128,7 @@ const Registro = () => {
               value={telefono}
               onChange={(e) => setTelefono(e.target.value)}
               type="text"
-              className="form-control"
+              className="form-control border border-danger"
               id="inputTelefono"
               placeholder="Telefono"
             />
@@ -141,7 +144,7 @@ const Registro = () => {
               value={tarjeta}
               onChange={(e) => setTarjeta(e.target.value)}
               type="text"
-              className="form-control"
+              className="form-control border border-danger"
               id="inputTarjeta"
               placeholder="Tarjeta"
             />
@@ -157,7 +160,7 @@ const Registro = () => {
               value={direccion}
               onChange={(e) => setDireccion(e.target.value)}
               type="text"
-              className="form-control"
+              className="form-control border border-danger"
               id="inputDireccion"
               placeholder="Direccion"
             />
@@ -165,10 +168,29 @@ const Registro = () => {
         </div>
         <div className="form-group row p-3 justify-content-center mb-5">
           <div className="col-10 col-sm-5 text-center">
-            <button type="submit" className="btn btn-primary mb-5">
+            <button type="submit" className="btn btn-danger mb-5">
               Crear Perfil
             </button>
+            
           </div>
+          
+
+          <div className=" social-list justify-content-between bg-dark d-flex rounded r">
+              <div className=" m-3 align-center text-primary d-flex">
+                <i className="bx bxl-facebook"></i>
+                <p></p>
+              </div>
+              <div className="m-3 align-center text-warning ">
+                <i className="bx bxl-google"></i>
+              </div>
+              <div className=" m-3 align-center text-primary">
+                <i className="bx bxl-twitter"></i>
+              </div>
+              <div className=" m-3 align-center text-danger">
+                <i className="bx bxl-instagram-alt"></i>
+              </div>
+            </div>
+          
         </div>
       </form>
     </div>
