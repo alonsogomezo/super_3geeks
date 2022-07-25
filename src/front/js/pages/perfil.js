@@ -17,11 +17,11 @@ const Perfil = () => {
       });
   }, []);
   return (
-    <div className="container mt-3"  >
-      <div className="row border border-dark rounded bg-secondary ">
-        <div className="alert alert-primary  " role="alert"></div>
-        <div className="col-6 ">
-          <div className="card text-white bg-dark mb-3  text-center">
+    <div className="container mt-3 mb-3 ">
+      <div className="row col-6 border border-dark rounded bg-secondary  ">
+        
+          <div className="card text-white bg-dark mb-3 mt-3 text-center">
+          
             <h5 className="card-title text-center">Perfil de Usuario</h5>
 
             <div className="card-header">
@@ -54,39 +54,26 @@ const Perfil = () => {
                 <i className="bx bxs-phone"></i>Telefono: {store.user?.telefono}
               </p>
             </div>
-          </div>
-        </div>
-        <div className="col-6">
-          <img src={Logo} width={40} />
-          <div className="jumbotron jumbotron-fluid mb-0">
-            <div className="container">
-              <h1 className="display-4">Fluid jumbotron</h1>
-              <p className="lead">
-                This is a modified jumbotron that occupies the entire horizontal
-                space of its parent.
-              </p>
+          
+            <div className=" social-list justify-content-between d-flex">
+              <div className=" m-3 align-center text-primary d-flex">
+                <i className="bx bxl-facebook"></i>
+                <p></p>
+              </div>
+              <div className="m-3 align-center text-warning">
+                <i className="bx bxl-google"></i>
+              </div>
+              <div className=" m-3 align-center text-primary">
+                <i className="bx bxl-twitter"></i>
+              </div>
+              <div className=" m-3 align-center text-danger">
+                <i className="bx bxl-instagram-alt"></i>
+              </div>
             </div>
           </div>
-        </div>
-
-        <div className="alert alert-primary mb-0 " role="alert"></div>
       </div>
+      
 
-      <div className=" social-list justify-content-between d-flex">
-        <div className=" m-3 align-center text-primary d-flex">
-          <i className="bx bxl-facebook"></i>
-          <p></p>
-        </div>
-        <div className="m-3 align-center text-warning">
-          <i className="bx bxl-google"></i>
-        </div>
-        <div className=" m-3 align-center text-primary">
-          <i className="bx bxl-twitter"></i>
-        </div>
-        <div className=" m-3 align-center text-danger">
-          <i className="bx bxl-instagram-alt"></i>
-        </div>
-      </div>
     </div>
   );
 };
