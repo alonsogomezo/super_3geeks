@@ -8,9 +8,7 @@ const cardProducto = (
 ) => {
   const { store, actions } = useContext(Context);
   console.log(actions);
-  const click=()=>(
-    
-  )
+  
   return (
     <div>
       <div className="card" style={{ width: "18rem" }}>
