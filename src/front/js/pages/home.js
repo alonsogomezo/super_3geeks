@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
+
 import { Context } from "../store/appContext";
 import CardProducto from "../component/cardProducto";
 import PromoAlimentos1 from "../../img/promoAlimentos1.png";
@@ -7,10 +8,23 @@ import PromoRefrescos1 from "../../img/promoRefrescos1.png";
 
 const Home = () => {
   const { store, actions } = useContext(Context);
+  const navigate = useNavigate();
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    const body = {
+      producto: producto,
+      descripcion: descripcion,
+      categoria: Number(categoria),
+      precio: parseFloat(precio),
+    };
+    actions.creaProducto(body);
+  };
+
   useEffect(() => {
     actions.muestraProducto();
   }, []);
-  console.log(store.productos);
+ 
   return (
     <div>
       <nav className="navbar navbar-warning bg-danger ">
