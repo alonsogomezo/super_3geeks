@@ -22,6 +22,17 @@ const Login = () => {
   }, [store.user]);
   return (
     <div className="container mt-5 bg-secondary mt-3 mb-3 text-white rounded border border-danger">
+
+<div className=" text-center mt-3 mb-0  pl-5">
+        <h1>Super3Geeks</h1>
+        <p className="text-dark">@super3geeks.www</p>
+      </div>
+
+      <h2 className="text-center bg-danger mt-3 border border-dark text-white rounded">
+        {" "}
+        <img src={Logo} width={40} />
+      </h2>
+      <hr />
   
 
       <form onSubmit={onSubmit}>
@@ -66,11 +77,10 @@ const Login = () => {
         </div>
         <hr />
         <div className="form-group row p-3 d-flex justify-content-center bg-danger rounded">
-          <div className="col-10 col-sm-5 text-center ">
-            <img src={Logo} width={40} />
-            <p className="">Super3Geeks</p>
+          <div className="col-10 col-sm-5 text-center  ">
             <Link to="/registro">¿No tienes cuenta aún?</Link>
           </div>
+          
         </div>
       </form>
     </div>

@@ -42,10 +42,21 @@ const Registro = () => {
 
   return (
     <div className="container text-white bg-secondary mb-5 border border-danger rounded">
-      
-      <h2 className="text-center bg-danger mt-3 border border-dark text-white rounded">Formulario de registro</h2>
-      <hr/>
+      <div className=" text-center mt-3 mb-0  pl-5">
+        <h1>Super3Geeks</h1>
+        <p className="text-dark">@super3geeks.www</p>
+      </div>
+
+      <h2 className="text-center bg-danger mt-3 border border-dark text-white rounded">
+        {" "}
+        <img src={Logo} width={40} />
+      </h2>
+      <hr />
       <form className="mb-5" onSubmit={onSubmit}>
+        <h6 className="text-center">
+          Registrarte para difrutar de los veneficios que brinda ser Cliente
+          Plus{" "}
+        </h6>
         <div className="form-group row p-1 justify-content-center">
           <div className="col-10 col-sm-5">
             <label htmlFor="inputNombre" className="col-sm-2 col-form-label">
@@ -171,26 +182,33 @@ const Registro = () => {
             <button type="submit" className="btn btn-danger mb-5">
               Crear Perfil
             </button>
-            
+
+            <p>
+              Al registrarte, aceptas nuestras Condiciones y la Politica de
+              Privacidad
+            </p>
           </div>
-          
+
+          <h2 className="text-center bg-danger mt-3 border border-dark text-white rounded">
+            {" "}
+            <img src={Logo} width={40} />
+          </h2>
 
           <div className=" social-list justify-content-between bg-dark d-flex rounded r">
-              <div className=" m-3 align-center text-primary d-flex">
-                <i className="bx bxl-facebook"></i>
-                <p></p>
-              </div>
-              <div className="m-3 align-center text-warning ">
-                <i className="bx bxl-google"></i>
-              </div>
-              <div className=" m-3 align-center text-primary">
-                <i className="bx bxl-twitter"></i>
-              </div>
-              <div className=" m-3 align-center text-danger">
-                <i className="bx bxl-instagram-alt"></i>
-              </div>
+            <div className=" m-3 align-center text-primary d-flex">
+              <i className="bx bxl-facebook"></i>
+              <p></p>
             </div>
-          
+            <div className="m-3 align-center text-warning ">
+              <i className="bx bxl-google"></i>
+            </div>
+            <div className=" m-3 align-center text-primary">
+              <i className="bx bxl-twitter"></i>
+            </div>
+            <div className=" m-3 align-center text-danger">
+              <i className="bx bxl-instagram-alt"></i>
+            </div>
+          </div>
         </div>
       </form>
     </div>
