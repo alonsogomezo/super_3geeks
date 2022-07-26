@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Perfil, Producto, Categorias, OrdenItems, OrderStatus, Carrito, Orden, Pago, TarjetaDeCredito,Signup
+from api.models import db, User, Perfil, Producto, Categorias, OrdenItems, OrderStatus, Carrito, Orden, Pago, TarjetaDeCredito
 from api.utils import generate_sitemap, APIException
 
 from flask_jwt_extended import create_access_token
@@ -142,10 +142,28 @@ def handle_get_carrito():
         producto = Producto.query.get(carrito.id_producto)
         lista_carrito.append({"nombre":producto.producto, 
         "cantidad": carrito.cantidad,
-        "precio": producto.precio
+        "precio": producto.precio,
+        "id": carrito.id
         })
     
     return jsonify(lista_carrito), 200
+
+#api para borrar el carrito
+@api.route("/carrito/<int:id_carrito>", methods=["DELETE"])
+@jwt_required()
+def handle_deleteCarrito(id_carrito):
+
+    email_user = get_jwt_identity()
+    usuario = User.query.filter_by(email=email_user).first()
+    if not usuario:
+        return jsonify({"msg": "Usuario no encontrado"}), 404
+
+    carrito_query = Carrito.query.filter_by(id = id_carrito, id_usuario = usuario.id).first()
+    db.session.delete(carrito_query)
+    db.session.commit()
+
+    return jsonify({"msg":"carrito borrado"}), 200
+
 
 #api del producto    
 @api.route("/producto", methods=["POST"])
@@ -361,7 +379,7 @@ def handle_viewTarjeta():
     return jsonify(lista_tarjetas), 200
 
 #api para el pago
-@api.route("/pago", methods=["GET"])
+@api.route("/pago", methods=["POST"])
 @jwt_required()
 def handle_pago():
     
@@ -395,7 +413,7 @@ def handle_pago():
     db.session.commit()
 
     if not carrito:
-        db.session.delete(new_orden)
+        db.session.delete(carrito)
         db.session.commit()
    
     return jsonify({"msg": "Orden creada",
@@ -424,17 +442,10 @@ def handle_datos():
         db.session.add(new_categorias3)
         db.session.commit()
         
-    admin = Signup.query.all()
-    if not admin:
-        new_admin = Signup(id=1, email="admin@super3geeks.com", password="123",
-        foto_perfil="foto", nombre="Ad", apellido="Min", direccion="420st", 
-        telefono="5555", latitud="-1", longitud="2" )
-        db.session.add(new_admin)
-        db.session.commit()
-
+    
     perfil_admin = Perfil.query.all()
     if not perfil_admin:
-        new_perfil_admin=Perfil(id=1, id_usuario= 1, id_signup=1,
+        new_perfil_admin=Perfil(id=1, id_usuario= 1, 
         foto_perfil="foto", nombre="Ad", apellido="Min", direccion="420st", 
         telefono="5555", latitud="-1", longitud="2" ) 
         db.session.add(new_perfil_admin)
