@@ -483,7 +483,7 @@ def handle_datos():
         new_producto4 = Producto(id= 4, id_usuario= 1 , foto_producto= "foto" , categoria= 1, producto="Agua" , 
         precio= 1.00 ,  descripcion= "Agua mojada" , marca= "Aguascompany")
         new_producto5 = Producto(id= 5, id_usuario= 1 , foto_producto= "foto" , categoria= 3, producto= "sopa de carne", 
-        precio= "6.00",  descripcion="una vaca en una pscina" , marca="Super3geeks")
+        precio= "6.00",  descripcion="una vaca en una piscina" , marca="Super3geeks")
         db.session.add(new_producto1)
         db.session.add(new_producto2)
         db.session.add(new_producto3)
