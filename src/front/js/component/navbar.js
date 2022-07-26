@@ -5,9 +5,9 @@ import Logo from "../../img/logo-3geeks.png";
 
 export const Navbar = () => {
   const { store } = useContext(Context);
-
+  const [ver, setVer] = useState(false);
   return (
-    <nav className=" navbar navbar-light bg-white navbar-expand-sm ">
+    <nav className=" navbar navbar-light bg-white navbar-expand-sm mb-5">
       <div className="container">
         <Link to="/" className="text-decoration-none">
           <img src={Logo} width={40} />
@@ -24,6 +24,30 @@ export const Navbar = () => {
             </Link>
           )}
         </div>
+      </div>
+      <div className="position-relative">
+        <button
+          type="button"
+          onClick={() => setVer((prev) => !prev)}
+          className="btn btn-secondary rounded-circle fa-thin fa-cart-shopping"
+        >
+          carrito button
+        </button>
+        {ver && (
+          <div
+            className="position-absolute bg-white border border-dark"
+            style={{
+              width: 200,
+              top: 50,
+              right: 25,
+              height: 200,
+            }}
+          >
+            <div>{/* item img buttonDelete */}</div>
+            Carrito
+            {/* buttonComprar */}
+          </div>
+        )}
       </div>
     </nav>
   );

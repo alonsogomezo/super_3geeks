@@ -10,10 +10,9 @@ const Home = () => {
   useEffect(() => {
     actions.muestraProducto();
   }, []);
-  console.log(store.productos);
   return (
     <div>
-      <nav className="navbar navbar-warning bg-danger ">
+      <nav className="navbar navbar-warning">
         <form className="form-inline">
           <div className="input-group">
             <div className="input-group-prepend">
@@ -29,17 +28,10 @@ const Home = () => {
             />
           </div>
         </form>
-
-        <button
-          type="button"
-          className="btn btn-secondary rounded-circle fa-thin fa-cart-shopping"
-        >
-          carrito button
-        </button>
       </nav>
       <hr />
 
-      <div
+      {/* <div
         id="carouselExampleSlidesOnly"
         className="carousel slide"
         data-ride="carousel"
@@ -67,33 +59,24 @@ const Home = () => {
             />
           </div>
         </div>
-      </div>
-
-      <div className="alert alert-danger" role="alert">
-        This is a danger alert—check it out!
-      </div>
-
-     
-
-      <div>
-        {store.productos.map((item, index) => {
-          return (
-            <CardProducto
-              key={index}
-              name={item.producto}
-              img={item.foto}
-              price={item.precio}
-              descrip={item.descripcion}
-              id={item.id}
-              isCarrito={false}
-            />
-          );
-        })}
-      </div>
-
-      <div className="alert alert-danger" role="alert">
-        This is a danger alert—check it out!
-      </div>
+      </div> */}
+      {/* <div className="my-5">
+        <div className="d-flex flex-row mt-5">
+          {store.productos.map((item, index) => {
+            return (
+              <CardProducto
+                key={index}
+                name={item.producto}
+                img={item.foto}
+                price={item.precio}
+                descrip={item.descripcion}
+                id={item.id}
+                isCarrito={false}
+              />
+            );
+          })}
+        </div>
+      </div> */}
     </div>
   );
 };

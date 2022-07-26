@@ -113,20 +113,62 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log(error);
         }
       },
-      addCarrito: (item) => {
-        /**let favoritos = store.favoritos;**/
-        //favoritos.push(item)
-        const store = getStore();
-        const nCarrito = store.carrito.concat(item);
-        console.log(getStore());
-        setStore({ "carrito": nCarrito });
+      addCarrito: (id, cantidad) => {
+        fetch(process.env.BACKEND_URL + "/carrito", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("accessToken"),
+          },
+          body: JSON.stringify({ id_producto: id, cantidad: cantidad }), //Convertimos la data a JSON
+        })
+          .then((resp) => resp.json())
+          .then((resp) => {
+            return resp;
+          })
+          .catch((error) => console.log(error));
       },
       deleteCarrito: (itemDelete) => {
         const store = getStore();
         let newCarrito = store.carrito.filter((item) => item !== itemDelete);
-        setStore({ "carrito": newCarrito });
+        setStore({ carrito: newCarrito });
       },
-      getMessage: async () =>{
+      barraBusqueda: async (q, categoria_id) => {
+        let params = [];
+
+        if (q) {
+          params.push("q" + q);
+        }
+
+        if (categoria_id) {
+          params.push("categoria_id" + categoria_id);
+        }
+
+        params_str = params.join("&");
+
+        if (params_str) {
+          params_str = "?" + params_str;
+        }
+
+        try {
+          const resp = await fetch(
+            process.env.BACKEND_URL + "/producto/categorias" + params_str,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + localStorage.getItem("accessToken"),
+              },
+            }
+          );
+          const data = await resp.json();
+          setStore({ productos: data });
+          return data;
+        } catch (error) {
+          console.log(error);
+        }
+      },
+      getMessage: async () => {
         try {
           // fetching data from the backend
           const resp = await fetch(process.env.BACKEND_URL + "/api/hello");

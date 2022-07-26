@@ -1,17 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 
-const cardProducto = (
-  
-  { img, name, price, priceDesc, descrip, id, marca }
-) => {
+const cardProducto = ({
+  img,
+  name,
+  price,
+  priceDesc,
+  descrip,
+  id,
+  marca,
+  isCarrito,
+}) => {
   const { store, actions } = useContext(Context);
   console.log(actions);
-  
+
   return (
     <div>
-      <div className="card" style={{ width: "18rem" }}>
+      <div className="card z-index-1" style={{ width: "18rem", "z-index": 2 }}>
         <img className="card-img-top" src={img} alt="Card image cap" />
         <div className="card-body">
           <h5 className="card-title">
@@ -26,10 +32,10 @@ const cardProducto = (
             type="button"
             className="btn btn-outline-warning"
             onClick={() => {
-              actions.addCarrito(producto.properties.producto);
+              actions.addCarrito(id, 1);
             }}
           >
-            {props.isCarrito ? (
+            {isCarrito ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"

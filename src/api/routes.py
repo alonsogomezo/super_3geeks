@@ -424,8 +424,4 @@ def handle_datos():
         db.session.add(new_admin)
         db.session.commit()
 
-    
-
-    
-
     return jsonify({"msg": "datos completos"})
