@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Perfil, Producto, Categorias, OrdenItems, OrderStatus, Carrito, Orden, Pago, TarjetaDeCredito,Signup
+from api.models import db, User, Perfil, Producto, Categorias, OrdenItems, OrderStatus, Carrito, Orden, Pago, TarjetaDeCredito
 from api.utils import generate_sitemap, APIException
 
 from flask_jwt_extended import create_access_token
@@ -142,10 +142,28 @@ def handle_get_carrito():
         producto = Producto.query.get(carrito.id_producto)
         lista_carrito.append({"nombre":producto.producto, 
         "cantidad": carrito.cantidad,
-        "precio": producto.precio
+        "precio": producto.precio,
+        "id": carrito.id
         })
     
     return jsonify(lista_carrito), 200
+
+#api para borrar el carrito
+@api.route("/carrito/<int:id_carrito>", methods=["DELETE"])
+@jwt_required()
+def handle_deleteCarrito(id_carrito):
+
+    email_user = get_jwt_identity()
+    usuario = User.query.filter_by(email=email_user).first()
+    if not usuario:
+        return jsonify({"msg": "Usuario no encontrado"}), 404
+
+    carrito_query = Carrito.query.filter_by(id = id_carrito, id_usuario = usuario.id).first()
+    db.session.delete(carrito_query)
+    db.session.commit()
+
+    return jsonify({"msg":"carrito borrado"}), 200
+
 
 #api del producto    
 @api.route("/producto", methods=["POST"])
@@ -177,9 +195,10 @@ def handle_addProducto():
     return jsonify(response_body), 200
 
 #api para ver los productos
-@api.route("/productos", methods=["GET"])
-def handle_viewProducto():
+@api.route("/producto", methods=["GET"])
+def handle_viewProductos():
     
+    id_producto = request.json.get("id_producto", None)
     producto_query = Producto.query.all()
     lista_producto = []
     for producto in producto_query:
@@ -196,7 +215,24 @@ def handle_viewProducto():
         
     
     return jsonify(lista_producto), 200
+#api para ver un producto
+@api.route("/product", methods=["POST"])
+def handle_ProductoxId():
+    id_producto = request.json.get("id_producto", None)
+    producto_query = Producto.query.filter_by(id = id_producto).first()
+    response_body = {
+            "foto": producto_query.foto_producto,
+            "producto": producto_query.producto,
+            "categoria": producto_query.categoria,
+            "descripcion": producto_query.descripcion,
+            "marca": producto_query.marca,
+            "precio": producto_query.precio,
 
+            "id": producto_query.id
+        }
+        
+    
+    return jsonify(response_body), 200
 
 #api para crear categorias
 @api.route("/categorias", methods=["POST"])
@@ -343,7 +379,7 @@ def handle_viewTarjeta():
     return jsonify(lista_tarjetas), 200
 
 #api para el pago
-@api.route("/pago", methods=["GET"])
+@api.route("/pago", methods=["POST"])
 @jwt_required()
 def handle_pago():
     
@@ -370,12 +406,15 @@ def handle_pago():
         db.session.commit()
         total_monto += producto.precio
         tota_cantidad += carrito.cantidad
-    
+        db.session.delete(carrito)
+        db.session.commit()
+
     new_orden.total = total_monto
     new_orden.total_cantidad = tota_cantidad
     db.session.add(new_orden)
     db.session.commit()
 
+        
    
     return jsonify({"msg": "Orden creada",
     "monto_total": new_orden.total,
@@ -396,36 +435,60 @@ def handle_datos():
     categorias = Categorias.query.all()
     if not categorias:
         new_categorias1= Categorias(id = 1, categoria="Bebdias")
-        new_categorias2= Categorias(id = 2, categoria="Alimentos")
-        new_categorias3= Categorias(id = 3, categoria="Frutas y Verduras")
+        new_categorias2= Categorias(id = 2, categoria="Frutas y verduras")
+        new_categorias3= Categorias(id = 3, categoria="Alimentos preparados")
         db.session.add(new_categorias1)
         db.session.add(new_categorias2)
         db.session.add(new_categorias3)
         db.session.commit()
+        
+    
     login_admin = User.query.all()
     if not login_admin:
         new_login_admin= User(id=1, email="admin@super3geeks.com", password="123", is_admin=True)
         db.session.add(new_login_admin)
         db.session.commit()
 
+    
     perfil_admin = Perfil.query.all()
     if not perfil_admin:
-        new_perfil_admin=Perfil(id=1, id_usuario= 1, id_signup=1,
+        new_perfil_admin=Perfil(id=1, id_usuario= 1, 
         foto_perfil="foto", nombre="Ad", apellido="Min", direccion="420st", 
         telefono="5555", latitud="-1", longitud="2" ) 
         db.session.add(new_perfil_admin)
         db.session.commit() 
-           
-    admin = Signup.query.all()
-    if not admin:
-        new_admin = Signup(id=1, email="admin@super3geeks.com", password="123",
-        foto_perfil="foto", nombre="Ad", apellido="Min", direccion="420st", 
-        telefono="5555", latitud="-1", longitud="2" )
-        db.session.add(new_admin)
+    
+    login_usuario = User.query.all()
+    if not login_usuario:
+        new_login = User(id=2, email="usuario@super3geeks.com", password="123", is_admin=True)
+        db.session.add(new_login)
         db.session.commit()
-
     
+    perfil_usuario = Perfil.query.all()
+    if not perfil_usuario:
+        new_perfil = Perfil(id=2, id_usuario= 2, 
+        foto_perfil="foto", nombre="Jhon", apellido="Doe", direccion="420st", 
+        telefono="5555", latitud="-1", longitud="2" )
+        db.session.add(new_perfil)
+        db.session.commit() 
 
-    
+    lista_productos = Producto.query.all()
+    if not lista_productos:
+        new_producto1 = Producto(id= 1, id_usuario= 1, foto_producto= "foto" , categoria= 1, producto="coca-cola" , 
+        precio= 1.50 ,  descripcion= "una bomba de azucar", marca= "The Coca-Cola Company")
+        new_producto2 = Producto(id= 2, id_usuario=1 , foto_producto=  "foto", categoria= 2 , producto="Manzana" , 
+        precio= 0.50 ,  descripcion= "una manzana roja" , marca= "Manco" )
+        new_producto3 = Producto(id= 3 , id_usuario= 1, foto_producto= "foto", categoria= 3 , producto= "Arroz con pollo", 
+        precio="5.00" ,  descripcion="un arroz con pollo de color amarillo" , marca="Super3geeks" )
+        new_producto4 = Producto(id= 4, id_usuario= 1 , foto_producto= "foto" , categoria= 1, producto="Agua" , 
+        precio= 1.00 ,  descripcion= "Agua mojada" , marca= "Aguascompany")
+        new_producto5 = Producto(id= 5, id_usuario= 1 , foto_producto= "foto" , categoria= 3, producto= "sopa de carne", 
+        precio= "6.00",  descripcion="una vaca en una piscina" , marca="Super3geeks")
+        db.session.add(new_producto1)
+        db.session.add(new_producto2)
+        db.session.add(new_producto3)
+        db.session.add(new_producto4)
+        db.session.add(new_producto5)
+        db.session.commit() 
 
     return jsonify({"msg": "datos completos"})
