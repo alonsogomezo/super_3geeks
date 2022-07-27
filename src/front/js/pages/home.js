@@ -5,6 +5,7 @@ import CardProducto from "../component/cardProducto";
 import PromoAlimentos1 from "../../img/promoAlimentos1.png";
 import PromoVegetales1 from "../../img/promoVegetales1.png";
 import PromoRefrescos1 from "../../img/promoRefrescos1.png";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const { store, actions } = useContext(Context);
