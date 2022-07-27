@@ -70,15 +70,24 @@ export const Navbar = () => {
           </div>
           <div>
             {store?.user?.accessToken ? (
-              <Link to="/perfil">
-                <button className="btn btn-danger">Perfil</button>
-              </Link>
+              <div>
+                <Link to="/perfil">
+                  <button className="btn btn-danger">Perfil</button>
+                </Link>
+              </div>
             ) : (
               <Link to="/login">
                 <button className="btn btn-danger">Login</button>
               </Link>
             )}
           </div>
+          {store?.user?.accessToken && (
+            <Link to="/admin">
+              <button className="btn btn-outline-success">
+                Subir productos
+              </button>
+            </Link>
+          )}
         </div>
       </div>
     </nav>
