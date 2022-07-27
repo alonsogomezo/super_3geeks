@@ -12,56 +12,86 @@ const Home = () => {
   }, []);
   return (
     <div>
-      <nav className="navbar navbar-warning">
-        <form className="form-inline">
-          <div className="input-group">
-            <div className="input-group-prepend">
-              <button className="input-group-text" type="submit">
-                @
-              </button>
+      <div>
+        <div
+          id="carouselExampleIndicators"
+          className="carousel slide"
+          data-bs-ride="carousel"
+        >
+          <div className="carousel-indicators">
+            <button
+              type="button"
+              data-bs-target="#carouselExampleIndicators"
+              data-bs-slide-to={0}
+              className="active"
+              aria-current="true"
+              aria-label="Slide 1"
+            />
+            <button
+              type="button"
+              data-bs-target="#carouselExampleIndicators"
+              data-bs-slide-to={1}
+              aria-label="Slide 2"
+            />
+            <button
+              type="button"
+              data-bs-target="#carouselExampleIndicators"
+              data-bs-slide-to={2}
+              aria-label="Slide 3"
+            />
+          </div>
+          <div className="carousel-inner">
+            <div className="carousel-item active img-fluid">
+              <img
+                src="https://static-sevilla.abc.es/media/gurmesevilla/2012/01/comida-rapida-casera.jpg"
+                className="d-block w-100"
+                alt="..."
+                height={400}
+              />
             </div>
-            <input
-              type="search"
-              className="form-control"
-              placeholder="Que estas  buscando?"
-              aria-label="search"
-            />
+            <div className="carousel-item img-fluid">
+              <img
+                src="https://img.huffingtonpost.com/asset/5ef9ffab250000a502c28ec2.jpeg?ops=scalefit_720_noupscale"
+                className="d-block w-100"
+                alt="..."
+                height={400}
+              />
+            </div>
+            <div className="carousel-item img-fluid">
+              <img
+                src="https://www.herbazest.com/imgs/d/8/7/551784/pera.jpg"
+                className="d-block w-100"
+                alt="..."
+                height={400}
+              />
+              <div class="carousel-caption d-none d-md-block">
+                <h5>aaaaaaa</h5>
+                <p>aaaaaaa</p>
+              </div>
+            </div>
           </div>
-        </form>
-      </nav>
-      <hr />
-
-      {/* <div
-        id="carouselExampleSlidesOnly"
-        className="carousel slide"
-        data-ride="carousel"
-      >
-        <div className="carousel-inner">
-          <div className="carousel-item active">
-            <img
-              className="d-block w-100"
-              src={PromoVegetales1}
-              alt="First slide"
-            />
-          </div>
-          <div className="carousel-item">
-            <img
-              className="d-block w-100"
-              src={PromoAlimentos1}
-              alt="Second slide"
-            />
-          </div>
-          <div className="carousel-item">
-            <img
-              className="d-block w-100"
-              src={PromoRefrescos1}
-              alt="Third slide"
-            />
-          </div>
+          <button
+            className="carousel-control-prev"
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide="prev"
+          >
+            <span className="carousel-control-prev-icon" aria-hidden="true" />
+            <span className="visually-hidden">Previous</span>
+          </button>
+          <button
+            className="carousel-control-next"
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide="next"
+          >
+            <span className="carousel-control-next-icon" aria-hidden="true" />
+            <span className="visually-hidden">Next</span>
+          </button>
         </div>
-      </div> */}
-      {/* <div className="my-5">
-        <div className="d-flex flex-row mt-5">
+      </div>
+      <div className="container-fluid">
+        <div className="row justified-content-around">
           {store.productos.map((item, index) => {
             return (
               <CardProducto
@@ -75,6 +105,11 @@ const Home = () => {
               />
             );
           })}
+        </div>
+      </div>
+      {/* <div className="my-5">
+        <div className="d-flex flex-row mt-5">
+          
         </div>
       </div> */}
     </div>

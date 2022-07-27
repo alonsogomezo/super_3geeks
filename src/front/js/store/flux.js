@@ -36,6 +36,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             setStore({ user: resp });
             localStorage.setItem("accessToken", resp?.accessToken);
             localStorage.setItem("id", resp?.user?.id);
+            getActions().getCarrito();
           })
           .catch((error) => console.log(error));
       },
@@ -124,6 +125,8 @@ const getState = ({ getStore, getActions, setStore }) => {
         })
           .then((resp) => resp.json())
           .then((resp) => {
+            console.log(resp);
+            getActions().getCarrito();
             return resp;
           })
           .catch((error) => console.log(error));
@@ -163,6 +166,22 @@ const getState = ({ getStore, getActions, setStore }) => {
           );
           const data = await resp.json();
           setStore({ productos: data });
+          return data;
+        } catch (error) {
+          console.log(error);
+        }
+      },
+      getCarrito: async () => {
+        try {
+          const resp = await fetch(process.env.BACKEND_URL + "/carrito", {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + localStorage.getItem("accessToken"),
+            },
+          });
+          const data = await resp.json();
+          setStore({ itemsCarrito: data });
           return data;
         } catch (error) {
           console.log(error);
