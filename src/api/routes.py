@@ -140,7 +140,9 @@ def handle_get_carrito():
     lista_carrito = []
     for carrito in carrito_query:
         producto = Producto.query.get(carrito.id_producto)
-        lista_carrito.append({"nombre":producto.producto, 
+        lista_carrito.append({
+        "foto": producto.foto_producto,
+        "nombre":producto.producto, 
         "cantidad": carrito.cantidad,
         "precio": producto.precio,
         "id": carrito.id
