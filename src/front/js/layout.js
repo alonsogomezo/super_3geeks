@@ -7,13 +7,16 @@ import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
 import Login from "./pages/login";
 import injectContext from "./store/appContext";
-
+import { cardProducto } from "./component/cardProducto";
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import Registro from "./pages/registro";
 import Perfil from "./pages/perfil";
 import { Productos } from "./pages/productos";
 import Home from "./pages/home";
+import Carrito from "./pages/carrito";
+import { Prod_carrito } from "./component/prod_carrito";
+
 
 //create your first component
 const Layout = () => {
@@ -35,6 +38,7 @@ const Layout = () => {
             <Route element={<Perfil />} path="/perfil" />
             <Route element={<Productos />} path="/producto/:theid" />
             <Route element={<Home />} path="/home" />
+            <Route element={<Carrito />} path="/carrito" />
             <Route element={<h1>Not found!</h1>} />
           </Routes>
           <Footer />
