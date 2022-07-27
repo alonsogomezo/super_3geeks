@@ -445,14 +445,14 @@ def handle_datos():
     
     login_admin = User.query.all()
     if not login_admin:
-        new_login_admin= User(id=1, email="admin@super3geeks.com", password="123", is_admin=True)
+        new_login_admin= User( email="admin@super3geeks.com", password="123", is_admin=True)
         db.session.add(new_login_admin)
         db.session.commit()
 
     
     perfil_admin = Perfil.query.all()
     if not perfil_admin:
-        new_perfil_admin=Perfil(id=1, id_usuario= 1, 
+        new_perfil_admin=Perfil(
         foto_perfil="foto", nombre="Ad", apellido="Min", direccion="420st", 
         telefono="5555", latitud="-1", longitud="2" ) 
         db.session.add(new_perfil_admin)
@@ -460,13 +460,13 @@ def handle_datos():
     
     login_usuario = User.query.all()
     if not login_usuario:
-        new_login = User(id=2, email="usuario@super3geeks.com", password="123", is_admin=True)
+        new_login = User( email="usuario@super3geeks.com", password="123", is_admin=False)
         db.session.add(new_login)
         db.session.commit()
     
     perfil_usuario = Perfil.query.all()
     if not perfil_usuario:
-        new_perfil = Perfil(id=2, id_usuario= 2, 
+        new_perfil = Perfil( 
         foto_perfil="foto", nombre="Jhon", apellido="Doe", direccion="420st", 
         telefono="5555", latitud="-1", longitud="2" )
         db.session.add(new_perfil)
@@ -474,15 +474,15 @@ def handle_datos():
 
     lista_productos = Producto.query.all()
     if not lista_productos:
-        new_producto1 = Producto(id= 1, id_usuario= 1, foto_producto= "foto" , categoria= 1, producto="coca-cola" , 
+        new_producto1 = Producto( id_usuario= 1, foto_producto= "foto" , categoria= 1, producto="coca-cola" , 
         precio= 1.50 ,  descripcion= "una bomba de azucar", marca= "The Coca-Cola Company")
-        new_producto2 = Producto(id= 2, id_usuario=1 , foto_producto=  "foto", categoria= 2 , producto="Manzana" , 
+        new_producto2 = Producto( id_usuario=1 , foto_producto=  "foto", categoria= 2 , producto="Manzana" , 
         precio= 0.50 ,  descripcion= "una manzana roja" , marca= "Manco" )
-        new_producto3 = Producto(id= 3 , id_usuario= 1, foto_producto= "foto", categoria= 3 , producto= "Arroz con pollo", 
+        new_producto3 = Producto( id_usuario= 1, foto_producto= "foto", categoria= 3 , producto= "Arroz con pollo", 
         precio="5.00" ,  descripcion="un arroz con pollo de color amarillo" , marca="Super3geeks" )
-        new_producto4 = Producto(id= 4, id_usuario= 1 , foto_producto= "foto" , categoria= 1, producto="Agua" , 
+        new_producto4 = Producto( id_usuario= 1 , foto_producto= "foto" , categoria= 1, producto="Agua" , 
         precio= 1.00 ,  descripcion= "Agua mojada" , marca= "Aguascompany")
-        new_producto5 = Producto(id= 5, id_usuario= 1 , foto_producto= "foto" , categoria= 3, producto= "sopa de carne", 
+        new_producto5 = Producto( id_usuario= 1 , foto_producto= "foto" , categoria= 3, producto= "sopa de carne", 
         precio= "6.00",  descripcion="una vaca en una piscina" , marca="Super3geeks")
         db.session.add(new_producto1)
         db.session.add(new_producto2)
