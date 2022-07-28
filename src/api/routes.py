@@ -200,7 +200,6 @@ def handle_addProducto():
 @api.route("/productos", methods=["GET"])
 def handle_viewProductos():
     
-    id_producto = request.json.get("id_producto", None)
     producto_query = Producto.query.all()
     lista_producto = []
     for producto in producto_query:

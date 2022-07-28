@@ -17,7 +17,6 @@ import Home from "./pages/home";
 import Carrito from "./pages/carrito";
 import { Prod_carrito } from "./component/prod_carrito";
 
-
 //create your first component
 const Layout = () => {
   //the basename is used when your project is published in a subdirectory and not in the root of the domain
@@ -37,7 +36,8 @@ const Layout = () => {
             <Route element={<Registro />} path="/registro" />
             <Route element={<Perfil />} path="/perfil" />
             <Route element={<Productos />} path="/producto/:theid" />
-            <Route element={<Home />} path="/home" />
+            <Route element={<Home />} path={"/"} />
+            <Route element={<Home />} path={"/home"} />
             <Route element={<Carrito />} path="/carrito" />
             <Route element={<h1>Not found!</h1>} />
           </Routes>

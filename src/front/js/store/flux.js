@@ -35,7 +35,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then((resp) => {
             setStore({ user: resp });
             localStorage.setItem("accessToken", resp?.accessToken);
-            localStorage.setItem("id", resp?.user?.id);
+            localStorage.setItem("isAdmin", resp?.isAdmin);
             getActions().getCarrito();
           })
           .catch((error) => console.log(error));
@@ -85,7 +85,6 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log(error);
         }
       },
-
       muestraPerfil: async () => {
         try {
           const resp = await fetch(process.env.BACKEND_URL + "/usuario", {
@@ -131,10 +130,37 @@ const getState = ({ getStore, getActions, setStore }) => {
           })
           .catch((error) => console.log(error));
       },
-      deleteCarrito: (itemDelete) => {
-        const store = getStore();
-        let newCarrito = store.carrito.filter((item) => item !== itemDelete);
-        setStore({ carrito: newCarrito });
+      borrarItemCarrito: (id) => {
+        fetch(process.env.BACKEND_URL + `/carrito/${id}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("accessToken"),
+          },
+        })
+          .then((resp) => resp.json())
+          .then((resp) => {
+            getActions().getCarrito();
+            return resp;
+          })
+          .catch((error) => console.log(error));
+      },
+      comprar: (id_tarjeta) => {
+        /* /pago, metodo post, body=id_tarjeta */
+        fetch(process.env.BACKEND_URL + "/pago", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("accessToken"),
+          },
+          body: JSON.stringify({ id_tarjeta: id_tarjeta }), //Convertimos la data a JSON
+        })
+          .then((resp) => resp.json())
+          .then((resp) => {
+            getActions().getCarrito();
+            return resp;
+          })
+          .catch((error) => console.log(error));
       },
       barraBusqueda: async (q, categoria_id) => {
         let params = [];
@@ -186,6 +212,22 @@ const getState = ({ getStore, getActions, setStore }) => {
         } catch (error) {
           console.log(error);
         }
+      },
+      verUnProducto: (id_producto) => {
+        fetch(process.env.BACKEND_URL + "/product", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("accessToken"),
+          },
+          body: JSON.stringify({ id_producto: id_producto }), //Convertimos la data a JSON
+        })
+          .then((resp) => resp.json())
+          .then((resp) => {
+            setStore({ unProducto: resp });
+            return resp;
+          })
+          .catch((error) => console.log(error));
       },
       getMessage: async () => {
         try {

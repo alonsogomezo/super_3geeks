@@ -25,19 +25,20 @@ const cardProducto = ({
             {price} - {priceDesc}
           </p>
           <p>{descrip}</p>
-
-          <button
-            type="button"
-            className="btn btn-outline-warning"
-            onClick={() => {
-              actions.addCarrito(id, 1);
-            }}
-          >
-            ⭐
-          </button>
-          <Link to={`/producto/${id}`}>
-            <button className="btn btn-success">Ver más</button>
-          </Link>
+          <div className="d-flex justify-content-between">
+            <button
+              type="button"
+              className="btn btn-outline-warning"
+              onClick={() => {
+                actions.addCarrito(id, 1);
+              }}
+            >
+              ⭐
+            </button>
+            <Link to={`/producto/${id}`}>
+              <button className="btn btn-success">Ver más</button>
+            </Link>
+          </div>
         </div>
       </div>
     </div>
