@@ -24,19 +24,13 @@ def handle_Login():
     
     if not user_query:
         return jsonify({"msg": "usuario o password incorrecto"}), 404
-    
-    perfil_query = Perfil.query.filter_by(id_usuario = user_query.id).first()
 
     access_token = create_access_token(identity=user_query.email)
     print(perfil_query)
     response_body = {
-        "message": "bienvenido de regreso" + " " + perfil_query.nombre,
         "isAdmin": user_query.is_admin,
         "accessToken": access_token,
         "id": user_query.id,
-        "nombre": perfil_query.nombre,
-        "apellido": perfil_query.apellido,
-        "foto": perfil_query.foto_perfil
     }
 
     return jsonify(response_body), 200
@@ -448,7 +442,9 @@ def handle_datos():
     login_admin = User.query.all()
     if not login_admin:
         new_login_admin= User( email="admin@super3geeks.com", password="123", is_admin=True)
+        new_login= User( email="user@super3geeks.com", password="123", is_admin=False)
         db.session.add(new_login_admin)
+        db.session.add(new_login)
         db.session.commit()
 
     
