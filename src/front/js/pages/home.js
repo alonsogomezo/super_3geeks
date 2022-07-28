@@ -1,113 +1,117 @@
 import React, { useContext, useState, useEffect } from "react";
-
 import { Context } from "../store/appContext";
 import CardProducto from "../component/cardProducto";
 import PromoAlimentos1 from "../../img/promoAlimentos1.png";
 import PromoVegetales1 from "../../img/promoVegetales1.png";
 import PromoRefrescos1 from "../../img/promoRefrescos1.png";
-import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const { store, actions } = useContext(Context);
-  const navigate = useNavigate();
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-    const body = {
-      producto: producto,
-      descripcion: descripcion,
-      categoria: Number(categoria),
-      precio: parseFloat(precio),
-    };
-    actions.creaProducto(body);
-  };
-
   useEffect(() => {
     actions.muestraProducto();
   }, []);
- 
   return (
     <div>
-      <nav className="navbar navbar-warning bg-danger ">
-        <form className="form-inline">
-          <div className="input-group">
-            <div className="input-group-prepend">
-              <button className="input-group-text" type="submit">
-                @
-              </button>
-            </div>
-            <input
-              type="search"
-              className="form-control"
-              placeholder="Que estas  buscando?"
-              aria-label="search"
-            />
-          </div>
-        </form>
-
-        <button
-          type="button"
-          className="btn btn-secondary rounded-circle fa-thin fa-cart-shopping"
+      <div>
+        <div
+          id="carouselExampleIndicators"
+          className="carousel slide"
+          data-bs-ride="carousel"
         >
-          carrito button
-        </button>
-      </nav>
-      <hr />
-
-      <div
-        id="carouselExampleSlidesOnly"
-        className="carousel slide"
-        data-ride="carousel"
-      >
-        <div className="carousel-inner">
-          <div className="carousel-item active">
-            <img
-              className="d-block w-100"
-              src={PromoVegetales1}
-              alt="First slide"
+          <div className="carousel-indicators">
+            <button
+              type="button"
+              data-bs-target="#carouselExampleIndicators"
+              data-bs-slide-to={0}
+              className="active"
+              aria-current="true"
+              aria-label="Slide 1"
+            />
+            <button
+              type="button"
+              data-bs-target="#carouselExampleIndicators"
+              data-bs-slide-to={1}
+              aria-label="Slide 2"
+            />
+            <button
+              type="button"
+              data-bs-target="#carouselExampleIndicators"
+              data-bs-slide-to={2}
+              aria-label="Slide 3"
             />
           </div>
-          <div className="carousel-item">
-            <img
-              className="d-block w-100"
-              src={PromoAlimentos1}
-              alt="Second slide"
-            />
+          <div className="carousel-inner">
+            <div className="carousel-item active img-fluid">
+              <img
+                src="https://static-sevilla.abc.es/media/gurmesevilla/2012/01/comida-rapida-casera.jpg"
+                className="d-block w-100"
+                alt="..."
+                height={400}
+              />
+            </div>
+            <div className="carousel-item img-fluid">
+              <img
+                src="https://img.huffingtonpost.com/asset/5ef9ffab250000a502c28ec2.jpeg?ops=scalefit_720_noupscale"
+                className="d-block w-100"
+                alt="..."
+                height={400}
+              />
+            </div>
+            <div className="carousel-item img-fluid">
+              <img
+                src="https://www.herbazest.com/imgs/d/8/7/551784/pera.jpg"
+                className="d-block w-100"
+                alt="..."
+                height={400}
+              />
+              <div class="carousel-caption d-none d-md-block">
+                <h5>aaaaaaa</h5>
+                <p>aaaaaaa</p>
+              </div>
+            </div>
           </div>
-          <div className="carousel-item">
-            <img
-              className="d-block w-100"
-              src={PromoRefrescos1}
-              alt="Third slide"
-            />
-          </div>
+          <button
+            className="carousel-control-prev"
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide="prev"
+          >
+            <span className="carousel-control-prev-icon" aria-hidden="true" />
+            <span className="visually-hidden">Previous</span>
+          </button>
+          <button
+            className="carousel-control-next"
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide="next"
+          >
+            <span className="carousel-control-next-icon" aria-hidden="true" />
+            <span className="visually-hidden">Next</span>
+          </button>
         </div>
       </div>
-
-      <div className="alert alert-danger" role="alert">
-        This is a danger alert—check it out!
+      <div className="container-fluid">
+        <div className="row justified-content-around">
+          {store.productos.map((item, index) => {
+            return (
+              <CardProducto
+                key={index}
+                name={item.producto}
+                img={item.foto}
+                price={item.precio}
+                descrip={item.descripcion}
+                id={item.id}
+                isCarrito={false}
+              />
+            );
+          })}
+        </div>
       </div>
-
-     
-
-      <div>
-        {store.productos.map((item, index) => {
-          return (
-            <CardProducto
-              key={index}
-              name={item.producto}
-              img={item.foto}
-              price={item.precio}
-              descrip={item.descripcion}
-              id={item.id}
-            />
-          );
-        })}
-      </div>
-
-      <div className="alert alert-danger" role="alert">
-        This is a danger alert—check it out!
-      </div>
+      {/* <div className="my-5">
+        <div className="d-flex flex-row mt-5">
+          
+        </div>
+      </div> */}
     </div>
   );
 };

@@ -31,15 +31,7 @@ export const Admin = () => {
   };
 
   useEffect(() => {
-    actions
-      .muestraProducto()
-      .then((resp) => {
-        console.log(resp);
-        alert("");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    actions.muestraProducto();
   }, []);
 
   return (
