@@ -451,9 +451,11 @@ def handle_datos():
     perfil_admin = Perfil.query.all()
     if not perfil_admin:
         new_perfil_admin=Perfil(
-        foto_perfil="foto", nombre="Ad", apellido="Min", direccion="420st", 
-        telefono="5555", latitud="-1", longitud="2" ) 
+        foto_perfil="foto", nombre="Ad", apellido="Min", direccion="420st", telefono="5555", latitud="-1", longitud="2" ) 
+        new_perfil=Perfil(
+        foto_perfil="foto", nombre="Us", apellido="uario", direccion="420st", telefono="5555", latitud="-1", longitud="2" ) 
         db.session.add(new_perfil_admin)
+        db.session.add(new_perfil)
         db.session.commit() 
     
 
