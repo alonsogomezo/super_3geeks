@@ -197,7 +197,7 @@ def handle_addProducto():
     return jsonify(response_body), 200
 
 #api para ver los productos
-@api.route("/producto", methods=["GET"])
+@api.route("/productos", methods=["GET"])
 def handle_viewProductos():
     
     id_producto = request.json.get("id_producto", None)
