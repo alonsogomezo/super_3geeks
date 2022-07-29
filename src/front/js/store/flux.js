@@ -232,7 +232,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       tasaCambio: async (to, from, amount) => {
         var myHeaders = new Headers();
-        myHeaders.append("apikey", "1Dm4q662dwf0KUn131X9ubFNWcgVPU9C");
+        myHeaders.append("apikey", "NP8FZK9A90SecZs7Z8uvEsbOLtHSqmfP");
 
         var requestOptions = {
           method: "GET",

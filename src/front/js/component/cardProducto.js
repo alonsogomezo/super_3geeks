@@ -20,7 +20,7 @@ const cardProducto = ({
 
   const tasaCambio = async (to, from, amount) => {
     var myHeaders = new Headers();
-    myHeaders.append("apikey", "1Dm4q662dwf0KUn131X9ubFNWcgVPU9C");
+    myHeaders.append("apikey", "5r68uRTAtTiL0EC3vQTqGyCkmdo1GDCQ");
 
     var requestOptions = {
       method: "GET",
@@ -48,7 +48,7 @@ const cardProducto = ({
             UY {price} - USD {usd}
           </p>
           <p>{descrip}</p>
-          <div className="d-flex justify-content-between">
+          <div className="d-flex justify-content-center">
             <button
               type="button"
               className="btn btn-outline-warning"
@@ -56,11 +56,11 @@ const cardProducto = ({
                 actions.addCarrito(id, 1);
               }}
             >
-              ⭐
+              ⭐ Agregar al carrito
             </button>
-            <Link to={`/producto/${id}`}>
+            {/* <Link to={`/producto/${id}`}>
               <button className="btn btn-success">Ver más</button>
-            </Link>
+            </Link> */}
           </div>
         </div>
       </div>
