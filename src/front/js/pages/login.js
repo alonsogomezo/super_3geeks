@@ -21,19 +21,16 @@ const Login = () => {
     store.user.accessToken && navigate("/home");
   }, [store.user]);
   return (
-    <div className="container mt-5 bg-secondary mt-3 mb-3 text-white rounded border border-danger">
-
-<div className=" text-center mt-3 mb-0  pl-5">
-        <h1>Super3Geeks</h1>
-        <p className="text-dark">@super3geeks.www</p>
+    <div className="container text-white bg-white mb-5  shadow p-3 mb-5 rounded">
+      <div className=" text-center mt-3 mb-0  pl-5">
+        <h1 className="text-dark">Super3Geeks</h1>
       </div>
 
-      <h2 className="text-center bg-danger mt-3 border border-dark text-white rounded">
+      <h2 className="text-center bg-secondary mt-3 border border-dark text-white rounded">
         {" "}
         <img src={Logo} width={40} />
       </h2>
       <hr />
-  
 
       <form onSubmit={onSubmit}>
         <div className="form-group mt-5 row p-3 justify-content-center  ">
@@ -46,7 +43,7 @@ const Login = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               type="email"
-              className="form-control border border-danger"
+              className="form-control border border-secondary"
               id="inputEmail3"
               placeholder="Email"
             />
@@ -62,7 +59,7 @@ const Login = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               type="password"
-              className="form-control border border-danger"
+              className="form-control border border-secondary"
               id="inputPassword3"
               placeholder="Password"
             />
@@ -70,17 +67,17 @@ const Login = () => {
         </div>
         <div className="form-group row p-3 d-flex justify-content-center">
           <div className="col-10 col-sm-2 text-center">
-            <button type="submit" className="btn btn-danger px-5">
+            <button type="submit" className="btn btn-outline-danger mb-5 shadow p-3 mb-5 border-white">
               Log In
             </button>
           </div>
         </div>
+        <p className="text-dark text-center">@super3geeks.www</p>
         <hr />
-        <div className="form-group row p-3 d-flex justify-content-center bg-danger rounded">
-          <div className="col-10 col-sm-5 text-center  ">
+        <div className="form-group row p-3 d-flex justify-content-center bg-secondary rounded">
+          <div className="col-10 col-sm-5 text-center color-white ">
             <Link to="/registro">¿No tienes cuenta aún?</Link>
           </div>
-          
         </div>
       </form>
     </div>
