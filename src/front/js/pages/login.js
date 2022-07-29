@@ -21,8 +21,8 @@ const Login = () => {
     store.user.accessToken && navigate("/home");
   }, [store.user]);
   return (
-    <div className="container text-white bg-white mb-5  shadow p-3 mb-5 rounded">
-      <div className=" text-center mt-3 mb-0  pl-5">
+    <div className="text-white bg-white mb-5  shadow p-3 mb-5 rounded">
+      <div className=" text-center">
         <h1 className="text-dark">Super3Geeks</h1>
       </div>
 
@@ -74,7 +74,7 @@ const Login = () => {
         </div>
         <p className="text-dark text-center">@super3geeks.www</p>
         <hr />
-        <div className="form-group row p-3 d-flex justify-content-center bg-secondary rounded">
+        <div className="form-group row p-3 d-flex justify-content-center bg-dark rounded">
           <div className="col-10 col-sm-5 text-center color-white ">
             <Link to="/registro">¿No tienes cuenta aún?</Link>
           </div>

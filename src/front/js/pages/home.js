@@ -12,7 +12,7 @@ const Home = () => {
   }, []);
   return (
     <div>
-      <div>
+      <div className="mb-0">
         <div
           id="carouselExampleIndicators"
           className="carousel slide"
@@ -43,7 +43,7 @@ const Home = () => {
           <div className="carousel-inner">
             <div className="carousel-item active img-fluid">
               <img
-                src="https://static-sevilla.abc.es/media/gurmesevilla/2012/01/comida-rapida-casera.jpg"
+                src= {PromoVegetales1} width={400} 
                 className="d-block w-100"
                 alt="..."
                 height={400}
@@ -51,7 +51,7 @@ const Home = () => {
             </div>
             <div className="carousel-item img-fluid">
               <img
-                src="https://img.huffingtonpost.com/asset/5ef9ffab250000a502c28ec2.jpeg?ops=scalefit_720_noupscale"
+                src={PromoRefrescos1} width={400} 
                 className="d-block w-100"
                 alt="..."
                 height={400}
@@ -59,14 +59,13 @@ const Home = () => {
             </div>
             <div className="carousel-item img-fluid">
               <img
-                src="https://www.herbazest.com/imgs/d/8/7/551784/pera.jpg"
+                  src={PromoAlimentos1} width={400} 
                 className="d-block w-100"
                 alt="..."
                 height={400}
               />
               <div class="carousel-caption d-none d-md-block">
-                <h5>aaaaaaa</h5>
-                <p>aaaaaaa</p>
+                
               </div>
             </div>
           </div>
