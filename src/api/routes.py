@@ -54,7 +54,7 @@ def handle_Signup():
     db.session.commit()
     db.session.refresh(user_new)
 
-    perfil_new = User(id=user_new.id, nombre=nombre, apellido=apellido, 
+    perfil_new = Perfil(id=user_new.id, nombre=nombre, apellido=apellido, 
     direccion=direccion, telefono=telefono, foto_perfil=foto_url)
     db.session.add(perfil_new)
     db.session.commit()
