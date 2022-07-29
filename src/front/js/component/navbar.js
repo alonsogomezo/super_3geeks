@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext";
 import Logo from "../../img/logo-3geeks.png";
@@ -7,14 +7,23 @@ import ItemCarrito from "./itemCarrito";
 export const Navbar = () => {
   const { store, actions } = useContext(Context);
   const [ver, setVer] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const navigate = useNavigate();
   /* useEffect(() => {
     store?.user?.accessToken && actions.getCarrito();
   }, [store?.user?.accessToken]); */
-  console.log(store.itemsCarrito);
+  console.log(isAdmin);
+  useEffect(() => {
+    setIsAdmin(localStorage.getItem("isAdmin"));
+  }, [localStorage]);
+  console.log(store.user);
+  useEffect(() => {
+    actions.muestraPerfil();
+  }, []);
   return (
     <nav className=" navbar navbar-light bg-white navbar-expand-sm mb-5">
       <div className="container">
-        <Link to="/" className="text-decoration-none">
+        <Link to="/home" className="text-decoration-none">
           <img src={Logo} width={40} />
           <span className="navbar-brand mb-0 h1 pl-5">Super3Geeks</span>
         </Link>
@@ -59,24 +68,64 @@ export const Navbar = () => {
                 >
                   Carrito
                   {store?.itemsCarrito?.map((item, index) => {
-                    return <ItemCarrito key={index} />;
+                    return (
+                      <ItemCarrito
+                        key={index}
+                        nombreProducto={item.nombre}
+                        src={item.foto}
+                        precio={item.precio}
+                        id={item.id}
+                      />
+                    );
                   })}
                   <div className="">
-                    <button className="btn btn-outline-dark">Comprar</button>
+                    <button
+                      className="btn btn-outline-dark"
+                      onClick={() => actions.comprar()}
+                    >
+                      Comprar
+                    </button>
                   </div>
                 </div>
               )}
             </div>
           </div>
           <div>
-            {store?.user?.accessToken ? (
-              <Link to="/perfil">
-                <button className="btn btn-danger">Perfil</button>
-              </Link>
+            {localStorage.getItem("accessToken") ? (
+              <div className="d-flex col-3 justify-content-between">
+                <div>
+                  <Link to="/perfil">
+                    <button className="btn btn-danger">Perfil</button>
+                  </Link>
+                </div>
+                <div>
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => {
+                      localStorage.removeItem("accessToken");
+                      localStorage.removeItem("isAdmin");
+                      navigate("/login");
+                    }}
+                  >
+                    LogOut
+                  </button>
+                </div>
+              </div>
             ) : (
               <Link to="/login">
                 <button className="btn btn-danger">Login</button>
               </Link>
+            )}
+          </div>
+          <div>
+            {localStorage.getItem("isAdmin") == "true" ? (
+              <Link to="/admin">
+                <button className="btn btn-outline-success">
+                  Subir productos
+                </button>
+              </Link>
+            ) : (
+              ""
             )}
           </div>
         </div>

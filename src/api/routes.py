@@ -478,15 +478,15 @@ def handle_datos():
 
     lista_productos = Producto.query.all()
     if not lista_productos:
-        new_producto1 = Producto( id_usuario= 1, foto_producto= "foto" , categoria= 1, producto="coca-cola" , 
+        new_producto1 = Producto( id_usuario= 1, foto_producto= "https://coca-colafemsa.com/wp-content/uploads/2019/11/2.png" , categoria= 1, producto="coca-cola" , 
         precio= 1.50 ,  descripcion= "una bomba de azucar", marca= "The Coca-Cola Company")
-        new_producto2 = Producto( id_usuario=1 , foto_producto=  "foto", categoria= 2 , producto="Manzana" , 
+        new_producto2 = Producto( id_usuario=1 , foto_producto=  "https://walmarthn.vtexassets.com/arquivos/ids/171881/Manzana-Roja-Infantil-4-Unidades-Por-Lb-Aproximadamente-1-30.jpg?v=637666370378830000", categoria= 2 , producto="Manzana" , 
         precio= 0.50 ,  descripcion= "una manzana roja" , marca= "Manco" )
-        new_producto3 = Producto( id_usuario= 1, foto_producto= "foto", categoria= 3 , producto= "Arroz con pollo", 
+        new_producto3 = Producto( id_usuario= 1, foto_producto= "https://assets.unileversolutions.com/recipes-v2/216417.jpg", categoria= 3 , producto= "Arroz con pollo", 
         precio="5.00" ,  descripcion="un arroz con pollo de color amarillo" , marca="Super3geeks" )
-        new_producto4 = Producto( id_usuario= 1 , foto_producto= "foto" , categoria= 1, producto="Agua" , 
+        new_producto4 = Producto( id_usuario= 1 , foto_producto= "https://walmartcr.vtexassets.com/arquivos/ids/156309/AGUA-MANANTIAL-CRISTAL-SC-PET-1000ML-AGUA-MANANTIAL-CRISTAL-SC-PET-1000ML-2-26292.jpg?v=637528519563470000" , categoria= 1, producto="Agua" , 
         precio= 1.00 ,  descripcion= "Agua mojada" , marca= "Aguascompany")
-        new_producto5 = Producto( id_usuario= 1 , foto_producto= "foto" , categoria= 3, producto= "sopa de carne", 
+        new_producto5 = Producto( id_usuario= 1 , foto_producto= "https://images.aws.nestle.recipes/original/410700dd319b57710ba7649ca2498260_caca_.png" , categoria= 3, producto= "sopa de carne", 
         precio= "6.00",  descripcion="una vaca en una piscina" , marca="Super3geeks")
         db.session.add(new_producto1)
         db.session.add(new_producto2)

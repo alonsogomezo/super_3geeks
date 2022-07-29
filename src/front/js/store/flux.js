@@ -35,7 +35,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then((resp) => {
             setStore({ user: resp });
             localStorage.setItem("accessToken", resp?.accessToken);
-            localStorage.setItem("id", resp?.user?.id);
+            localStorage.setItem("isAdmin", resp?.isAdmin);
             getActions().getCarrito();
           })
           .catch((error) => console.log(error));
@@ -85,7 +85,6 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log(error);
         }
       },
-
       muestraPerfil: async () => {
         try {
           const resp = await fetch(process.env.BACKEND_URL + "/usuario", {
@@ -131,10 +130,38 @@ const getState = ({ getStore, getActions, setStore }) => {
           })
           .catch((error) => console.log(error));
       },
-      deleteCarrito: (itemDelete) => {
-        const store = getStore();
-        let newCarrito = store.carrito.filter((item) => item !== itemDelete);
-        setStore({ carrito: newCarrito });
+      borrarItemCarrito: (id) => {
+        fetch(process.env.BACKEND_URL + `/carrito/${id}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("accessToken"),
+          },
+        })
+          .then((resp) => resp.json())
+          .then((resp) => {
+            getActions().getCarrito();
+            return resp;
+          })
+          .catch((error) => console.log(error));
+      },
+      comprar: () => {
+        /* /pago, metodo post, body=id_tarjeta */
+        fetch(process.env.BACKEND_URL + "/pago", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("accessToken"),
+          },
+          body: JSON.stringify({ id_tarjeta: getStore().user.id_tarjeta }), //verificar si getStore trae el ID de la tarjeta,
+          // tambien recordar que el admin no tiene tarjeta
+        })
+          .then((resp) => resp.json())
+          .then((resp) => {
+            getActions().getCarrito();
+            return resp;
+          })
+          .catch((error) => console.log(error));
       },
       barraBusqueda: async (q, categoria_id) => {
         let params = [];
@@ -186,6 +213,53 @@ const getState = ({ getStore, getActions, setStore }) => {
         } catch (error) {
           console.log(error);
         }
+      },
+      verUnProducto: (id_producto) => {
+        fetch(process.env.BACKEND_URL + "/product", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("accessToken"),
+          },
+          body: JSON.stringify({ id_producto: id_producto }), //Convertimos la data a JSON
+        })
+          .then((resp) => resp.json())
+          .then((resp) => {
+            setStore({ unProducto: resp });
+            return resp;
+          })
+          .catch((error) => console.log(error));
+      },
+      tasaCambio: async (to, from, amount) => {
+        var myHeaders = new Headers();
+        myHeaders.append("apikey", "NP8FZK9A90SecZs7Z8uvEsbOLtHSqmfP");
+
+        var requestOptions = {
+          method: "GET",
+          redirect: "follow",
+          headers: myHeaders,
+        };
+
+        const resp = fetch(
+          `https://api.apilayer.com/exchangerates_data/convert?to=${to}&from=${from}&amount=${amount}`,
+          requestOptions
+        );
+        const data = await resp.json();
+        return data;
+        /* try {
+          const resp = await fetch(process.env.BACKEND_URL + "/carrito", {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + localStorage.getItem("accessToken"),
+            },
+          });
+          const data = await resp.json();
+          setStore({ itemsCarrito: data });
+          return data;
+        } catch (error) {
+          console.log(error);
+        } */
       },
       getMessage: async () => {
         try {

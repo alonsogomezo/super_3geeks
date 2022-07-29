@@ -10,7 +10,7 @@ export const Productos = () => {
   const navigate = useNavigate();
   const params = useParams();
   useEffect(() => {
-    alert(params?.theid);
+    actions.verUnProducto
   }, [params?.theid]);
 
   return (
