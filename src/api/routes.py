@@ -439,10 +439,8 @@ def handle_datos():
     
     login_admin = User.query.all()
     if not login_admin:
-        new_login_admin= User( email="admin@super3geeks.com", password="123", is_admin=True,  
-        foto_perfil="foto", nombre="Ad", apellido="Min", direccion="420st", telefono="5555", latitud="-1", longitud="2"  )
-        new_login= User( email="user@super3geeks.com", password="123", is_admin=False, 
-        foto_perfil="foto", nombre="Us", apellido="uario", direccion="420st", telefono="5555", latitud="-1", longitud="2" )
+        new_login_admin= User( email="admin@super3geeks.com", password="123", is_admin=True)
+        new_login= User( email="user@super3geeks.com", password="123", is_admin=False)
         db.session.add(new_login_admin)
         db.session.add(new_login)
         db.session.commit()
