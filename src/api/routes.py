@@ -446,9 +446,13 @@ def handle_datos():
         db.session.add(new_login)
         db.session.commit()
 
-    
-    
-
+    tarjeta = TarjetaDeCredito.query.all()
+    if not tarjeta:
+        new_tarjeta1= TarjetaDeCredito(nombre="Ad", apellido="Min", numero=111, fecha_v="07/25", tipo="credito")
+        new_tarjeta2= TarjetaDeCredito(nombre="Us", apellido="Uario", numero=111, fecha_v="07/25", tipo="credito")
+        db.session.add(new_tarjeta1)
+        db.session.add(new_tarjeta2)
+        db.session.commit()
 
     lista_productos = Producto.query.all()
     if not lista_productos:
