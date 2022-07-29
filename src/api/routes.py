@@ -446,6 +446,19 @@ def handle_datos():
         db.session.add(new_login)
         db.session.commit()
 
+
+    
+    perfil_admin = Perfil.query.all()
+    if not perfil_admin:
+        new_perfil_admin=Perfil( id_usuario=1,
+        foto_perfil="foto", nombre="Ad", apellido="Min", direccion="420st", telefono="5555", latitud="-1", longitud="2" ) 
+        new_perfil=Perfil( id_usuario=2,
+        foto_perfil="foto", nombre="Us", apellido="uario", direccion="420st", telefono="5555", latitud="-1", longitud="2" ) 
+        db.session.add(new_perfil_admin)
+        db.session.add(new_perfil)
+        db.session.commit() 
+    
+
     tarjeta = TarjetaDeCredito.query.all()
     if not tarjeta:
         new_tarjeta1= TarjetaDeCredito(id_usuario=1, nombre="Ad", apellido="Min", numero=111, fecha_v="07/25", tipo="credito")
