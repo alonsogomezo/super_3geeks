@@ -229,6 +229,37 @@ const getState = ({ getStore, getActions, setStore }) => {
           })
           .catch((error) => console.log(error));
       },
+      tasaCambio: async (to, from, amount) => {
+        var myHeaders = new Headers();
+        myHeaders.append("apikey", "1Dm4q662dwf0KUn131X9ubFNWcgVPU9C");
+
+        var requestOptions = {
+          method: "GET",
+          redirect: "follow",
+          headers: myHeaders,
+        };
+
+        const resp = fetch(
+          `https://api.apilayer.com/exchangerates_data/convert?to=${to}&from=${from}&amount=${amount}`,
+          requestOptions
+        );
+        const data = await resp.json();
+        return data;
+        /* try {
+          const resp = await fetch(process.env.BACKEND_URL + "/carrito", {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + localStorage.getItem("accessToken"),
+            },
+          });
+          const data = await resp.json();
+          setStore({ itemsCarrito: data });
+          return data;
+        } catch (error) {
+          console.log(error);
+        } */
+      },
       getMessage: async () => {
         try {
           // fetching data from the backend

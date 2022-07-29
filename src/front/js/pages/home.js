@@ -10,6 +10,7 @@ const Home = () => {
   useEffect(() => {
     actions.muestraProducto();
   }, []);
+  console.log(actions.tasaCambio("USD", "CRC", 2000));
   return (
     <div>
       <div>
