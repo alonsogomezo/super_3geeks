@@ -16,6 +16,10 @@ export const Navbar = () => {
   useEffect(() => {
     setIsAdmin(localStorage.getItem("isAdmin"));
   }, [localStorage]);
+  console.log(store.user);
+  useEffect(() => {
+    actions.muestraPerfil();
+  }, []);
   return (
     <nav className=" navbar navbar-light bg-white navbar-expand-sm mb-5">
       <div className="container">

@@ -26,7 +26,6 @@ def handle_Login():
         return jsonify({"msg": "usuario o password incorrecto"}), 404
 
     access_token = create_access_token(identity=user_query.email)
-    print(perfil_query)
     response_body = {
         "isAdmin": user_query.is_admin,
         "accessToken": access_token,

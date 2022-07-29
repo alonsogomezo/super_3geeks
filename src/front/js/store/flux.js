@@ -145,7 +145,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           })
           .catch((error) => console.log(error));
       },
-      comprar: (id_tarjeta) => {
+      comprar: () => {
         /* /pago, metodo post, body=id_tarjeta */
         fetch(process.env.BACKEND_URL + "/pago", {
           method: "POST",
@@ -153,7 +153,8 @@ const getState = ({ getStore, getActions, setStore }) => {
             "Content-Type": "application/json",
             Authorization: "Bearer " + localStorage.getItem("accessToken"),
           },
-          body: JSON.stringify({ id_tarjeta: id_tarjeta }), //Convertimos la data a JSON
+          body: JSON.stringify({ id_tarjeta: getStore().user.id_tarjeta }), //verificar si getStore trae el ID de la tarjeta,
+          // tambien recordar que el admin no tiene tarjeta
         })
           .then((resp) => resp.json())
           .then((resp) => {

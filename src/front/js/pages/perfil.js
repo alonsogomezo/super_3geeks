@@ -7,6 +7,7 @@ const Perfil = () => {
   useEffect(() => {
     actions.muestraPerfil();
   }, []);
+  console.log(store.user);
   return (
     <div className="container mt-3 mb-3 d-flex justify-content-center">
       <div className="row col-6 border border-danger rounded bg-secondary  ">
