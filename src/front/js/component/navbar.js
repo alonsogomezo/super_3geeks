@@ -12,14 +12,14 @@ export const Navbar = () => {
   }, [store?.user?.accessToken]); */
   console.log(store.itemsCarrito);
   return (
-    <nav className=" navbar navbar-light bg-white navbar-expand-sm mb-5">
+    <nav className=" navbar navbar-light bg-white navbar-expand-sm mb-5 shadow p-3 mb-5">
       <div className="container">
         <Link to="/" className="text-decoration-none">
           <img src={Logo} width={40} />
           <span className="navbar-brand mb-0 h1 pl-5">Super3Geeks</span>
         </Link>
         <div>
-          <div className="input-group">
+          <div className="input-group ">
             <input
               type="search"
               className="form-control"
@@ -39,7 +39,7 @@ export const Navbar = () => {
               <button
                 type="button"
                 onClick={() => setVer((prev) => !prev)}
-                className="btn btn-outline-danger position-relative"
+                className="btn btn-outline-danger position-relative shadow p-1 mb-2"
               >
                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">
                   {store?.itemsCarrito?.length}
@@ -71,11 +71,11 @@ export const Navbar = () => {
           <div>
             {store?.user?.accessToken ? (
               <Link to="/perfil">
-                <button className="btn btn-danger">Perfil</button>
+                <button className="btn btn-danger shadow p-1 mb-2">Perfil</button>
               </Link>
             ) : (
               <Link to="/login">
-                <button className="btn btn-danger">Login</button>
+                <button className="btn btn-danger shadow p-1 mb-2">Login</button>
               </Link>
             )}
           </div>

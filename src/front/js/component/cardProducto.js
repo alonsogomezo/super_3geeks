@@ -15,7 +15,7 @@ const cardProducto = ({
   const { store, actions } = useContext(Context);
   return (
     <div className="col-4 d-flex justify-content-center mt-3">
-      <div className="card z-index-1" style={{ width: "18rem", "z-index": 2 }}>
+      <div className="card z-index-1 border-white" style={{ width: "18rem", "z-index": 2 }}>
         <img className="card-img-top" src={img} alt="Card image cap" />
         <div className="card-body">
           <h5 className="card-title">
