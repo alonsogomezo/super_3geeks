@@ -24,19 +24,13 @@ def handle_Login():
     
     if not user_query:
         return jsonify({"msg": "usuario o password incorrecto"}), 404
-    
-    perfil_query = Perfil.query.filter_by(id_usuario = user_query.id).first()
 
     access_token = create_access_token(identity=user_query.email)
     print(perfil_query)
     response_body = {
-        #"message": "bienvenido de regreso" + " " + perfil_query.nombre,
         "isAdmin": user_query.is_admin,
         "accessToken": access_token,
-        #"id": user_query.id,
-        #"nombre": perfil_query.nombre,
-        #"apellido": perfil_query.apellido,
-        #"foto": perfil_query.foto_perfil
+        "id": user_query.id,
     }
 
     return jsonify(response_body), 200
@@ -83,17 +77,19 @@ def handle_Usuario():
     if not usuario:
         return jsonify({"msg": "Usuario no encontrado"}), 404
     
-    """ id_perfil = request.json.get("id_perfil", None)
- """
+    #id_perfil = request.json.get("id_perfil", None)
+
     perfil_query = Perfil.query.filter_by(id_usuario = usuario.id).first()
-    
+    tarjeta_query = TarjetaDeCredito.query.filter_by(id_usuario=usuario.id).first()
+
     response_body ={
         "nombre": perfil_query.nombre, 
         "email": email_user,
         "apellido": perfil_query.apellido,
         "telefono": perfil_query.telefono,
         "direccion": perfil_query.direccion,
-        "foto de perfil": perfil_query.foto_perfil
+        "foto de perfil": perfil_query.foto_perfil,
+        "tarjeta": tarjeta_query.id
     }
 
     return jsonify(response_body), 200
@@ -330,7 +326,6 @@ def handle_addTarjeta():
     if not usuario:
         return jsonify({"msg": "Usuario no encontrado"}), 404
 
-    id_usuario= request.json.get("id_usuario", None)
     nombre = request.json.get("nombre", None)
     apellido = request.json.get("apellido", None)
     fecha_v = request.json.get("fecha_v", None)
@@ -338,7 +333,7 @@ def handle_addTarjeta():
     tipo = request.json.get("tipo", None)
     numero = request.json.get("numero", None)
 
-    tarjeta_new = TarjetaDeCredito(id_usuario=id_usuario, nombre=nombre, apellido=apellido, 
+    tarjeta_new = TarjetaDeCredito(id_usuario=usuario.id, nombre=nombre, apellido=apellido, 
     fecha_v=fecha_v, cvv=cvv, tipo=tipo, numero=numero)
     db.session.add(tarjeta_new)
     db.session.commit()
@@ -447,31 +442,23 @@ def handle_datos():
     login_admin = User.query.all()
     if not login_admin:
         new_login_admin= User( email="admin@super3geeks.com", password="123", is_admin=True)
+        new_login= User( email="user@super3geeks.com", password="123", is_admin=False)
         db.session.add(new_login_admin)
+        db.session.add(new_login)
         db.session.commit()
 
     
     perfil_admin = Perfil.query.all()
     if not perfil_admin:
         new_perfil_admin=Perfil(
-        foto_perfil="foto", nombre="Ad", apellido="Min", direccion="420st", 
-        telefono="5555", latitud="-1", longitud="2" ) 
+        foto_perfil="foto", nombre="Ad", apellido="Min", direccion="420st", telefono="5555", latitud="-1", longitud="2" ) 
+        new_perfil=Perfil(
+        foto_perfil="foto", nombre="Us", apellido="uario", direccion="420st", telefono="5555", latitud="-1", longitud="2" ) 
         db.session.add(new_perfil_admin)
-        db.session.commit() 
-    
-    login_usuario = User.query.all()
-    if not login_usuario:
-        new_login = User( email="usuario@super3geeks.com", password="123", is_admin=False)
-        db.session.add(new_login)
-        db.session.commit()
-    
-    perfil_usuario = Perfil.query.all()
-    if not perfil_usuario:
-        new_perfil = Perfil( 
-        foto_perfil="foto", nombre="Jhon", apellido="Doe", direccion="420st", 
-        telefono="5555", latitud="-1", longitud="2" )
         db.session.add(new_perfil)
         db.session.commit() 
+    
+
 
     lista_productos = Producto.query.all()
     if not lista_productos:
