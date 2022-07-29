@@ -21,7 +21,7 @@ export const Navbar = () => {
     actions.muestraPerfil();
   }, []);
   return (
-    <nav className=" navbar navbar-light bg-white navbar-expand-sm mb-5">
+    <nav className="navbar navbar-light bg-white navbar-expand-sm mb-5 shadow p-3 mb-5">
       <div className="container">
         <Link to="/home" className="text-decoration-none">
           <img src={Logo} width={40} />
@@ -48,7 +48,7 @@ export const Navbar = () => {
               <button
                 type="button"
                 onClick={() => setVer((prev) => !prev)}
-                className="btn btn-outline-danger position-relative"
+                className="btn btn-outline-danger position-relative shadow p-1 mb-2"
               >
                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">
                   {store?.itemsCarrito?.length}
@@ -113,14 +113,14 @@ export const Navbar = () => {
               </div>
             ) : (
               <Link to="/login">
-                <button className="btn btn-danger">Login</button>
+                <button className="btn btn-danger shadow p-1 mb-2">Login</button>
               </Link>
             )}
           </div>
           <div>
             {localStorage.getItem("isAdmin") == "true" ? (
               <Link to="/admin">
-                <button className="btn btn-outline-success">
+                <button className="btn btn-outline-success shadow p-1 mb-2">
                   Subir productos
                 </button>
               </Link>
