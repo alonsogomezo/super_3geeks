@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User,  Producto, Categorias, OrdenItems, OrderStatus, Carrito, Orden, Pago, TarjetaDeCredito
+from api.models import db, User, Perfil, Producto, Categorias, OrdenItems, OrderStatus, Carrito, Orden, Pago, TarjetaDeCredito
 from api.utils import generate_sitemap, APIException
 
 from flask_jwt_extended import create_access_token
@@ -54,7 +54,7 @@ def handle_Signup():
     db.session.commit()
     db.session.refresh(user_new)
 
-    perfil_new = User(id_usuario=user_new.id, nombre=nombre, apellido=apellido, 
+    perfil_new = Perfil(id=user_new.id, nombre=nombre, apellido=apellido, 
     direccion=direccion, telefono=telefono, foto_perfil=foto_url)
     db.session.add(perfil_new)
     db.session.commit()
@@ -77,15 +77,16 @@ def handle_Usuario():
         return jsonify({"msg": "Usuario no encontrado"}), 404
     
     #id_perfil = request.json.get("id_perfil", None)
+    perfil_query = Perfil.query.filter_by(id_usuario = usuario.id).first()
     tarjeta_query = TarjetaDeCredito.query.filter_by(id_usuario=usuario.id).first()
 
     response_body ={
-        "nombre": usuario.nombre, 
-        "email": usuario.email,
-        "apellido": usuario.apellido,
-        "telefono": usuario.telefono,
-        "direccion": usuario.direccion,
-        "foto de perfil": usuario.foto_perfil,
+        "nombre": perfil_query.nombre, 
+        "email": email_user,
+        "apellido": perfil_query.apellido,
+        "telefono": perfil_query.telefono,
+        "direccion": perfil_query.direccion,
+        "foto de perfil": perfil_query.foto_perfil,
         "tarjeta": tarjeta_query.id
     }
 
@@ -438,13 +439,21 @@ def handle_datos():
     
     login_admin = User.query.all()
     if not login_admin:
-        new_login_admin= User( email="admin@super3geeks.com", password="123", is_admin=True,  
-        foto_perfil="foto", nombre="Ad", apellido="Min", direccion="420st", telefono="5555", latitud="-1", longitud="2"  )
-        new_login= User( email="user@super3geeks.com", password="123", is_admin=False, 
-        foto_perfil="foto", nombre="Us", apellido="uario", direccion="420st", telefono="5555", latitud="-1", longitud="2" )
+        new_login_admin= User( email="admin@super3geeks.com", password="123", is_admin=True)
+        new_login= User( email="user@super3geeks.com", password="123", is_admin=False)
         db.session.add(new_login_admin)
         db.session.add(new_login)
         db.session.commit()
+    
+    perfil_admin = Perfil.query.all()
+    if not perfil_admin:
+        new_perfil_admin=Perfil( id_usuario=1,
+        foto_perfil="foto", nombre="Ad", apellido="Min", direccion="420st", telefono="5555", latitud="-1", longitud="2" ) 
+        new_perfil=Perfil( id_usuario=2,
+        foto_perfil="foto", nombre="Us", apellido="uario", direccion="420st", telefono="5555", latitud="-1", longitud="2" ) 
+        db.session.add(new_perfil_admin)
+        db.session.add(new_perfil)
+        db.session.commit() 
 
 
     
