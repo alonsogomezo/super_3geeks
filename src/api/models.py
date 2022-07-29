@@ -6,12 +6,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(80), unique=False, nullable=False)
-    is_admin = db.Column(db.Boolean(False), unique=False, nullable=False)
-
-class Perfil(db.Model):
-    __tablename__="t_perfil"
-    id = db.Column(db.Integer, primary_key=True)
-    id_usuario = db.Column(db.Integer, db.ForeignKey("t_user.id"))
+    is_admin = db.Column(db.Boolean(), unique=False, default= False)
     foto_perfil = db.Column(db.String(2000))
     nombre = db.Column(db.String(50))
     apellido = db.Column(db.String(50))
@@ -24,20 +19,23 @@ class Producto(db.Model):
     __tablename__="t_producto"
     id = db.Column(db.Integer, primary_key=True)
     id_usuario = db.Column(db.Integer, db.ForeignKey("t_user.id"))
+    foto_producto = db.Column(db.String(2000))
     categoria = db.Column(db.Integer, db.ForeignKey("t_categorias.id"))
-    nombre = db.Column(db.String(20))
+    producto = db.Column(db.String(20))
     precio = db.Column(db.Numeric(precision=10, scale=2))
     descripcion = db.Column(db.String(700))
+    marca = db.Column(db.String(100))
 
 class Categorias(db.Model):
     __tablename__="t_categorias"
     id = db.Column(db.Integer, primary_key=True)
-    nombre = db.Column(db.String(20))
+    categoria = db.Column(db.String(20))
 
 class OrdenItems(db.Model):
     __tablename__="t_oi"
     id = db.Column(db.Integer, primary_key=True)
-    id_Producto = db.Column(db.Integer, db.ForeignKey("t_producto.id"))
+    id_producto = db.Column(db.Integer, db.ForeignKey("t_producto.id"))
+    id_orden = db.Column(db.Integer, db.ForeignKey("t_orden.id"))
     precio = db.Column(db.Numeric(precision=10, scale=2))
     cantidad = db.Column(db.Integer)
     subtotal = db.Column(db.Numeric(precision=10, scale=2))
@@ -50,8 +48,9 @@ class OrderStatus(db.Model):
 class Carrito(db.Model):
     __tablename__="t_carrito"
     id = db.Column(db.Integer, primary_key=True)
-    id_Producto = db.Column(db.Integer, db.ForeignKey("t_producto.id"))
-    id_Usuario = db.Column(db.Integer, db.ForeignKey("t_user.id"))
+    id_producto = db.Column(db.Integer, db.ForeignKey("t_producto.id"))
+    id_usuario = db.Column(db.Integer, db.ForeignKey("t_user.id"))
+    cantidad = db.Column(db.Integer)
 
 class Orden(db.Model):
     __tablename__="t_orden"
@@ -67,3 +66,14 @@ class Pago(db.Model):
     id_usuario = db.Column(db.Integer, db.ForeignKey("t_user.id"))
     id_orden = db.Column(db.Integer, db.ForeignKey("t_orden.id"))
     monto_total = db.Column(db.Numeric(precision=10, scale=2))
+
+class TarjetaDeCredito(db.Model):
+    __tablename__="t_tarjeta_de_credito"
+    id = db.Column(db.Integer, primary_key=True)
+    id_usuario = db.Column(db.Integer, db.ForeignKey("t_user.id"))
+    nombre = db.Column(db.String(20))
+    apellido = db.Column(db.String(20))
+    numero = db.Column(db.Integer)
+    fecha_v = db.Column(db.String(8))
+    cvv = db.Column(db.Integer)
+    tipo = db.Column(db.String(7))
